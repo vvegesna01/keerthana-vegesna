@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export default function Music() {
   return (
-    <div className="flex flex-col">
-      <h1 className="text-4xl leading-10 ml-10 animate-fadeIn font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-100">Music</h1>
+    <div className="flex flex-col mt-10">
+      <h1 className="text-4xl leading-5 ml-5 animate-fadeIn font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-100">Music</h1>
 
       <p className="text-localhost_text leading-8 text-lg py-3 animate-fadeIn m-3">
         I spend my free time songwriting, singing, and honing my guitar skills. I also upload covers and original songs on my{" "}
@@ -15,7 +15,7 @@ export default function Music() {
           YouTube channel!
         </Link>
       </p>
-      <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0 animate-fadeIn">
+      <div className="flex flex-col mb-10 space-y-4 md:flex-row md:space-x-4 md:space-y-0 animate-fadeIn">
         <iframe 
           className=""
           width="50%" 

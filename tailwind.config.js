@@ -16,7 +16,8 @@ module.exports = {
         github_color: "#2dba4e",
         gwc_color: "#43D6B9",
         rtc_color: "#ff5900",
-        cummins_color: "#D02323"
+        cummins_color: "#D02323",
+        emvo_color: "#bf45f9"
 
       },
       animation: {

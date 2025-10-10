@@ -12,8 +12,7 @@ const Navbar: React.FC = () => {
 
   return (
     <main className="w-full">
-      <div className="flex flex-col md:flex-row items-center justify-between min-h-auto bg-gray-200 p-4 md:p-5 w-full">
-        {/* Logo or name */}
+      <div className="flex flex-col md:flex-row items-center justify-between min-h-auto bg-gray-200 p-5 md:p-5 w-full">
         <a href="/" className="m-0 md:m-10">
           <h1 className="text-localhost_text text-3xl md:text-5xl font-large font-extrabold mb-2 md:mb-4 transition duration-300 transform hover:-translate-y-1 hover:scale-100">
             Keerthana Vegesna
