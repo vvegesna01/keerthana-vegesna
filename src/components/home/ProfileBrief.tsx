@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { Typewriter } from 'react-simple-typewriter';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
+
 
 const ProfileBrief: React.FC = () => {
   return (
@@ -44,7 +46,7 @@ const ProfileBrief: React.FC = () => {
           
           {/* Intro text with animated highlight on hover */}
           <p className="text-localhost_text text-2xl leading-10 mt-2 p-10 animate-fadeIn">
-            Hi! I&apos;m Keerthana. I'm passionate about building impactful software, documenting the books I'm reading, and playing guitar! 
+            Hi! I&apos;m Keerthana. I&apos;m passionate about building impactful software, documenting the books I&apos;m reading, and playing guitar! 
             <br /><br />
             Take a peek at my{" "}
             <Link href="/projects">
@@ -56,9 +58,11 @@ const ProfileBrief: React.FC = () => {
             </Link>
             {" "} pages to see what I&apos;ve been up to!
           </p>
+          
         </div>
       </div>
     </div>
+    
   );
 };
 

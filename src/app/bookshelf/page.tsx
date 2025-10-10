@@ -16,7 +16,7 @@ export default function Bookshelf() {
   return (
     <main className="flex min-h-screen flex-col justify-between p-10 bg-white">
       <div className="flex flex-col">
-        <h1 className="text-4xl leading-10 ml-10 animate-fadeIn font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-100">
+        <h1 className="text-4xl leading-10 animate-fadeIn font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-100">
           Bookshelf
         </h1>
         <p className="text-localhost_text leading-8 text-lg py-3 animate-fadeIn m-3">
@@ -28,7 +28,8 @@ export default function Bookshelf() {
             reading website
           </Link>{" "}
           where I document all the books I read and my self-imposed reading challenges! <br></br>
-          P.S. There's a hidden game in this page for you to find! 🕵️‍♂️ ☕️
+          <br></br>
+          P.S. There&apos;s a hidden game in this page for you to find! 🕵️‍♂️ ☕️
         </p>
 
         {/* Show BookQuoteMatch only when isGameVisible is true */}

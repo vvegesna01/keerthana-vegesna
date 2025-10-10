@@ -43,12 +43,12 @@ export default function AboutMe() {
               studying Computer Science. 
             </p>
             <p className="text-localhost_text leading-8 text-xl py-3 animate-fadeIn">
-              I'm currently a Platform and AgentOps Architect at {" "}
+              I&apos;m currently a Platform and AgentOps Architect at {" "}
               <Link href="https://www.emvo.ai/" className="text-emvo_color font-semibold underline transition duration-300 hover:text-blue-500">Emvo.ai</Link>.
 
             </p>
             <p className="text-localhost_text leading-8 text-xl py-3 animate-fadeIn">
-              I've been a Web Developer for the {" "}
+              I&apos;ve been a Web Developer for the {" "}
               <Link href="https://honors.purdue.edu/" className="text-purdue_color font-semibold underline transition duration-300 hover:text-blue-500">Purdue University Honors College</Link>,
               a Software Engineering Intern at{" "}
               <Link href="https://www.cummins.com/" className="text-cummins_color font-semibold underline transition duration-300 hover:text-blue-500">Cummins, Inc</Link>,{" "}
