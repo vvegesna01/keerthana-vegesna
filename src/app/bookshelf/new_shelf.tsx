@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion"; // Import motion for animation
 
-const Shelf = ({ onEasterEggClick }) => {
+
+const Shelf = ({ onEasterEggClick }: {onEasterEggClick: () => void}) => {
   const books = [
     { id: 1, title: "Martian", image: "/images/martian.png" },
     { id: 2, title: "Goodbye, Things", image: "/images/goodbye_things.png" },

@@ -18,7 +18,7 @@ const Contact: React.FC = () => {
         <span className="highlight-bg"> software engineering</span>,
         <span className="highlight-bg"> data visualization</span>, and
         <span className="highlight-bg"> geospatial tech</span>. Feel free to
-        reach out if you'd like to collaborate or just say hi!
+        reach out if you&apos;d like to collaborate or just say hi!
       </div>
       <div className="flex flex-wrap gap-4 mt-8">
         <Link

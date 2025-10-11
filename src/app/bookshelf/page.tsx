@@ -37,8 +37,6 @@ export default function Bookshelf() {
          {/* Shelf Component - Pass Easter Egg Click Handler */}
         <Shelf onEasterEggClick={handleEasterEggClick} />
 
-        
-        
       </div>
     </main>
   );

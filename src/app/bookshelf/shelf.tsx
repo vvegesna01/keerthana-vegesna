@@ -23,7 +23,6 @@ const Shelf: React.FC = () => {
     { title: "Yellowface", image:"/images/yellowface.png"},
     { title: "Crying in H Mart", image:"/images/hmart.jpeg"},
 
-    // Add more books here
   ];
 
   const [gridColumns, setGridColumns] = useState("");
