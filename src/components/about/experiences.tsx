@@ -41,7 +41,7 @@ const Experiences: React.FC = () => {
       image: "/images/exp/cummins-logo-round.jpeg",
     },
     {
-      duration: "AUG 2021 - JAN 2022",
+      duration: "AUG 2021 - MAY 2022",
       company: "THE DATA MINE - MERCK",
       role: "Undergraduate Data Science Researcher",
       description: [

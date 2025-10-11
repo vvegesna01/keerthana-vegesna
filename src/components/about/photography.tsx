@@ -9,7 +9,7 @@ export default function Photography() {
       <h1 className="text-4xl leading-5 ml-5 animate-fadeIn font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-100">Photography</h1>
 
 	  <p className="text-localhost_text text-lg py-3 animate-fadeIn m-3">
-         A collection of moments I’ve captured from my travels and everyday life.
+         A collection of moments I&apos;ve captured from my travels and everyday life. 📸
       </p>
     {/* Animated Gallery Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
@@ -39,6 +39,9 @@ export default function Photography() {
             </motion.div>
           ))}
         </div>
+        <p className="text-localhost_text text-lg py-3 animate-fadeIn m-3">
+         Check out my <Link href="https://vsco.co/keerthanas-photos/gallery" className="text-xl animate-fadeIn font-extrabold underline text-indigo-900 hover:text-purple-500 transition-colors duration-100">VSCO</Link> to see more!
+      </p>
 	</div>
   )
   };

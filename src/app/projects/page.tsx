@@ -36,13 +36,6 @@ const Projects: React.FC = () => {
                   metadata including ratings, genres, cast, and release year.
                 </li>
                 <li className="mb-2">
-                  Uses Obsidian plugins such as{" "}
-                  <span className="font-semibold">Templater</span>,{" "}
-                  <span className="font-semibold">Dataview</span>, and{" "}
-                  <span className="font-semibold">Buttons</span> for automation
-                  and interactive UI elements.
-                </li>
-                <li className="mb-2">
                   Supports dynamic queries to sort and filter movies by genre,
                   rating, or watch status directly in Obsidian.
                 </li>
@@ -51,9 +44,20 @@ const Projects: React.FC = () => {
                   movie tracking apps.
                 </li>
               </ul>
+              <div className="flex space-x-4 m-10">
+                <a
+                  href=""
+                  className="bg-gray-600 text-white rounded-full py-2 px-4 border border-indigo-900 hover:bg-transparent hover:text-indigo-900 hover:border-indigo-900 transition duration-300"
+                >
+                  Tutorial coming soon!{" "}
+                </a>
             </div>
+            </div>
+            
           </div>
+          
         </div>
+        
 
         {/* Shelf This */}
         <div className="">
