@@ -2,6 +2,7 @@ import { getAllPosts } from "@/lib/blog";
 import { notFound } from "next/navigation";
 import { remark } from "remark";
 import html from "remark-html";
+import remarkGfm from "remark-gfm";
 import Link from "next/link";
 
 export default async function BlogPostPage({
@@ -14,7 +15,11 @@ export default async function BlogPostPage({
 
   if (!post) return notFound();
 
-  const processedContent = await remark().use(html).process(post.content);
+  // ✅ Correct markdown processing (ONLY here)
+  const processedContent = await remark()
+    .use(remarkGfm)
+    .use(html, { sanitize: false })
+    .process(post.content);
 
   const contentHtml = processedContent.toString();
 
@@ -56,14 +61,18 @@ export default async function BlogPostPage({
       {/* Content */}
       <article
         className="prose max-w-none text-gray-700
-             prose-headings:text-indigo-900
-             prose-p:text-gray-600
-             prose-h1:text-3xl
-             prose-h2:text-2xl
-             prose-h3:text-xl
-             prose-a:text-indigo-600
-             prose-strong:text-indigo-900
-             prose-li:text-gray-600"
+                   prose-headings:text-indigo-900
+                   prose-headings:font-extrabold
+                   prose-h1:text-3xl
+                   prose-h2:text-2xl
+                   prose-h3:text-xl
+                   prose-h2:mt-10 prose-h2:mb-3
+                   prose-h3:mt-6 prose-h3:mb-2
+                   prose-p:leading-7
+                   prose-p:mb-4
+                   prose-li:mb-1
+                   prose-a:text-indigo-600
+                   prose-strong:text-indigo-900"
         dangerouslySetInnerHTML={{ __html: contentHtml }}
       />
     </main>

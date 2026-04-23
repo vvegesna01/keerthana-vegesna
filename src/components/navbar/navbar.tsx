@@ -22,13 +22,13 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="text-lg sm:text-xl font-semibold text-indigo-900"
+          className="text-lg sm:text-2xl font-semibold text-indigo-900"
         >
           Keerthana Vegesna
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-6 text-sm text-gray-500">
+        <nav className="hidden md:flex gap-6 text-xl text-gray-500">
           {links.map((link) => (
             <Link
               key={link.href}
