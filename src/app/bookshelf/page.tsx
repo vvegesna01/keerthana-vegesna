@@ -263,7 +263,7 @@ function MonthlyChart() {
             />
             <span className="text-xs text-gray-400">{m}</span>
             {(i === 0 || i === 12) && (
-              <span className="text-xs text-indigo-300">'{year}</span>
+              <span className="text-xs text-indigo-300">&apos;{year}</span>
             )}
           </div>
         ))}
