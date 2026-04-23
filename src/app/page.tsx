@@ -33,7 +33,7 @@ export default function Home() {
               });
             }}
           >
-            <span className="text-sm text-gray-500 mb-2">Scroll down</span>
+            <span className="text-sm text-gray-500 mb-2">Scroll Down</span>
             <ChevronDown className="w-6 h-6 text-gray-500" />
           </motion.div>
         </div>
@@ -43,13 +43,13 @@ export default function Home() {
         {/* Text Section with Waving Hand and Arrow */}
         <div className="relative flex flex-col items-center mt-10">
           <h1 className="text-localhost_text text-xl leading-10 p-10 animate-fadeIn w-3/4 text-center">
-            I&apos;m always looking to grow my network and love connecting with people interested in
-            <span className="highlight-bg"> Software Engineering</span>, 
-            <span className="highlight-bg"> Data Visualization</span>{', '}
-            and <span className="highlight-bg"> Geospatial Tech</span>.
-            You can reach out to me{' '}
+            I&apos;m currently open to full-time software engineering roles focused on
+            <span className="highlight-bg"> Backend Systems</span>{', '}
+            <span className="highlight-bg"> Cloud Infrastructure</span>{', and'}
+            <span className="highlight-bg"> Data Platforms</span>.
+            Feel free to reach out for opportunities, collaborations, or just to {' '}
             <Link href="/contact" className="text-links_color font-semibold underline transition duration-300 hover:text-blue-500">
-              here! {" "}
+              connect! {" "}
             </Link>
           </h1>
         </div>

@@ -5,8 +5,9 @@ import Link from "next/link";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="flex flex-col items-center justify-between p-8 bg-white">
-      <div className="flex flex-col p-5">
+    <footer className="flex flex-col items-center justify-between p-5 bg-white">
+      <div className="flex flex-col text-localhost_text p-2">
+        © 2026 Keerthana Vegesna
       </div>
       <div className="flex space-x-4 text-localhost_text">
         <div className="">

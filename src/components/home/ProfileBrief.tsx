@@ -32,9 +32,9 @@ const ProfileBrief: React.FC = () => {
         
         {/* Typewriter and Intro Text */}
         <div className="md:w-3/4">
-          <h1 className="align-center md:items-start text-center md:text-left text-4xl leading-10 animate-fadeIn font-bold text-indigo-900 hover:text-purple-500 transition-colors duration-300">
+          <h1 className="align-center md:items-start text-center md:text-left text-4xl leading-10 ml-10 animate-fadeIn font-bold text-indigo-900 hover:text-purple-500 transition-colors duration-300">
             <Typewriter
-              words={['SOFTWARE ENGINEER', 'MUSICIAN', 'CLOUD PLATFORM ARCHITECT', 'WEB DEVELOPER', 'TEACHING ASSISTANT', 'UNDERGRAD RESEARCHER']}
+              words={['SOFTWARE ENGINEER', 'MUSICIAN', 'PLATFORM ENGINEER', 'WEB DEVELOPER', 'TEACHING ASSISTANT', 'DATA SCIENCE RESEARCHER', 'BOOKWORM']}
               loop={true}
               cursor
               cursorStyle="|"

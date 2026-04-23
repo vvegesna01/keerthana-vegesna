@@ -70,7 +70,7 @@ export default function AboutMe() {
               studying Computer Science.
             </p>
             <p className="text-localhost_text leading-8 text-xl py-3 animate-fadeIn">
-              I&apos;m currently a Platform and AgentOps Architect at{" "}
+              I&apos;m currently a Platform Engineer at{" "}
               <Link
                 href="https://www.emvo.ai/"
                 className="text-emvo_color font-semibold underline transition duration-300 hover:text-blue-500"
@@ -136,7 +136,7 @@ export default function AboutMe() {
               {"."}
             </p>
             <p className="text-localhost_text leading-8 text-xl py-3 animate-fadeIn">
-              I&apos;m grew up in Bangalore, India and enjoy playing guitar,{" "}
+              I grew up in Bangalore, India and enjoy playing guitar,{" "}
               <Link
                 href="/bookshelf"
                 className="animate-fadeIn font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-100"

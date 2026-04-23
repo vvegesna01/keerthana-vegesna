@@ -13,12 +13,17 @@ const Contact: React.FC = () => {
 
   return (
     <div className="space-y-6 p-24">
+      <h1 className="text-4xl font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-8">
+        Get In Touch
+      </h1>
       <div className="text-localhost_text leading-8 text-lg py-3 animate-fadeIn">
-        I love meeting new people and talking about all things
-        <span className="highlight-bg"> software engineering</span>,
-        <span className="highlight-bg"> data visualization</span>, and
-        <span className="highlight-bg"> geospatial tech</span>. Feel free to
-        reach out if you&apos;d like to collaborate or just say hi!
+        I&apos;m currently open to full-time software engineering roles focused on
+        <span className="highlight-bg"> backend systems</span>,
+        <span className="highlight-bg"> cloud infrastructure</span>, and
+        <span className="highlight-bg"> data platforms</span>. 
+      </div>
+      <div className="text-localhost_text leading-8 text-lg py-3 animate-fadeIn">
+          Feel free to reach out for opportunities, collaborations or just to say hi!
       </div>
       <div className="flex flex-wrap gap-4 mt-8">
         <Link

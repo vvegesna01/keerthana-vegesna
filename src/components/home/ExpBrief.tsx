@@ -15,14 +15,14 @@ const ExperiencesBrief: React.FC = () => {
 
   const experiences: Experience[] = [
     {
-      duration: "SEPT 2025 - PRESENT",
+      duration: "OCT 2025 - JAN 2026",
       company: "EMVO.AI",
-      role: "Platform and AgentOps Architect",
-      image: "/images/exp/emvo-logo.png",
+      role: "Platform Engineer",
+      image: "/images/exp/emvo_logo.png",
     },
     {
-      duration: "JAN 2024 - May 2025",
-      company: "JOHN MARTINSON HONORS COLLEGE",
+      duration: "JAN 2024 - MAY 2025",
+      company: "Purdue University",
       role: "Web Developer",
       image: "/images/exp/honors_logo.png",
     },
@@ -34,7 +34,7 @@ const ExperiencesBrief: React.FC = () => {
     },
     {
       duration: "AUG 2021 - JAN 2022",
-      company: "THE DATA MINE - MERCK",
+      company: "MERCK",
       role: "Undergraduate Data Science Researcher",
       image: "/images/exp/Merck.png",
     },

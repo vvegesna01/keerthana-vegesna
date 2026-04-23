@@ -13,11 +13,15 @@ interface Experience {
 const Experiences: React.FC = () => {
   const experiences: Experience[] = [
     {
-      duration: "SEPT 2025 - Present",
+      duration: "OCT 2025 - JAN 2026",
       company: "EMVO.AI",
-      role: "Platform and AgentOps Architect",
-      description: [],
-      image: "/images/exp/emvo-logo.png",
+      role: "Platform Engineer",
+      description: ["Worked on backend services supporting distributed data workflows.",
+        "Built and maintained REST APIs for data ingestion and processing",
+        "Reduced incident resolution time by ~30% via logs + metrics analysis (CloudWatch)",
+        "Contributed to architecture decisions around scalability and fault tolerance"
+      ],
+      image: "/images/exp/emvo_logo.png",
     },
     {
       duration: "JAN 2024 - MAY 2025",
