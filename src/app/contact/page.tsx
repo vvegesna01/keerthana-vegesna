@@ -1,79 +1,63 @@
 "use client";
-import Footer from "@/components/footer/footer";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
-import { FaLinkedin } from "react-icons/fa";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
 
-const Contact: React.FC = () => {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
+export default function Contact() {
   return (
-    <div className="space-y-6 p-24">
-      <h1 className="text-4xl font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-8">
-        Get In Touch
-      </h1>
-      <div className="text-localhost_text leading-8 text-lg py-3 animate-fadeIn">
-        I&apos;m currently open to full-time software engineering roles focused on
-        <span className="highlight-bg"> backend systems</span>,
-        <span className="highlight-bg"> cloud infrastructure</span>, and
-        <span className="highlight-bg"> data platforms</span>. 
-      </div>
-      <div className="text-localhost_text leading-8 text-lg py-3 animate-fadeIn">
-          Feel free to reach out for opportunities, collaborations or just to say hi!
-      </div>
-      <div className="flex flex-wrap gap-4 mt-8">
-        <Link
-          href="mailto:kvegesna01@gmail.com"
-          className="bg-indigo-900 text-white rounded-full py-2 px-6 border border-indigo-900 hover:bg-transparent hover:text-indigo-900 transition duration-300"
-        >
-          Email Me
-        </Link>
-        <Link
-          href="https://www.linkedin.com/in/keerthana-vegesna/"
-          className="bg-[#0077B5] text-white rounded-full py-2 px-6 border border-[#0077B5] hover:bg-transparent hover:text-[#0077B5] transition duration-300"
-        >
-          <FaLinkedin className="inline-block mr-2" /> LinkedIn
-        </Link>
-        <Link
-          href="https://github.com/vvegesna01"
-          className="bg-black text-white rounded-full py-2 px-6 border border-black hover:bg-transparent hover:text-black transition duration-300"
-        >
-          GitHub
-        </Link>
-      </div>
+    <main className="bg-white">
+      <section className="max-w-4xl mx-auto px-6 pt-16 pb-10">
 
-      {/* If you want to put your resume back on here */}
-      {/* Conditionally render PDF preview only on the client */}
-      {/* {isClient && (
-        <div className="pdf-preview">
-          <iframe
-            src="/files/website_2024.pdf#toolbar=0"
-            width="100%"
-            height="1000px"
-            className="border"
-          >
-            This browser does not support PDFs. Please download the PDF to view it:{" "}
-            <a href="/files/website_2024.pdf">Download PDF</a>.
-          </iframe>
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-4xl font-extrabold text-indigo-900 mb-3">
+            Get in touch
+          </h1>
+          <p className="text-gray-600 leading-7 max-w-2xl">
+            I’m currently open to software engineering roles focused on backend systems,
+            cloud infrastructure, and data platforms.
+          </p>
         </div>
-      )} */}
 
-      {/* PDF Download Link */}
-      {/* <div className="pt-6">
-        <a
-          href="/files/website_2024.pdf"
-          download
-          className="text-blue-500 underline hover:text-blue-700 font-semibold"
-        >
-          Download PDF
-        </a>
-      </div> */}
-    </div>
+        {/* Body */}
+        <div className="text-gray-600 leading-7 mb-8 max-w-xl">
+          Feel free to reach out for opportunities, collaborations, or just to say hi.
+        </div>
+
+        {/* Links */}
+        <div className="flex flex-col sm:flex-row gap-4 text-sm">
+
+          <Link
+            href="mailto:kvegesna01@gmail.com"
+            className="px-5 py-2 bg-indigo-900 text-white rounded-md hover:bg-indigo-600 transition"
+          >
+            Email me
+          </Link>
+
+          <Link
+            href="https://www.linkedin.com/in/keerthana-vegesna/"
+            target="_blank"
+            className="px-5 py-2 border border-gray-200 rounded-md text-indigo-900 hover:bg-indigo-50 transition flex items-center gap-2"
+          >
+            <FaLinkedin size={14} /> LinkedIn
+          </Link>
+
+          <Link
+            href="https://github.com/vvegesna01"
+            target="_blank"
+            className="px-5 py-2 border border-gray-200 rounded-md text-indigo-900 hover:bg-indigo-50 transition flex items-center gap-2"
+          >
+            <FaGithub size={14} /> GitHub
+          </Link>
+
+        </div>
+
+        {/* Footer note */}
+        <p className="text-xs text-gray-400 mt-10">
+          Prefer email, but I’m responsive on LinkedIn too.
+        </p>
+
+      </section>
+    </main>
   );
-};
-
-export default Contact;
+}

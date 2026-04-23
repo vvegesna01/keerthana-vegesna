@@ -1,85 +1,71 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
-import Footer from "../footer/footer";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
-const Navbar: React.FC = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+export default function Navbar() {
+  const [open, setOpen] = useState(false);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  const links = [
+    { href: "/about", label: "About" },
+    { href: "/projects", label: "Projects" },
+    { href: "/experience", label: "Experience" },
+    { href: "/bookshelf", label: "Books" },
+    { href: "/blog", label: "Notes" },
+    { href: "/contact", label: "Contact" },
+  ];
 
   return (
-    <main className="w-full">
-      <div className="flex flex-col md:flex-row items-center justify-between min-h-auto bg-gray-200 p-5 md:p-5 w-full">
-        <a href="/" className="m-0 md:m-10">
-          <h1 className="text-localhost_text text-3xl md:text-5xl font-large font-extrabold mb-2 md:mb-4 transition duration-300 transform hover:-translate-y-1 hover:scale-100">
-            Keerthana Vegesna
-          </h1>
-        </a>
+    <header className="w-full border-b border-gray-100 bg-white">
+      <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
 
-        {/* Hamburger Menu for Mobile */}
-        <nav className="md:hidden w-full flex justify-end pr-4">
-          <button
-            type="button"
-            onClick={toggleMobileMenu}
-            className="text-indigo-900 hover:text-transparent hover:bg-gradient-to-r hover:bg-clip-text hover:from-purple-500 hover:to-indigo-500 transition duration-300 transform hover:-translate-y-1 hover:scale-100"
-          >
-            ☰
-          </button>
+        {/* Logo */}
+        <Link
+          href="/"
+          className="text-lg sm:text-xl font-semibold text-indigo-900"
+        >
+          Keerthana Vegesna
+        </Link>
+
+        {/* Desktop Nav */}
+        <nav className="hidden md:flex gap-6 text-sm text-gray-500">
+          {links.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="hover:text-indigo-900 transition"
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
 
-        {/* Links */}
-        <ul
-          className={`${
-            isMobileMenuOpen ? "flex" : "hidden"
-          } flex-col md:flex md:flex-row items-center md:items-end w-full md:w-auto text-center space-y-4 md:space-y-0 md:space-x-8 mt-4 md:mt-0 text-localhost_text`}
+        {/* Mobile Button */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="md:hidden text-gray-600 hover:text-indigo-900 transition"
         >
-          <li>
-            <a
-              href="/about"
-              className="text-indigo-900 text-xl md:text-2xl hover:text-transparent hover:bg-gradient-to-r hover:bg-clip-text hover:from-purple-500 hover:to-indigo-500 transition duration-300 transform hover:-translate-y-1 hover:scale-120"
-            >
-              ABOUT
-            </a>
-          </li>
-          <li>
-            <a
-              href="/projects"
-              className="text-indigo-900 text-xl md:text-2xl hover:text-transparent hover:bg-gradient-to-r hover:bg-clip-text hover:from-purple-500 hover:to-indigo-500 transition duration-300 transform hover:-translate-y-1 hover:scale-120"
-            >
-              PROJECTS
-            </a>
-          </li>
-          <li>
-            <a
-              href="/experience"
-              className="text-indigo-900 text-xl md:text-2xl hover:text-transparent hover:bg-gradient-to-r hover:bg-clip-text hover:from-purple-500 hover:to-indigo-500 transition duration-300 transform hover:-translate-y-1 hover:scale-120"
-            >
-              EXPERIENCE
-            </a>
-          </li>
-          <li>
-            <a
-              href="/bookshelf"
-              className="text-indigo-900 text-xl md:text-2xl hover:text-transparent hover:bg-gradient-to-r hover:bg-clip-text hover:from-purple-500 hover:to-indigo-500 transition duration-300 transform hover:-translate-y-1 hover:scale-120"
-            >
-              BOOKSHELF
-            </a>
-          </li>
-          <li>
-            <a
-              href="/contact"
-              className="text-indigo-900 text-xl md:text-2xl hover:text-transparent hover:bg-gradient-to-r hover:bg-clip-text hover:from-purple-500 hover:to-indigo-500 transition duration-300 transform hover:-translate-y-1 hover:scale-120"
-            >
-              CONTACT
-            </a>
-          </li>
-        </ul>
+          {open ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
-    </main>
-  );
-};
 
-export default Navbar;
+      {/* Mobile Menu */}
+      {open && (
+        <div className="md:hidden border-t border-gray-100">
+          <nav className="flex flex-col px-6 py-4 gap-4 text-gray-600 text-base">
+            {links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="hover:text-indigo-900 transition"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+      )}
+    </header>
+  );
+}

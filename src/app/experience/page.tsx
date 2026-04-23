@@ -6,7 +6,7 @@ import React from "react";
 
 export default function Experience() {
 	return (
-		<div className="flex p-10">
+		<div className="">
 			<Experiences/>
 		</div>
 	)

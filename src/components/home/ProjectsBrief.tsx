@@ -1,84 +1,72 @@
 "use client";
 import React from "react";
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { title } from "process";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
-const ProjectsGallery: React.FC = () => {
-  const projects = [
-    {
-      title: "Investogram",
-      imageSrc: "/images/projects/investogram_profile.png",
-      link: "/projects",
-      skills: ["React", "Node.js", "MongoDB"]
-    },
-    {
-      title: "Shelf This",
-      imageSrc: "/images/projects/shelf_this.png",
-      link: "/projects",
-      skills: ["Python", "Streamlit", "HTML/CSS"]
-    },
-    {
-      title: "Eras Tour Tracker",
-      imageSrc: "/images/projects/eras_tour.png",
-      link: "/projects",
-      skills: ["Python", "Node.js", "Typescript" , "OpenStreetMaps"]
-    },
-  ];
+const projects = [
+  {
+    title: "Investogram",
+    image: "/images/projects/investogram_profile.png",
+    link: "/projects",
+  },
+  {
+    title: "Shelf This",
+    image: "/images/projects/shelf_this.png",
+    link: "/projects",
+  },
+  {
+    title: "Eras Tour Tracker",
+    image: "/images/projects/eras_tour.png",
+    link: "/projects",
+  },
+];
 
+export default function ProjectsBrief() {
   return (
-    <div className="w-full py-10 bg-gray-100 flex flex-col justify-center items-center">
-      <h1 className="text-4xl font-bold text-indigo-900 text-center mb-8">Featured Projects</h1>
+    <section className="max-w-4xl mx-auto px-6 py-10">
 
-      <div className="w-full max-w-5xl px-5">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.a
-              key={index}
-              href={project.link}
-              className="relative block bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
-              whileHover={{ scale: 1.02 }}
-            >
-              {/* Project Title
-              <div className="p-4 text-center">
-                <h2 className="text-xl font-semibold text-white">{project.title}</h2>
-              </div> */}
+      {/* Header */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-extrabold text-indigo-900 mb-2">
+          Projects
+        </h2>
+        <p className="text-gray-500 text-sm">
+          Things I’ve built for fun, curiosity, and exploration.
+        </p>
+      </div>
 
-
-              {/* Project Image */}
+      {/* Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        {projects.map((project, i) => (
+          <motion.a
+            key={i}
+            href={project.link}
+            whileHover={{ scale: 1.04 }}
+            className="group"
+          >
+            <div className="relative w-full aspect-[4/3] bg-indigo-50 rounded-lg overflow-hidden shadow-sm">
+              
               <Image
-                src={project.imageSrc}
+                src={project.image}
                 alt={project.title}
-                width={400}
-                height={300}
-                className="w-full h-48 object-cover"
+                fill
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
 
-              
+              {/* Hover overlay (like bookshelf) */}
+              <div className="absolute inset-0 bg-indigo-900/0 group-hover:bg-indigo-900/70 transition-all duration-300 flex items-end p-2">
+                <p className="text-white text-xs font-semibold opacity-0 group-hover:opacity-100 transition">
+                  {project.title}
+                </p>
+              </div>
+            </div>
 
-              
-
-              {/* Skill Tags (Subtle, Minimal) */}
-              <motion.div
-                className="absolute bottom-0 left-0 right-0 flex justify-center p-2 bg-white opacity-0 hover:opacity-100 transition-opacity duration-300"
-              >
-                <div className="flex flex-wrap justify-center gap-2">
-                  {project.skills.map((skill, idx) => (
-                    <span
-                      key={idx}
-                      className="bg-indigo-900 text-white text-xs font-semibold px-2 py-1 rounded-lg shadow-sm"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            </motion.a>
-          ))}
-        </div>
+            <p className="mt-2 text-xs text-indigo-900 font-medium line-clamp-2">
+              {project.title}
+            </p>
+          </motion.a>
+        ))}
       </div>
-    </div>
+    </section>
   );
-};
-
-export default ProjectsGallery;
+}
