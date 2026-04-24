@@ -11,7 +11,7 @@ export const metadata = {
   title: 'Keerthana Vegesna',
   description: 'My Portfolio Website!',
   icons: {
-    icon: '/favicon-v3.ico',
+    icon: '/favicon-v4.ico',
   }
 }
 

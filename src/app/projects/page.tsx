@@ -100,7 +100,7 @@ const PROJECTS: Project[] = [
   {
     title: "Shell Project",
     image: "/images/projects/shell.png",
-    tags: ["C++", "Systems Programming"],
+    tags: ["C", "Systems Programming", "Lex", "Yacc"],
     description: [
       "Shell interpreter written in C++ that replicates functionality of csh and bash shells.",
       "Features include piping and file redirection, exit signal handling, subshell, environment variable expansion, wildcard expansion, command history, and path completion.",

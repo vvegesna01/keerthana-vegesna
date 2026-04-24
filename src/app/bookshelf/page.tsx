@@ -460,7 +460,7 @@ export default function Bookshelf() {
             ))}
           </motion.div>
 
-          {!showAll && (
+          {/* {!showAll && (
             <div className="mt-6 flex justify-center">
               <button
                 onClick={() => setShowAll(true)}
@@ -469,7 +469,7 @@ export default function Bookshelf() {
                 Show all {FIVE_STARS.length} →
               </button>
             </div>
-          )}
+          )} */}
         </motion.div>
 
         {/* Footer */}

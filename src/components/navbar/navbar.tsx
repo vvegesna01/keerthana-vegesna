@@ -27,7 +27,7 @@ export default function Navbar() {
         >
           <div className="w-8 h-8 rounded-full overflow-hidden border border-indigo-100 shrink-0">
             <Image
-              src="/favicon-v3.ico"
+              src="/favicon-v4.ico"
               alt="Keerthana Vegesna"
               width={32}
               height={32}
