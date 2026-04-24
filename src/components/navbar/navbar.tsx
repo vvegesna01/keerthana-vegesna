@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -11,7 +12,7 @@ export default function Navbar() {
     { href: "/projects", label: "Projects" },
     { href: "/experience", label: "Experience" },
     { href: "/bookshelf", label: "Books" },
-    { href: "/blog", label: "Notes" },
+    // { href: "/blog", label: "Notes" },
     { href: "/contact", label: "Contact" },
   ];
 
@@ -22,8 +23,17 @@ export default function Navbar() {
         {/* Logo */}
         <Link
           href="/"
-          className="text-lg sm:text-2xl font-semibold text-indigo-900"
+          className="flex items-center gap-2.5 text-lg sm:text-2xl font-semibold text-indigo-900"
         >
+          <div className="w-8 h-8 rounded-full overflow-hidden border border-indigo-100 shrink-0">
+            <Image
+              src="/favicon-v3.ico"
+              alt="Keerthana Vegesna"
+              width={32}
+              height={32}
+              className="object-cover w-full h-full"
+            />
+          </div>
           Keerthana Vegesna
         </Link>
 

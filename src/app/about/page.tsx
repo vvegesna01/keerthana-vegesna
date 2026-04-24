@@ -35,7 +35,7 @@ const COMMUNITY = [
 ];
 
 const HOBBIES = [
-  { icon: Music, label: "Music", color: "text-pink-400", href: "#music" },
+  { icon: Music, label: "Music", color: "text-pink-400", href: "/about#music" },
   {
     icon: BookOpen,
     label: "Reading",
@@ -46,7 +46,7 @@ const HOBBIES = [
     icon: Camera,
     label: "Photography",
     color: "text-blue-400",
-    href: "#photography",
+    href: "/about#photography",
   },
   { icon: Globe2, label: "Travel", color: "text-green-400", href: "#" },
 ];
@@ -263,7 +263,7 @@ export default function AboutMe() {
 
         {/* ── Music ── */}
         <motion.div
-          id="#music"
+          id="music"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
