@@ -5,6 +5,11 @@ import { motion } from "framer-motion";
 
 const projects = [
   {
+    title: "Where Does Your Data Go?",
+    image: "/images/projects/datago.png",
+    link: "/projects",
+  },
+  {
     title: "Investogram",
     image: "/images/projects/investogram_profile.png",
     link: "/projects",
@@ -36,7 +41,7 @@ export default function ProjectsBrief() {
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {projects.map((project, i) => (
           <motion.a
             key={i}

@@ -16,6 +16,18 @@ interface Project {
 
 const PROJECTS: Project[] = [
   {
+    title: "Where Does your Data Go?",
+    image: "/images/projects/datago.png",
+    tags: ["Streamlit", "HTML Components", "Python"],
+    description: [
+      "Interactive Streamlit app that visualizes the real-time journey of your data across the internet, from your device through CDNs, load balancers, servers, and storage",
+      "Features four data scenarios (photo upload, message, search, video stream) each with an animated node-by-node reveal"
+    ],
+    links: [{ label: "Visit Live App", href: "https://where-does-your-data-go.streamlit.app/", disabled: false },
+      { label: "Source Code", href: "https://github.com/vvegesna01/Where-Does-Your-Data-Go" }
+    ],
+  },
+  {
     title: "Obsidian Movie Vault",
     image: "/images/projects/movies.png",
     tags: ["Obsidian", "Markdown", "IMDb API"],
@@ -25,7 +37,7 @@ const PROJECTS: Project[] = [
       "Supports dynamic queries to sort and filter movies by genre, rating, or watch status directly in Obsidian.",
       "Designed as a lightweight, local alternative to third-party movie tracking apps.",
     ],
-    links: [{ label: "Tutorial coming soon!", href: "", disabled: true }],
+    links: [{ label: "Tutorial coming soon!", href: "", disabled: true },],
   },
   {
     title: "Shelf This",
