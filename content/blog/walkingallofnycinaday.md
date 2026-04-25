@@ -1,7 +1,7 @@
 ---
-title: walking all of nyc in a day
+title: Walking all of NYC in a Day
 date: 2025-06-08
-description: the stats from my top to bottom manhattan walk from the summer of 2025
+description: The stats from my top to bottom manhattan walk from the Summer of 2025.
 tags:
   - blog
   - storytime

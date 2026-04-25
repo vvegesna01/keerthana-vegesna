@@ -1,7 +1,7 @@
 ---
 title: Where Does Your Data Go?
 date: 2026-04-24
-description: a weekend project learning about the internet's highways
+description: A weekend project learning about the internet's highways.
 tags:
   - blog
   - codingprojects

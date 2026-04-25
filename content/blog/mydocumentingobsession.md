@@ -1,6 +1,6 @@
 ---
 title: "My Documenting Obsession"
-date: "2025-12-31"
+date: 2025-12-31
 description: "A list of all the ways I've documented my life."
 tags:
   - blog
