@@ -24,7 +24,8 @@ const PROJECTS: Project[] = [
       "Features four data scenarios (photo upload, message, search, video stream) each with an animated node-by-node reveal"
     ],
     links: [{ label: "Visit Live App", href: "https://where-does-your-data-go.streamlit.app/", disabled: false },
-      { label: "Source Code", href: "https://github.com/vvegesna01/Where-Does-Your-Data-Go" }
+      { label: "Source Code", href: "https://github.com/vvegesna01/Where-Does-Your-Data-Go" },
+      {label: "Blog Post", href:"/blog/wheredoesyourdatago.md"}
     ],
   },
   {

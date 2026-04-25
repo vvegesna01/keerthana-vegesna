@@ -28,6 +28,8 @@ If you look at my previous productions of this site you'll really see the transf
 
 If you can't already tell, I'm absolutely obsessed with data and have been tracking the books I've been reading on storygraph pretty obsessively since 2021. Before that I spent hours building a complete database to fit my exact needs on Notion. Here's a [snippet](https://keeths-books.notion.site/Books-Keeth-Reads-78bf534fab6d44848073459ad421e91e?pvs=74) if you're curious.
 
+![Notion_Books_Site](/images/blog/notion_books.png)
+
 ### Movies 
 
 I'm also a massive cinephile, courtesy of my dad who has been a hardcore fan of Steven Spielberg, James Cameron and the Terminator movies specifically (something that is passed down genetically I'm pretty sure). I've tried building many versions of movie tracking apps, the most recent and most complete one is the local obsidian app I built using just markdown files and some plugins and then connecting it to the IMDB API. It has a really quick search and field updater. I also now use LetterBoxd and if I don't log a movie in the 5 minutes after I finish watching it I think I might actually pass out. Here's some fun stats from last years letterboxd - evidence of Harry Potter + Marvel Marathons happenning annually.
