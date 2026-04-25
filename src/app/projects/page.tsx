@@ -269,7 +269,7 @@ export default function Projects() {
             { value: PROJECTS.length, label: "Projects" },
             { value: "4", label: "Live apps" },
             { value: "Full-stack", label: "Focus area" },
-            { value: "React", label: "Go-to stack" },
+            { value: "Python", label: "Go-to stack" },
           ].map(({ value, label }) => (
             <div
               key={label}

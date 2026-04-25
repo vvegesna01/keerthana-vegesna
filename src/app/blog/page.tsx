@@ -10,7 +10,7 @@ export default function BlogPage() {
       {/* Header */}
       <div className="mb-10">
         <h1 className="text-4xl font-extrabold text-indigo-900 mb-3">
-          Keerthana&apos;s Field Notes
+          My Field Notes
         </h1>
         <p className="text-gray-600 leading-7 max-w-2xl">
           Notes, ideas, and things I keep thinking about, pulled from my Obsidian vault.
@@ -26,7 +26,17 @@ export default function BlogPage() {
               <p className="text-xs text-gray-400 mb-1">
                 {post.date}
               </p>
-
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2 mb-1">
+                {post.tags.map((tag: string) => (
+                  <span
+                    key={tag}
+                    className="text-xs py-1 bg-indigo-50 text-indigo-700 rounded-md"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
               <h2 className="text-lg font-semibold text-indigo-900 group-hover:text-purple-500 transition">
                 {post.title}
               </h2>
