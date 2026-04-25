@@ -48,7 +48,7 @@ const HOBBIES = [
     color: "text-blue-400",
     href: "/about#photography",
   },
-  { icon: Globe2, label: "Travel", color: "text-green-400", href: "#" },
+  { icon: Globe2, label: "Hiking", color: "text-green-400", href: "#" },
 ];
 
 // ── Page ─────────────────────────────────────────────────────────────

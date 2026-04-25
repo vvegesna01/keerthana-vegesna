@@ -10,7 +10,7 @@ export default function BlogPage() {
       {/* Header */}
       <div className="mb-10">
         <h1 className="text-4xl font-extrabold text-indigo-900 mb-3">
-          Notes
+          Keerthana&apos;s Field Notes
         </h1>
         <p className="text-gray-600 leading-7 max-w-2xl">
           Notes, ideas, and things I keep thinking about, pulled from my Obsidian vault.
