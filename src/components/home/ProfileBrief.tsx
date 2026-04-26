@@ -37,7 +37,6 @@ export default function ProfileBrief() {
           <p className="text-sm text-indigo-400 font-medium mb-4">
             <Typewriter
               words={[
-                "Platform Engineer",
                 "Software Engineer",
                 "Bookworm",
                 "Undergrad TA",
