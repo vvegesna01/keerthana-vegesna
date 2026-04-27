@@ -16,7 +16,7 @@ interface Project {
 
 const PROJECTS: Project[] = [
   {
-    title: "Where Does your Data Go?",
+    title: "Where Does Your Data Go?",
     image: "/images/projects/datago.png",
     tags: ["Streamlit", "HTML Components", "Python"],
     description: [

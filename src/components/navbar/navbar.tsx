@@ -12,7 +12,6 @@ export default function Navbar() {
     { href: "/projects", label: "Projects" },
     { href: "/experience", label: "Experience" },
     { href: "/bookshelf", label: "Books" },
-    // { href: "/blog", label: "Notes" },
     { href: "/contact", label: "Contact" },
   ];
 
