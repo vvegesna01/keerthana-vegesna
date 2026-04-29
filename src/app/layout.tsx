@@ -1,6 +1,7 @@
 
 import './globals.css'
 import { Inter, Work_Sans } from 'next/font/google'
+import { Analytics } from "@vercel/analytics/next"
 import Navbar from '@/components/navbar/navbar'
 import Footer from '@/components/footer/footer'
 
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Navbar/>
         {children}
+        <Analytics/>
         <Footer/>
       </body>
     </html>
