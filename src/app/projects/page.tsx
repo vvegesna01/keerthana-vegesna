@@ -85,6 +85,18 @@ const PROJECTS: Project[] = [
     ],
   },
   {
+    title: "Design Detective",
+    image: "/images/projects/design_detective.png",
+    tags: ["HTML", "Javascript", "CSS"],
+    description: [
+      "Let's you hover over fonts and colors on the interwebs and copy the font names and hex codes to your clipboard",
+
+    ],
+    links: [
+      {label: "Download Extension", href: "https://github.com/vvegesna01/Design-Detective"},
+    ]
+  },
+  {
     title: "PurduePAL",
     image: "/images/projects/purduePAL.png",
     tags: ["React", "Python", "MongoDB"],

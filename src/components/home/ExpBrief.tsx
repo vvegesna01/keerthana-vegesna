@@ -4,20 +4,21 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 const experiences = [
+
   {
-    duration: "OCT 2025 - JAN 2026",
+    duration: "2025-2026",
     company: "Emvo.ai",
     role: "Platform Engineer",
-    image: "/images/exp/emvo_logo.png",
+    image: "/images/exp/emvo_new_logo.png",
   },
   {
-    duration: "JAN 2024 - MAY 2025",
+    duration: "2024-2025",
     company: "Purdue University",
     role: "Web Developer",
     image: "/images/exp/honors_logo.png",
   },
   {
-    duration: "JUN 2022 - AUG 2022",
+    duration: "2022",
     company: "Cummins",
     role: "Software Engineering Intern",
     image: "/images/exp/cummins-logo-round.jpeg",
