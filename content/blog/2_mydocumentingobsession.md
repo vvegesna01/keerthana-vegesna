@@ -3,7 +3,8 @@ title: "My Documenting Obsession"
 date: 2025-12-31
 description: "A list of all the ways I've documented my life."
 tags:
-  - personalessay
+  - personal-essay
+coverImage: /images/blog/notion_books.png
 ---
 
 I've been documenting my life in any and all forms I can possibly get my hands on. Here's another attempt at that. I also love making lists so here's a list of all the way I like documenting my life:

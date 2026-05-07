@@ -29,6 +29,7 @@ export function getAllPosts() {
       date: String(data.date),
       description: data.description,
       tags: data.tags || [],
+      coverImage: data.coverImage || null,
       content,
       readingTime: getReadingTime(content),
     };

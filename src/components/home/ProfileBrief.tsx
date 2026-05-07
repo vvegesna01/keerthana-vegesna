@@ -76,6 +76,12 @@ export default function ProfileBrief() {
             >
               Experience →
             </Link>
+            <Link
+              href="/blog"
+              className="text-indigo-900 underline hover:text-purple-500 transition"
+            >
+              Blog →
+            </Link>
           </div>
 
         </div>

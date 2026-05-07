@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const experiences = [
 
@@ -38,7 +39,9 @@ export default function ExperiencesBrief() {
       {/* Header */}
       <div className="mb-8">
         <h2 className="text-2xl font-extrabold text-indigo-900 mb-2">
-          Experience
+          <h2 className="text-2xl font-extrabold text-indigo-900 hover:text-purple-500 transition mb-2">
+            <Link href="/experience">Experience</Link>
+          </h2>
         </h2>
         <p className="text-gray-500 text-sm">
           A few places I’ve worked and learned from.

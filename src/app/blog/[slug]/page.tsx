@@ -40,7 +40,13 @@ export default async function BlogPostPage({
         </h1>
 
         <div className="flex items-center gap-3 text-sm text-gray-400">
-          <span>{post.date}</span>
+          <span>
+            {new Date(post.date).toLocaleDateString("en-GB", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+            })}
+          </span>
           <span>•</span>
           <span>{post.readingTime} min read</span>
         </div>

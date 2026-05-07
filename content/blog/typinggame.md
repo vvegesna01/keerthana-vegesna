@@ -3,7 +3,8 @@ title: "How fast can you type?"
 date: 2026-04-27
 description: Mini typing game inside!
 tags:
-  - codingprojects
+  - coding-projects
+coverImage: /images/blog/keyboard.jpg
 ---
 
 I absolutely love doing typeracer hehe, I built my own mini type racer into this website. 

@@ -1,10 +1,11 @@
 ---
-title: Small Software
+title: The Joy of Building Small, Personal Software
 date: 2026-05-05
-description: Building small software is creating a tool that makes your own day 1% better.
+description: Why I Build for an Audience of One
 tags:
   - personal-essay
   - coding-projects
+coverImage: /images/blog/jot_triage.png
 ---
 ## The Joy of Small, Personal Software: Why I Build for an Audience of One
 

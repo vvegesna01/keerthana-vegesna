@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { getAllPosts } from "@/lib/blog";
+import PostCard from "./PostCard";
 
 export default function BlogPage() {
   const posts = getAllPosts();
@@ -18,35 +18,9 @@ export default function BlogPage() {
       </div>
 
       {/* Posts */}
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4">
         {posts.map((post) => (
-          <Link key={post.slug} href={`/blog/${post.slug}`}>
-            <div className="group border border-gray-100 rounded-lg p-5 hover:bg-indigo-50 transition">
-
-              <p className="text-xs text-gray-400 mb-1">
-                {post.date}
-              </p>
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-1">
-                {post.tags.map((tag: string) => (
-                  <span
-                    key={tag}
-                    className="text-xs py-1 bg-indigo-50 text-indigo-700 rounded-md"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <h2 className="text-lg font-semibold text-indigo-900 group-hover:text-purple-500 transition">
-                {post.title}
-              </h2>
-
-              <p className="text-sm text-gray-500 mt-1">
-                {post.description}
-              </p>
-
-            </div>
-          </Link>
+          <PostCard key={post.slug} post={post} />
         ))}
       </div>
 

@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const projects = [
   {
@@ -33,7 +34,9 @@ export default function ProjectsBrief() {
       {/* Header */}
       <div className="mb-8">
         <h2 className="text-2xl font-extrabold text-indigo-900 mb-2">
-          Projects
+          <h2 className="text-2xl font-extrabold text-indigo-900 hover:text-purple-500 transition mb-2">
+            <Link href="/projects">Projects</Link>
+          </h2>
         </h2>
         <p className="text-gray-500 text-sm">
           Things I’ve built for fun, curiosity, and exploration.

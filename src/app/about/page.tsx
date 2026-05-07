@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Globe2, Users, BookOpen, Camera, Music } from "lucide-react";
+import FieldNotes from "@/components/home/FieldNotes";
+import BlogBrief from "@/components/home/BlogBrief";
 
 // ── Variants ─────────────────────────────────────────────────────────
 
@@ -345,6 +347,9 @@ export default function AboutMe() {
                 />
               </div>
             ))}
+          </div>
+          <div>
+          <BlogBrief></BlogBrief>
           </div>
         </motion.div>
 
