@@ -25,9 +25,23 @@ const PROJECTS: Project[] = [
     ],
     links: [{ label: "Visit Live App", href: "https://where-does-your-data-go.streamlit.app/", disabled: false },
       { label: "Source Code", href: "https://github.com/vvegesna01/Where-Does-Your-Data-Go" },
-      {label: "Blog Post", href:"https://keerthana-vegesna.vercel.app/blog/wheredoesyourdatago"}
+      {label: "Blog Post", href:"./blog/wheredoesyourdatago"}
     ],
   },
+  {
+  title: "Jot 🪶",
+  image: "/images/projects/jot_triage.png",
+  tags: ["Electron", "SQLite", "JavaScript", "macOS"],
+  description: [
+    "Frictionless macOS thought-capture tool that uses a global hotkey to summon a minimal floating input.",
+    "Parses inline syntax (#folder, !priority, due:date) in real time, with a triage window to keep, snooze, convert to task, or delete captured thoughts.",
+    "Let's you categorize into folders and manage different views including Today, Snoozed, etc",
+  ],
+  links: [
+    { label: "Download dmg (Coming Soon!)", href: "", disabled: true},
+    { label: "Blog Post", href:"./blog/smallsoftware"}
+  ],
+},
   {
     title: "Obsidian Movie Vault",
     image: "/images/projects/movies.png",
@@ -85,7 +99,7 @@ const PROJECTS: Project[] = [
     ],
   },
   {
-    title: "Design Detective",
+    title: "Design Detective 🔎",
     image: "/images/projects/design_detective.png",
     tags: ["HTML", "Javascript", "CSS"],
     description: [
