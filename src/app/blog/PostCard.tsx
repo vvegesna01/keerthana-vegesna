@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import Image from "next/image";
 
 type Post = {
   slug: string;
@@ -30,9 +31,10 @@ export default function PostCard({ post }: { post: Post }) {
               {!imgLoaded && (
                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-100 to-indigo-50 animate-pulse" />
               )}
-              <img
+              <Image
                 src={post.coverImage}
                 alt={post.title}
+                fill
                 className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
                   imgLoaded ? "opacity-100" : "opacity-0"
                 }`}
