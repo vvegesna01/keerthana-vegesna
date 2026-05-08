@@ -8,8 +8,8 @@ const experiences = [
 
   {
     duration: "2025-2026",
-    company: "Emvo.ai",
-    role: "Platform Engineer",
+    company: "Emvo",
+    role: "Backend Engineer",
     image: "/images/exp/emvo_new_logo.png",
   },
   {

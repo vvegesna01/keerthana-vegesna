@@ -15,17 +15,18 @@ interface Experience {
 }
 
 const EXPERIENCES: Experience[] = [
+
   {
       duration: "OCT 2025 - JAN 2026",
       company: "EMVO.AI",
-      role: "Platform Engineer",
       tag: "Current",
+      role: "Lead Backend Engineer",
       description: ["Worked on backend services supporting distributed data workflows.",
-        "Built and maintained REST APIs for data ingestion and processing",
-        "Reduced incident resolution time by ~30% via logs + metrics analysis (CloudWatch)",
+        "Built and maintained REST APIs for data ingestion and processing.",
+        "Reduced incident resolution time by ~30% via logs + metrics analysis (AWS CloudWatch).",
         "Contributed to architecture decisions around scalability and fault tolerance"
       ],
-      image: "/images/exp/emvo_logo.png",
+      image: "/images/exp/emvo_new_logo.png",
     },
   {
     duration: "JAN 2024 – MAY 2025",
@@ -34,9 +35,8 @@ const EXPERIENCES: Experience[] = [
     description: [
       "Designed and implemented user-friendly layouts using HTML, CSS, and JavaScript, enhancing site aesthetics and functionality.",
       "Optimized websites for mobile and desktop platforms, ensuring responsiveness and cross-browser compatibility.",
-      "Maintained and updated websites for Purdue Honors College, ensuring usability and accessibility.",
     ],
-    image: "/images/exp/honors_image.jpg",
+    image: "/images/exp/purdue_sidearch.jpg",
   },
   {
     duration: "JUN 2022 – AUG 2022",
@@ -55,7 +55,7 @@ const EXPERIENCES: Experience[] = [
     description: [
       "Collaborated with Merck to create a web-based inventory tracking system using QR codes to optimize drug development.",
       "Worked on the backend team to set up a common database using AWS S3 and Databricks to analyze the data.",
-      "Helped develop the solution architecture for the implementation.",
+      // "Contributed to the solution architecture used in the final implementation.",
     ],
     image: "/images/exp/Merck.png",
   },
@@ -77,7 +77,7 @@ const EXPERIENCES: Experience[] = [
       "Mentored and guided 45+ incoming computer science students, facilitating their understanding of object-oriented programming and Java.",
       "Conducted labs, office hours, and workshops resulting in improved learning outcomes.",
     ],
-    image: "/images/exp/lawson_loop.jpg",
+    image: "/images/exp/purdue_cs.png",
   },
 ];
 
@@ -129,7 +129,7 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
             src={exp.image}
             alt={`${exp.company} image`}
             fill
-            className={`object-cover transition-opacity duration-300 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
+            className={`object-contain transition-opacity duration-300 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
             onLoad={() => setImgLoaded(true)}
             unoptimized
           />
@@ -193,12 +193,13 @@ export default function Experiences() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={fadeInVariants}
-          className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-10"
+          className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10"
         >
           {[
             { value: EXPERIENCES.length, label: "Roles" },
-            { value: "3+", label: "Years" },
-            { value: "AWS", label: "Cloud focus" },
+            { value: "2+", label: "Years" },
+            { value: "AWS", label: "Cloud Focus" },
+            { value: "Python", label: "Go-to Stack" },
           ].map(({ value, label }) => (
             <div
               key={label}
