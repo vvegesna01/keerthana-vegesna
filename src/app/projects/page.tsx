@@ -31,7 +31,7 @@ const PROJECTS: Project[] = [
   {
   title: "Jot 🪶",
   image: "/images/projects/jot_triage.png",
-  tags: ["Electron", "macOS", "Productivity Tool"],
+  tags: ["Electron", "macOS"],
   description: [
     "Frictionless macOS thought-capture tool that uses a global hotkey to summon a minimal floating input.",
     "Parses inline syntax (#folder, !priority, due:date) in real time, with a triage window to keep, snooze, convert to task, or delete captured thoughts.",
@@ -42,10 +42,27 @@ const PROJECTS: Project[] = [
     { label: "Blog Post", href:"./blog/smallsoftware"}
   ],
 },
+{
+  title: "KrachBooks",
+  image: "/images/projects/krachbooks.gif",
+  tags: ["Python", "Streamlit", "Data Viz", "Dashboard", "Social App"],
+  description: [
+    "A stats dashboard and badge tracker for a friend group book club.",
+    "Parses monthly Google Form CSV exports to surface reading stats across the club.",
+    "Features a per-member badge collection tracking streaks, reading speed, rating habits, and more.",
+    "Interactive charts for completion rates, rating distributions, and member breakdowns built with Plotly.",
+    "Includes a curator picker spin wheel to randomly select who runs the next month's meeting.",
+  ],
+  links: [{
+    label: "Website", href:"https://krach-books-dashboard.streamlit.app/"
+  },
+    { label: "Source Code", href: "https://github.com/vvegesna01/KrachBooks" },
+  ],
+},
   {
     title: "Obsidian Movie Vault",
     image: "/images/projects/movies.png",
-    tags: ["Obsidian", "Personal Tool"],
+    tags: ["Obsidian"],
     description: [
       "A personal movie database built inside Obsidian using Markdown and Dataview.",
       "Integrates with the IMDb API to automatically fetch movie metadata including ratings, genres, cast, and release year.",
