@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 // ── Data ────────────────────────────────────────────────────────────
 
@@ -18,7 +18,7 @@ const PROJECTS: Project[] = [
   {
     title: "Where Does Your Data Go?",
     image: "/images/projects/datago.png",
-    tags: ["Streamlit", "HTML Components", "Python"],
+    tags: ["Python", "Streamlit", "Data Viz"],
     description: [
       "Interactive Streamlit app that visualizes the real-time journey of your data across the internet, from your device through CDNs, load balancers, servers, and storage",
       "Features four data scenarios (photo upload, message, search, video stream) each with an animated node-by-node reveal"
@@ -31,7 +31,7 @@ const PROJECTS: Project[] = [
   {
   title: "Jot 🪶",
   image: "/images/projects/jot_triage.png",
-  tags: ["Electron", "SQLite", "JavaScript", "macOS"],
+  tags: ["Electron", "macOS", "Productivity Tool"],
   description: [
     "Frictionless macOS thought-capture tool that uses a global hotkey to summon a minimal floating input.",
     "Parses inline syntax (#folder, !priority, due:date) in real time, with a triage window to keep, snooze, convert to task, or delete captured thoughts.",
@@ -45,7 +45,7 @@ const PROJECTS: Project[] = [
   {
     title: "Obsidian Movie Vault",
     image: "/images/projects/movies.png",
-    tags: ["Obsidian", "Markdown", "IMDb API"],
+    tags: ["Obsidian", "Personal Tool"],
     description: [
       "A personal movie database built inside Obsidian using Markdown and Dataview.",
       "Integrates with the IMDb API to automatically fetch movie metadata including ratings, genres, cast, and release year.",
@@ -57,7 +57,7 @@ const PROJECTS: Project[] = [
   {
     title: "Shelf This",
     image: "/images/projects/shelf_this.png",
-    tags: ["Python", "Streamlit", "Data Viz"],
+    tags: ["Python", "Streamlit", "Data Viz", "Dashboard"],
     description: [
       "A dashboard to visualise reading habits using imported Goodreads / Storygraph data.",
       "Built with Streamlit and Python.",
@@ -71,7 +71,7 @@ const PROJECTS: Project[] = [
   {
     title: "Investogram",
     image: "/images/projects/investogram_profile.png",
-    tags: ["React", "Next.js", "MongoDB"],
+    tags: ["React", "Next.js", "MongoDB", "Dashboard", "Capstone Project"],
     description: [
       "An app for beginner traders to start with play money and interact with the stock market to learn about investing.",
       "Built with MongoDB backend and React / Next.js frontend.",
@@ -87,7 +87,7 @@ const PROJECTS: Project[] = [
   {
     title: "The Eras Tour Tracker",
     image: "/images/projects/eras_tour.png",
-    tags: ["React", "Next.js", "OpenStreetMaps"],
+    tags: ["React", "Next.js", "Data Viz", "Dashboard"],
     description: [
       "A tracker for venues, openers, and song analytics for Taylor Swift's Eras Tour.",
       "Geo-coded data with React / Next.js frontend and OpenStreetMaps API.",
@@ -101,10 +101,9 @@ const PROJECTS: Project[] = [
   {
     title: "Design Detective 🔎",
     image: "/images/projects/design_detective.png",
-    tags: ["HTML", "Javascript", "CSS"],
+    tags: ["HTML", "Javascript", "Browser Extension"],
     description: [
       "Let's you hover over fonts and colors on the interwebs and copy the font names and hex codes to your clipboard",
-
     ],
     links: [
       {label: "Download Extension", href: "https://github.com/vvegesna01/Design-Detective"},
@@ -113,7 +112,7 @@ const PROJECTS: Project[] = [
   {
     title: "PurduePAL",
     image: "/images/projects/purduePAL.png",
-    tags: ["React", "Python", "MongoDB"],
+    tags: ["React", "Python", "MongoDB", "Capstone Project"],
     description: [
       "A social media app for Purdue students to connect with each other.",
       "Built with React frontend and Python / MongoDB backend.",
@@ -127,7 +126,7 @@ const PROJECTS: Project[] = [
   {
     title: "Shell Project",
     image: "/images/projects/shell.png",
-    tags: ["C", "Systems Programming", "Lex", "Yacc"],
+    tags: ["C", "Systems Programming"],
     description: [
       "Shell interpreter written in C++ that replicates functionality of csh and bash shells.",
       "Features include piping and file redirection, exit signal handling, subshell, environment variable expansion, wildcard expansion, command history, and path completion.",
@@ -140,7 +139,7 @@ const PROJECTS: Project[] = [
   {
     title: "Old Portfolio Website",
     image: "/images/projects/old_portfolio.png",
-    tags: ["HTML", "CSS", "JavaScript"],
+    tags: ["HTML/CSS/JS", "Portfolio"],
     description: [],
     links: [
       { label: "Source Code", href: "https://github.com/vvegesna01/old-portfolio" },
@@ -176,12 +175,53 @@ function Tag({ label }: { label: string }) {
   );
 }
 
+function FilterTag({
+  label,
+  active,
+  count,
+  onClick,
+}: {
+  label: string;
+  active: boolean;
+  count: number;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`
+        inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest rounded-full px-3 py-1.5
+        border transition-all duration-200 cursor-pointer
+        ${
+          active
+            ? "bg-indigo-900 text-white border-indigo-900 shadow-sm"
+            : "bg-white text-indigo-500 border-indigo-200 hover:border-indigo-400 hover:text-indigo-700"
+        }
+      `}
+    >
+      {label}
+      <span
+        className={`
+          text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center
+          ${active ? "bg-indigo-700 text-white" : "bg-indigo-100 text-indigo-400"}
+        `}
+      >
+        {count}
+      </span>
+    </button>
+  );
+}
+
 function ProjectCard({ project }: { project: Project }) {
   const [imgLoaded, setImgLoaded] = useState(false);
 
   return (
     <motion.div
       variants={cardVariant}
+      layout
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -16, transition: { duration: 0.2 } }}
       className="group relative bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden"
     >
       {/* Left accent bar */}
@@ -264,6 +304,28 @@ function ProjectCard({ project }: { project: Project }) {
 // ── Page ─────────────────────────────────────────────────────────────
 
 export default function Projects() {
+  const [activeTag, setActiveTag] = useState<string | null>(null);
+
+  // Collect all unique tags with counts
+  const tagCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const project of PROJECTS) {
+      for (const tag of project.tags) {
+        counts[tag] = (counts[tag] ?? 0) + 1;
+      }
+    }
+    // Sort by count descending, then alphabetically
+    return Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  }, []);
+
+  const filteredProjects = useMemo(
+    () =>
+      activeTag
+        ? PROJECTS.filter((p) => p.tags.includes(activeTag))
+        : PROJECTS,
+    [activeTag]
+  );
+
   return (
     <main className="flex min-h-screen flex-col p-10 bg-white overflow-x-hidden">
       <div className="max-w-4xl w-full mx-auto">
@@ -309,6 +371,73 @@ export default function Projects() {
           ))}
         </motion.div>
 
+        {/* Tag filter bar */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeInVariants}
+          className="mb-6"
+        >
+          <div className="flex flex-wrap items-center gap-2">
+            {/* "All" pill */}
+            <button
+              onClick={() => setActiveTag(null)}
+              className={`
+                inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest rounded-full px-3 py-1.5
+                border transition-all duration-200 cursor-pointer
+                ${
+                  activeTag === null
+                    ? "bg-indigo-900 text-white border-indigo-900 shadow-sm"
+                    : "bg-white text-indigo-500 border-indigo-200 hover:border-indigo-400 hover:text-indigo-700"
+                }
+              `}
+            >
+              All
+              <span
+                className={`text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center ${
+                  activeTag === null ? "bg-indigo-700 text-white" : "bg-indigo-100 text-indigo-400"
+                }`}
+              >
+                {PROJECTS.length}
+              </span>
+            </button>
+
+            {tagCounts.map(([tag, count]) => (
+              <FilterTag
+                key={tag}
+                label={tag}
+                active={activeTag === tag}
+                count={count}
+                onClick={() => setActiveTag(activeTag === tag ? null : tag)}
+              />
+            ))}
+          </div>
+
+          {/* Active filter summary */}
+          <AnimatePresence>
+            {activeTag && (
+              <motion.p
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.2 }}
+                className="mt-3 text-sm text-indigo-400"
+              >
+                Showing {filteredProjects.length} project{filteredProjects.length !== 1 ? "s" : ""} tagged{" "}
+                <span className="font-semibold text-indigo-600">{activeTag}</span>
+                {" · "}
+                <button
+                  onClick={() => setActiveTag(null)}
+                  className="underline underline-offset-2 hover:text-indigo-800 transition-colors"
+                >
+                  Clear filter
+                </button>
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </motion.div>
+
         {/* Project cards */}
         <motion.div
           variants={staggerVariants}
@@ -317,9 +446,21 @@ export default function Projects() {
           viewport={{ once: true, amount: 0.05 }}
           className="flex flex-col gap-4"
         >
-          {PROJECTS.map((project) => (
-            <ProjectCard key={project.title} project={project} />
-          ))}
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project) => (
+              <ProjectCard key={project.title} project={project} />
+            ))}
+          </AnimatePresence>
+
+          {filteredProjects.length === 0 && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center text-gray-400 py-12"
+            >
+              No projects match this tag.
+            </motion.p>
+          )}
         </motion.div>
 
         {/* Footer */}

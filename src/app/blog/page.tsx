@@ -1,5 +1,5 @@
 import { getAllPosts } from "@/lib/blog";
-import PostCard from "./PostCard";
+import BlogClientPage from "./BlogClientPage";
 
 export default function BlogPage() {
   const posts = getAllPosts();
@@ -17,12 +17,7 @@ export default function BlogPage() {
         </p>
       </div>
 
-      {/* Posts */}
-      <div className="flex flex-col gap-4">
-        {posts.map((post) => (
-          <PostCard key={post.slug} post={post} />
-        ))}
-      </div>
+      <BlogClientPage posts={posts} />
 
     </main>
   );
