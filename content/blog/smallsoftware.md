@@ -23,7 +23,7 @@ I found myself constantly opening DevTools just to find a hex code or a font-wei
 
 Here's some screenshots and if you want to use this yourself, I have instructions in the README.md for this project. 
 
-![DesignDetective](/images/blog/font_detective.gif)
+![DesignDetective](/images/projects/font_detective.gif)
 
 It takes less than 2 mins to download and unpack into your own chrome extensions, so here ya go.
 
@@ -42,7 +42,7 @@ One thing about me is I LOVE Obsidian and I also LOVE movies. I actually really 
 
 I absolutely love the idea that my watch history is stored in plain text and will be readable 20 years from now. Huge reason I use Obsidian for a lot of my notes, etc. I've always tried out the latest note/task management software starting like 10-12 years ago from Evernote to Notion to Bear. Obsidian just works great for me so far.
 
-![ObsidianMovies](/images/blog/add_movie.gif)
+![ObsidianMovies](/images/projects/add_movie.gif)
 
 ---
 
@@ -56,7 +56,7 @@ The whole idea was just quick task capture like Bullet Journalling but also havi
 
 I used Claude to generate the CSS for this and just tweaked some personal perferences. I actually use this everyday!
 
-![Jot](/images/blog/jot_triage.gif)
+![Jot](/images/projects/jot_triage.gif)
 
 ---
 ### Why Build Local?

@@ -29,8 +29,8 @@ const PROJECTS: Project[] = [
     ],
   },
   {
-  title: "Jot 🪶",
-  image: "/images/projects/jot_triage.png",
+  title: "Jot",
+  image: "/images/projects/jot_triage.gif",
   tags: ["Electron", "macOS"],
   description: [
     "Frictionless macOS thought-capture tool that uses a global hotkey to summon a minimal floating input.",
@@ -45,7 +45,7 @@ const PROJECTS: Project[] = [
 {
   title: "KrachBooks",
   image: "/images/projects/krachbooks.gif",
-  tags: ["Python", "Streamlit", "Data Viz", "Dashboard", "Social App"],
+  tags: ["Python", "Streamlit", "Data Viz", "Dashboard"],
   description: [
     "A stats dashboard and badge tracker for a friend group book club.",
     "Parses monthly Google Form CSV exports to surface reading stats across the club.",
@@ -61,7 +61,7 @@ const PROJECTS: Project[] = [
 },
   {
     title: "Obsidian Movie Vault",
-    image: "/images/projects/movies.png",
+    image: "/images/projects/add_movie.gif",
     tags: ["Obsidian"],
     description: [
       "A personal movie database built inside Obsidian using Markdown and Dataview.",
@@ -117,8 +117,8 @@ const PROJECTS: Project[] = [
   },
   {
     title: "Design Detective 🔎",
-    image: "/images/projects/design_detective.png",
-    tags: ["HTML", "Javascript", "Browser Extension"],
+    image: "/images/projects/font_detective.gif",
+    tags: ["HTML/CSS/JS", "Browser Extension"],
     description: [
       "Let's you hover over fonts and colors on the interwebs and copy the font names and hex codes to your clipboard",
     ],
@@ -143,7 +143,7 @@ const PROJECTS: Project[] = [
   {
     title: "Shell Project",
     image: "/images/projects/shell.png",
-    tags: ["C", "Systems Programming"],
+    tags: ["C", "Systems Programming", "Capstone Project"],
     description: [
       "Shell interpreter written in C++ that replicates functionality of csh and bash shells.",
       "Features include piping and file redirection, exit signal handling, subshell, environment variable expansion, wildcard expansion, command history, and path completion.",

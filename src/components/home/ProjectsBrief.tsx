@@ -16,8 +16,8 @@ const projects = [
     link: "/projects",
   },
   {
-    title: "Shelf This",
-    image: "/images/projects/shelf_this.png",
+    title: "Book Club Dashboard",
+    image: "/images/projects/krachbooks.gif",
     link: "/projects",
   },
   {
