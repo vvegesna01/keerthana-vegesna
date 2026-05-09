@@ -1,7 +1,7 @@
 ---
 title: The Joy of Building Small, Personal Software
 date: 2026-05-05
-description: Why I Build for an Audience of One
+description: Why I build for an audience of one
 tags:
   - personal-essay
   - coding-projects
@@ -23,7 +23,7 @@ I found myself constantly opening DevTools just to find a hex code or a font-wei
 
 Here's some screenshots and if you want to use this yourself, I have instructions in the README.md for this project. 
 
-![DesignDetective](/images/blog/popup_dd.png)
+![DesignDetective](/images/blog/font_detective.gif)
 
 It takes less than 2 mins to download and unpack into your own chrome extensions, so here ya go.
 
@@ -34,6 +34,7 @@ It takes less than 2 mins to download and unpack into your own chrome extensions
 ---
 
 ### 2. Obsidian Cinephile: Local-First Movie Tracking
+![ObsidianMovies](/images/projects/movies.png)
 
 One thing about me is I LOVE Obsidian and I also LOVE movies. I actually really do like using Letterboxd but before I discovered Letterboxd, I made a whole database on my Obsidian using the *dataview* and *templater* plugins (Later on Obsidian released a core plugin called *Bases* that made this whole process a lot easier). Then I used the IMDB API to populate movie data like poster, plot info, release date, runtime, etc. 
 
@@ -41,7 +42,7 @@ One thing about me is I LOVE Obsidian and I also LOVE movies. I actually really 
 
 I absolutely love the idea that my watch history is stored in plain text and will be readable 20 years from now. Huge reason I use Obsidian for a lot of my notes, etc. I've always tried out the latest note/task management software starting like 10-12 years ago from Evernote to Notion to Bear. Obsidian just works great for me so far.
 
-![ObsidianMovies](/images/projects/movies.png)
+![ObsidianMovies](/images/blog/add_movie.gif)
 
 ---
 
@@ -51,11 +52,11 @@ Todoist is great and I used it pretty consistently for 6 years I think, but itâ€
 
 The whole idea was just quick task capture like Bullet Journalling but also having the flexibility to move tasks around. I spend most of my time on my computer anyway so it's really easy to just `Cmd+Shift+K` and braindump any task taking up my focus time. Then once a day I just look through the inbox and plan the task for a particular day, snooze it or delete it. 
 
-![Jot](/images/blog/jot_capture.png)
+![Jot](/images/blog/jot_capture.gif)
 
-I used AI to generate the CSS Grid layouts and to debug the complex keyboard shortcut listeners that allow for a mouseless experience.
+I used Claude to generate the CSS for this and just tweaked some personal perferences. I actually use this everyday!
 
-![Jot](/images/blog/jot_triage.png)
+![Jot](/images/blog/jot_triage.gif)
 
 ---
 ### Why Build Local?
