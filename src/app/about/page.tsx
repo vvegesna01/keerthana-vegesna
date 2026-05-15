@@ -72,7 +72,35 @@ export default function AboutMe() {
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             {/* Image (LEFT) */}
-            <div className="relative w-full h-80 md:h-[420px] rounded-xl overflow-hidden shadow-lg">
+                    <div
+          className="
+            relative w-full h-80 md:h-[420px] rounded-xl overflow-hidden
+            bg-indigo-100
+            rotate-[-3deg] hover:rotate-0 hover:scale-[1.02]
+            transition-all duration-300 ease-out
+            cursor-pointer
+            shadow-md hover:shadow-xl
+          "
+        >
+          <Image
+            src="/images/profiles/grad_2023.jpg"
+            alt="Keerthana profile"
+            fill
+            className="object-cover"
+          />
+
+          {/* Corner tag — feels personal, not resume-y */}
+          <div className="
+            absolute bottom-3 left-3
+            bg-white/85 backdrop-blur-sm
+            rounded-lg px-3 py-1
+            text-[11px] font-mono text-white
+            tracking-wide z-10
+          ">
+            purdue.grad
+          </div>
+        </div>
+            {/* <div className="relative w-full h-80 md:h-[420px] rounded-xl overflow-hidden shadow-lg">
               <Image
                 src="/images/profiles/grad_2023.jpg"
                 fill
@@ -80,7 +108,7 @@ export default function AboutMe() {
                 alt="Keerthana profile"
                 priority
               />
-            </div>
+            </div> */}
 
             {/* Text (RIGHT) */}
             <div>
@@ -229,7 +257,7 @@ export default function AboutMe() {
           </div>
         </motion.div>
 
-        {/* ── Photography ──
+        {/* ── Photography ── */}
         <motion.div
           id="photography"
           initial="hidden"
@@ -255,7 +283,7 @@ export default function AboutMe() {
             </Link>{" "}
             for my most recent shots.
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {/* <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {Array.from({ length: 6 }, (_, i) => (
               <div
                 key={i}
@@ -270,13 +298,14 @@ export default function AboutMe() {
                 />
               </div>
             ))}
-          </div>
+          </div> */}
+          <PhotographyGrid />
           <div>
           <BlogBrief></BlogBrief>
           </div>
-        </motion.div> */}
+        </motion.div>
 
-        <PhotographyGrid />
+        
 
         {/* Footer */}
         <div className="mt-12 pt-6 border-t border-gray-100 text-xs text-gray-400">

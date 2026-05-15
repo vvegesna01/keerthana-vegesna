@@ -67,7 +67,7 @@ export default function BlogBrief() {
       <div className="mb-8 flex items-end justify-between">
         <div>
           <h2 className="text-2xl font-extrabold text-indigo-900 hover:text-purple-500 transition mb-1">
-            <Link href="/blog">Field Notes</Link>
+            <Link href="/blog">🗒 Field Notes</Link>
           </h2>
           <p className="text-gray-400 text-sm italic">
             What I&apos;ve been thinking and writing about.
@@ -96,7 +96,7 @@ export default function BlogBrief() {
               src={featured.coverImage}
               alt={featured.title}
               fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              className="object-cover transition-transform opacity-90 duration-500 group-hover:scale-105"
             />
 
             {/* Gradient scrim so text is readable over any image */}

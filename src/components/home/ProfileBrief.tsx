@@ -60,7 +60,7 @@ export default function ProfileBrief() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
 
         {/* Image — tilted frame that straightens on hover */}
-        <div
+        <Link
           className="
             relative w-full h-80 md:h-[420px] rounded-xl overflow-hidden
             bg-indigo-100
@@ -69,6 +69,7 @@ export default function ProfileBrief() {
             cursor-pointer
             shadow-md hover:shadow-xl
           "
+          href={"/about"}
         >
           <Image
             src="/images/profiles/profile-headshot.jpg"
@@ -87,7 +88,7 @@ export default function ProfileBrief() {
           ">
             keerthana.dev
           </div>
-        </div>
+        </Link>
 
         {/* Text */}
         <div>
