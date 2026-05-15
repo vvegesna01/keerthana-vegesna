@@ -25,7 +25,7 @@ const experiences = [
     image: "/images/exp/cummins-logo-round.jpeg",
   },
   {
-    duration: "AUG 2021 - MAY 2022",
+    duration: "2021 - 2022",
     company: "Merck",
     role: "Data Science Researcher",
     image: "/images/exp/Merck.png"
