@@ -1,10 +1,13 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Globe2, Users, BookOpen, Camera, Music } from "lucide-react";
 import BlogBrief from "@/components/home/BlogBrief";
+
+import PhotographyGrid from "@/components/about/photographyGrid";
+import HikingGame from "@/components/about/hikingGame";
 
 // ── Variants ─────────────────────────────────────────────────────────
 
@@ -55,6 +58,8 @@ const HOBBIES = [
 // ── Page ─────────────────────────────────────────────────────────────
 
 export default function AboutMe() {
+  const [hikingActive, setHikingActive] = useState(false);
+
   return (
     <main className="flex min-h-screen flex-col p-10 bg-white overflow-x-hidden">
       <div className="max-w-4xl w-full mx-auto">
@@ -86,7 +91,6 @@ export default function AboutMe() {
                 I&apos;m currently a Platform Engineer at Emvo.ai.
               </p>
 
-
               <p className="text-gray-600 leading-7 mb-4">
                 I got my Bachelor&apos;s Degree at{" "}
                 <Link
@@ -95,101 +99,39 @@ export default function AboutMe() {
                 >
                   Purdue University
                 </Link>{" "}
-                studying Computer Science. I&apos;ve been a Web Developer for the Purdue Honors
-                College, a Software Engineering Intern at Cummins and also
-                a TA for The Data Mine and for
-                the CS Bridge Program.
+                studying Computer Science. I&apos;ve been a Web Developer for
+                the Purdue Honors College, a Software Engineering Intern at
+                Cummins and also a TA for The Data Mine and for the CS Bridge
+                Program.
               </p>
 
               <p className="text-gray-600 leading-8 py-3 animate-fadeIn">
-              I&apos;m involved in communities that empower women in stem
-              like{" "}
-              <Link
-                href="https://www.cs.purdue.edu/diversity/womens-history/girls-who-code.html"
-                className="text-gwc_color font-semibold underline transition duration-300 hover:text-blue-500"
-              >
-                Girls Who Code
-              </Link>
-              {", "}
-              <Link
-                href="https://rewritingthecode.org/"
-                className="text-rtc_color font-semibold underline transition duration-300 hover:text-blue-500"
-              >
-                Rewriting the Code
-              </Link>
-              {","} and the{" "}
-              <Link
-                href="https://swe.org/"
-                className="text-links_color font-semibold underline transition duration-300 hover:text-blue-500"
-              >
-                Society of Women Engineers
-              </Link>
-              {"."}
-            </p>
+                I&apos;m involved in communities that empower women in stem like{" "}
+                <Link
+                  href="https://www.cs.purdue.edu/diversity/womens-history/girls-who-code.html"
+                  className="text-gwc_color font-semibold underline transition duration-300 hover:text-blue-500"
+                >
+                  Girls Who Code
+                </Link>
+                {", "}
+                <Link
+                  href="https://rewritingthecode.org/"
+                  className="text-rtc_color font-semibold underline transition duration-300 hover:text-blue-500"
+                >
+                  Rewriting the Code
+                </Link>
+                {","} and the{" "}
+                <Link
+                  href="https://swe.org/"
+                  className="text-links_color font-semibold underline transition duration-300 hover:text-blue-500"
+                >
+                  Society of Women Engineers
+                </Link>
+                {"."}
+              </p>
             </div>
           </div>
         </motion.div>
-
-        {/* ── Current Interests ──
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={fadeInVariants}
-          className="mb-12"
-        >
-          <h2 className="text-2xl font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-6">
-            ✦ Current Interests
-          </h2>
-
-          <motion.div
-            variants={staggerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-3"
-          >
-            {[
-              {
-                icon: Globe2,
-                title: "Distributed Systems",
-                description:
-                  "Thinking about how systems scale, fail, and recover in production environments.",
-              },
-              {
-                icon: Users,
-                title: "Observability & Debugging",
-                description:
-                  "Understanding system behavior through logs, metrics, and tracing to improve reliability.",
-              },
-              {
-                icon: BookOpen,
-                title: "Data & Visualization",
-                description:
-                  "Exploring how data can be transformed into intuitive and meaningful user experiences.",
-              },
-            ].map(({ icon: Icon, title, description }) => (
-              <motion.div
-                key={title}
-                variants={itemVariant}
-                className="group bg-indigo-50 border border-indigo-100 rounded-lg p-5 flex flex-col gap-3 hover:shadow-md transition-shadow duration-300"
-              >
-                <div className="w-9 h-9 bg-white border border-indigo-100 rounded-md flex items-center justify-center shadow-sm">
-                  <Icon size={18} className="text-indigo-600" />
-                </div>
-
-                <div>
-                  <p className="font-extrabold text-indigo-900 group-hover:text-purple-500 transition-colors duration-300 text-sm">
-                    {title}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1 leading-relaxed">
-                    {description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div> */}
 
         {/* ── Beyond Tech — 4-up cards linking to sections ── */}
         <motion.div
@@ -211,56 +153,38 @@ export default function AboutMe() {
           >
             {HOBBIES.map(({ icon: Icon, label, color, href }) => (
               <motion.div key={label} variants={itemVariant}>
-                <Link
-                  href={href}
-                  className="group bg-indigo-50 border border-indigo-100 rounded-lg p-5 flex flex-col items-center gap-2 hover:shadow-md transition-shadow duration-300 text-center block"
-                >
-                  <Icon
-                    size={24}
-                    className={`${color} group-hover:scale-110 transition-transform duration-200`}
-                  />
-                  <span className="text-xs font-semibold uppercase tracking-widest text-indigo-700">
-                    {label}
-                  </span>
-                </Link>
+                {label === "Hiking" ? (
+                  // Hiking triggers the game instead of navigating
+                  <button
+                    onClick={() => setHikingActive(true)}
+                    className="group bg-indigo-50 border border-indigo-100 rounded-lg p-5 flex flex-col items-center gap-2 hover:shadow-md transition-shadow duration-300 text-center w-full"
+                  >
+                    <Icon
+                      size={24}
+                      className={`${color} group-hover:scale-110 transition-transform duration-200`}
+                    />
+                    <span className="text-xs font-semibold uppercase tracking-widest text-indigo-700">
+                      {label}
+                    </span>
+                  </button>
+                ) : (
+                  <Link
+                    href={href}
+                    className="group bg-indigo-50 border border-indigo-100 rounded-lg p-5 flex flex-col items-center gap-2 hover:shadow-md transition-shadow duration-300 text-center block"
+                  >
+                    <Icon
+                      size={24}
+                      className={`${color} group-hover:scale-110 transition-transform duration-200`}
+                    />
+                    <span className="text-xs font-semibold uppercase tracking-widest text-indigo-700">
+                      {label}
+                    </span>
+                  </Link>
+                )}
               </motion.div>
             ))}
           </motion.div>
         </motion.div>
-
-        {/* ── Community ──
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeInVariants}
-          className="mb-12"
-        >
-          <h2 className="text-2xl font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-6">
-            ✦ Communities I&apos;m Involved In
-          </h2>
-          <motion.div
-            variants={staggerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-3"
-          >
-            {COMMUNITY.map((org) => (
-              <motion.div
-                key={org}
-                variants={itemVariant}
-                className="group bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 p-5 flex items-center gap-3 relative overflow-hidden"
-              >
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-indigo-900 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-l-xl" />
-                <Users size={16} className="text-indigo-400 shrink-0" />
-                <span className="text-sm font-semibold text-indigo-900 group-hover:text-purple-500 transition-colors duration-300">
-                  {org}
-                </span>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div> */}
 
         {/* ── Music ── */}
         <motion.div
@@ -305,7 +229,7 @@ export default function AboutMe() {
           </div>
         </motion.div>
 
-        {/* ── Photography ── */}
+        {/* ── Photography ──
         <motion.div
           id="photography"
           initial="hidden"
@@ -350,13 +274,20 @@ export default function AboutMe() {
           <div>
           <BlogBrief></BlogBrief>
           </div>
-        </motion.div>
+        </motion.div> */}
+
+        <PhotographyGrid />
 
         {/* Footer */}
         <div className="mt-12 pt-6 border-t border-gray-100 text-xs text-gray-400">
           <span>Updated Apr 2026</span>
         </div>
       </div>
+      <div>
+  {hikingActive && (
+    <HikingGame onClose={() => setHikingActive(false)} />
+  )}
+</div>
     </main>
   );
 }
