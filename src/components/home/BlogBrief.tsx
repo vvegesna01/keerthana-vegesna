@@ -5,6 +5,22 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 const posts = [
+      {
+    slug: "q1_books",
+    title: "Quarterly Reading Recap",
+    date: "2025-03-31",
+    tags: ["books", "personal-essay"],
+    coverImage: "/images/blog/babel.jpg",
+  },
+
+
+    {
+    slug: "3_wheredoesyourdatago",
+    title: "Where Does Your Data Go?",
+    date: "2026-04-24",
+    tags: ["coding-projects", "technical-learnings"],
+    coverImage: "/images/blog/photo_upload.jpg",
+  },
     {
     slug: "1_walkingallofnycinaday",
     title: "Walking all of NYC in a Day",
@@ -12,20 +28,7 @@ const posts = [
     tags: ["storytime"],
     coverImage: "/images/blog/nycstrava.png",
   },
-  {
-    slug: "smallsoftware",
-    title: "The Joy of Building Small, Personal Software",
-    date: "2026-05-05",
-    tags: ["coding-projects", "personal-essay"],
-    coverImage: "/images/blog/jot_triage.png",
-  },
-  {
-    slug: "3_wheredoesyourdatago",
-    title: "Where Does Your Data Go?",
-    date: "2026-04-24",
-    tags: ["coding-projects"],
-    coverImage: "/images/blog/photo_upload.jpg",
-  },
+
   {
     slug: "typinggame",
     title: "How fast can you type?",
