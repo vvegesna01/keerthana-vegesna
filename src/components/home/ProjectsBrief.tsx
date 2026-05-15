@@ -9,69 +9,108 @@ const projects = [
     title: "Where Does Your Data Go?",
     image: "/images/projects/datago.png",
     link: "/projects",
+    // Spans 2 cols + 2 rows — the hero tile.
+    colSpan: "md:col-span-2",
+    rowSpan: "md:row-span-2",
+    large: true,
   },
   {
     title: "Investogram",
     image: "/images/projects/investogram_profile.png",
     link: "/projects",
+    colSpan: "",
+    rowSpan: "",
+    large: false,
   },
   {
     title: "Book Club Dashboard",
     image: "/images/projects/krachbooks.gif",
     link: "/projects",
+    colSpan: "",
+    rowSpan: "",
+    large: false,
   },
   {
     title: "Eras Tour Tracker",
     image: "/images/projects/eras_tour.png",
     link: "/projects",
+    colSpan: "md:col-span-2",
+    rowSpan: "",
+    large: false,
   },
+  {
+    title: "Jot - Thought Capture Tool",
+    image: "/images/projects/jot_triage.gif",
+    link: "/projects",
+    colSpan: "",
+    rowSpan: "",
+    large: false,
+  }
 ];
 
 export default function ProjectsBrief() {
   return (
     <section className="max-w-4xl mx-auto px-6 py-10">
-
-      {/* Header */}
       <div className="mb-8">
-        <h2 className="text-2xl font-extrabold text-indigo-900 mb-2">
-          <h2 className="text-2xl font-extrabold text-indigo-900 hover:text-purple-500 transition mb-2">
-            <Link href="/projects">Projects</Link>
-          </h2>
+        <h2 className="text-2xl font-extrabold text-indigo-900 hover:text-purple-500 transition mb-1">
+          <Link href="/projects">Projects</Link>
         </h2>
-        <p className="text-gray-500 text-sm">
-          Things I’ve built for fun, curiosity, and exploration.
+        <p className="text-gray-400 text-sm italic">
+          Things I&apos;ve built for fun, curiosity, and exploration.
         </p>
       </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      {/*
+        Bento grid — 3 columns, 2 rows at md+.
+        Layout:
+          [ hero (2×2) ] [ small ] [ small ]
+          [ hero (2×2) ] [ wide (2×1)      ]
+      */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 auto-rows-[180px]">
         {projects.map((project, i) => (
           <motion.a
             key={i}
             href={project.link}
-            whileHover={{ scale: 1.04 }}
-            className="group"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.2 }}
+            className={`
+              group relative rounded-2xl overflow-hidden
+              bg-indigo-50 border border-indigo-100
+              ${project.colSpan} ${project.rowSpan}
+            `}
           >
-            <div className="relative w-full aspect-[4/3] bg-indigo-50 rounded-lg overflow-hidden shadow-sm">
-              
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
-              />
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
 
-              {/* Hover overlay (like bookshelf) */}
-              <div className="absolute inset-0 bg-indigo-900/0 group-hover:bg-indigo-900/70 transition-all duration-300 flex items-end p-2">
-                <p className="text-white text-xs font-semibold opacity-0 group-hover:opacity-100 transition">
-                  {project.title}
-                </p>
-              </div>
+            {/* Overlay — gradient from bottom so title is always readable */}
+            <div className="
+              absolute inset-0
+              bg-gradient-to-t from-indigo-950/80 via-indigo-900/10 to-transparent
+              opacity-60 group-hover:opacity-90
+              transition-opacity duration-300
+            " />
+
+            {/* Title — always visible at bottom, grows on hover */}
+            <div className="absolute inset-x-0 bottom-0 p-4">
+              <p className={`
+                text-white font-semibold leading-tight
+                ${project.large ? "text-lg" : "text-sm"}
+              `}>
+                {project.title}
+              </p>
+              {/* Arrow appears on hover */}
+              <p className="
+                text-indigo-300 text-xs mt-1
+                opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0
+                transition-all duration-200
+              ">
+                View project →
+              </p>
             </div>
-
-            <p className="mt-2 text-xs text-indigo-900 font-medium line-clamp-2">
-              {project.title}
-            </p>
           </motion.a>
         ))}
       </div>
