@@ -1,6 +1,6 @@
 ---
 title: "How fast can you type?"
-date: 2026-04-27
+date: 2026-04-24
 description: Mini typing game inside!
 tags:
   - coding-projects
