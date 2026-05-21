@@ -3,7 +3,6 @@ title: The Architecture of Perception
 date: 2026-05-18
 description: How Our Words Build Our Worlds
 tags:
-  - blog
   - personal-essay
   - linguistics
   - books

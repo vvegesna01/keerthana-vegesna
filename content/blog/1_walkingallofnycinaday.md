@@ -3,7 +3,8 @@ title: Walking all of NYC in a Day
 date: 2025-06-08
 description: The stats from my top to bottom manhattan walk from the Summer of 2025.
 tags:
-  - storytime
+  - story-time
+  - personal-essay
 coverImage: /images/blog/nycstrava.png
 ---
 

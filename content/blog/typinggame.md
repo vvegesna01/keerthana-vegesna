@@ -4,6 +4,7 @@ date: 2026-04-24
 description: Mini typing game inside!
 tags:
   - coding-projects
+  - technical
 coverImage: /images/blog/keyboard.jpg
 ---
 

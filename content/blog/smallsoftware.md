@@ -5,6 +5,7 @@ description: Why I build for an audience of one
 tags:
   - personal-essay
   - coding-projects
+  - technical
 coverImage: /images/blog/jot_triage.png
 ---
 ## The Joy of Small, Personal Software: Why I Build for an Audience of One

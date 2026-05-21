@@ -3,7 +3,7 @@ title: Building AI Agents vs Traditional API Design - My Experience
 date: 2026-01-15
 description: 
 tags:
-  - technical-learnings
+  - technical
   - software-design
 coverImage: /images/blog/aivsapi.jpeg
 ---
