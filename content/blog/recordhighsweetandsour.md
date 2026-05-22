@@ -11,11 +11,11 @@ coverImage: /images/blog/mangoes2026.jpg
 
 It is May in Ayemenem... if only. It is May, but unfortunately, I am one of the lucky ones. I get to live in a sprawling metropolis—bigger than New York City—in crowded apartments where there is a yearly record high. The constant humming of air conditioning from every possible direction grows louder and louder in my head, driving me crazy. A record high insane.
 
-Hyderabad sits a little to the north and a little to the west of Ayemenem. Not west enough for beautiful coastal beaches and ocean air, but not north enough that I cannot relate.
+Hyderabad sits a little to the North and a little to the East of Ayemenem. Not East enough for beautiful coastal beaches and ocean air, but not North enough that I can't relate.
 
 It was the summer of begrudgingly going through the motions of ten-minute, fifteen-minute, five-minute workouts—because I'm so sweaty anyway that it's not a massive inconvenience. The summer of discovering how seasonal depression applies in the hot months, too. It drains me from the inside out, locking me indoors to protect myself from a heat that sucks you dry with a straw, like in the commercial from everybody’s childhood.
 
-So drink a lot of coconut water and electrolytes. Ice creams and cold water. And don't even think about going out until after sunset, because you were born in the winter. So naturally, you're allergic to the sun.
+So drink a lot of coconut water and electrolytes. Ice creams and cold beverages. And don't even think about going out until after sunset, because you were born in the winter. So naturally, you're allergic to the sun.
 
 The mangoes, however, are overflowing; we eat three a day, each. You are supposed to hold it in your hands until the seed is scraped white, your fingers sticky and yellow and sweet, while the conversation grows around what to do with all these pits. _Should we plant them for future generations?_ _Will there be enough for future generations? Will there be a future? for the future generations?_
 
