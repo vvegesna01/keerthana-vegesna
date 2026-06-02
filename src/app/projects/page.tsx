@@ -16,6 +16,28 @@ interface Project {
 
 const PROJECTS: Project[] = [
   {
+  title: "AfterWord",
+  image: "/images/projects/afterword.png",
+  tags: ["React Native", "TypeScript", "FastAPI", "PostgreSQL", "OpenAI"],
+  description: [
+    "AI-powered reading companion that transforms Kindle highlights into a searchable personal knowledge platform, helping users rediscover and retain insights from everything they've read",
+    "Designed and built the entire product from UX to backend infrastructure, including semantic retrieval, vector search, AI-generated insights, reading analytics, and scalable ingestion pipelines"
+  ],
+  links: [
+    {
+      label: "Coming Soon to Android & Web",
+      href: "#",
+      disabled: true
+    },
+    {
+      label: "Blog Post",
+      href: "./blog/afterword",
+      disabled: false
+    }
+  ],
+},
+
+  {
     title: "Where Does Your Data Go?",
     image: "/images/projects/datago.png",
     tags: ["Python", "Streamlit", "Data Viz"],
