@@ -394,6 +394,32 @@ export default function Bookshelf() {
             . Here&apos;s a data view of my reading life.
           </p>
         </motion.div>
+                {/* 5-star reads with covers */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={fadeInVariants}
+        >
+          <h2 className="text-2xl font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-1">
+            ★ Five-Star Reads
+          </h2>
+          <p className="text-localhost_text text-base leading-8 mb-6">
+            Books I gave five stars without hesitation.
+          </p>
+
+          <motion.div
+            variants={staggerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.05 }}
+            className="grid grid-cols-3 sm:grid-cols-5 gap-4 mb-10"
+          >
+            {visible.map((book) => (
+              <BookCoverCard key={book.isbn} {...book} />
+            ))}
+          </motion.div>
+        </motion.div>
 
         {/* Stats */}
         <motion.div
@@ -434,43 +460,7 @@ export default function Bookshelf() {
           <MonthlyChart />
         </motion.div>
 
-        {/* 5-star reads with covers */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeInVariants}
-        >
-          <h2 className="text-2xl font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-1">
-            ★ Five-Star Reads
-          </h2>
-          <p className="text-localhost_text text-base leading-8 mb-6">
-            Books I gave five stars without hesitation.
-          </p>
 
-          <motion.div
-            variants={staggerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.05 }}
-            className="grid grid-cols-3 sm:grid-cols-5 gap-4"
-          >
-            {visible.map((book) => (
-              <BookCoverCard key={book.isbn} {...book} />
-            ))}
-          </motion.div>
-
-          {/* {!showAll && (
-            <div className="mt-6 flex justify-center">
-              <button
-                onClick={() => setShowAll(true)}
-                className="px-6 py-2 bg-indigo-900 text-white text-sm font-semibold rounded-md hover:bg-indigo-600 transition"
-              >
-                Show all {FIVE_STARS.length} →
-              </button>
-            </div>
-          )} */}
-        </motion.div>
 
         {/* Footer */}
         <div className="mt-12 pt-6 border-t border-gray-100 flex flex-wrap justify-between gap-2 text-xs text-gray-400">
