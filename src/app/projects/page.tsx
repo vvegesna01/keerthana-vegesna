@@ -18,7 +18,7 @@ const PROJECTS: Project[] = [
   {
   title: "AfterWord",
   image: "/images/projects/afterword.png",
-  tags: ["React Native", "TypeScript", "FastAPI", "PostgreSQL", "OpenAI"],
+  tags: ["React", "TypeScript", "FastAPI", "PostgreSQL", "Mobile App"],
   description: [
     "AI-powered reading companion that transforms Kindle highlights into a searchable personal knowledge platform, helping users rediscover and retain insights from everything they've read",
     "Designed and built the entire product from UX to backend infrastructure, including semantic retrieval, vector search, AI-generated insights, reading analytics, and scalable ingestion pipelines"

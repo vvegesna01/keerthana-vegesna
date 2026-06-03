@@ -5,6 +5,7 @@ description: AfterWord - A reading companion that transforms Kindle highlights i
 tags:
   - coding-projects
   - technical
+  - afterword-app
 coverImage: /images/projects/afterword.png
 ---
 
