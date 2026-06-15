@@ -17,7 +17,7 @@ interface Project {
 const PROJECTS: Project[] = [
   {
   title: "AfterWord",
-  image: "/images/projects/afterword.png",
+  image: "/images/blog/afterword_full_logo.png",
   tags: ["React", "TypeScript", "FastAPI", "PostgreSQL", "Mobile App"],
   description: [
     "AI-powered reading companion that transforms Kindle highlights into a searchable personal knowledge platform, helping users rediscover and retain insights from everything they've read",
@@ -25,13 +25,13 @@ const PROJECTS: Project[] = [
   ],
   links: [
     {
-      label: "Coming Soon to Android & Web",
-      href: "#",
-      disabled: true
+      label: "Get AfterWord",
+      href: "https://getafterword.vercel.app/",
+      disabled: false
     },
     {
       label: "Blog Post",
-      href: "./blog/afterword",
+      href: "./blog/devlog2",
       disabled: false
     }
   ],

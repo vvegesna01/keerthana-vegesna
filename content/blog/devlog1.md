@@ -1,12 +1,12 @@
 ---
-title: "# AfterWord Devlog — Issue 1"
+title: "AfterWord Devlog — Issue 1"
 date: 2026-06-03
 description: Design discussions and problems I ran into with the prototypes
 tags:
   - coding-projects
   - technical
   - afterword-app
-coverImage: /images/projects/afterword.png
+coverImage: /images/blog/afterword-sneakpeek.png
 ---
 
 This project has been in the works for a couple weeks, dare I say years because it's something I've always wanted to build. I built a few prototypes trying out different technologies over the last couple months and ran into issues each time. So I've just been iterating and fixing and learning new things while trying to define a viable scope for version 1.

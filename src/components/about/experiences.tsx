@@ -15,11 +15,23 @@ interface Experience {
 }
 
 const EXPERIENCES: Experience[] = [
+    {
+      duration: "FEB 2026 - ",
+      company: "AfterWord",
+      tag: "Current",
+      role: "Developer",
+      description: [
+"Built an AI vector-powered knowledge platform enabling long-term memory and semantic retrieval across personal reading and research data.",
+"Designed asynchronous ingestion pipelines using FastAPI and Celery to process, normalize, chunk, embed, and index external content into vectorized knowledge stores",
+"Implemented semantic retrieval infrastructure using PostgreSQL and pgvector supporting low-latency similarity search across 10,000+ embedded highlights",
+"Architected and deployed the full platform independently, including backend services, infrastructure, database design, AI integration, and frontend mobile development",
+      ],
+      image: "/images/blog/afterword_full_logo.png",
+    },
 
   {
       duration: "OCT 2025 - JAN 2026",
       company: "EMVO.AI",
-      tag: "Current",
       role: "Lead Backend Engineer",
       description: ["Worked on backend services supporting distributed data workflows.",
         "Built and maintained REST APIs for data ingestion and processing.",
