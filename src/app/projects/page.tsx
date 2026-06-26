@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useMemo, useRef, useEffect } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence, useInView, useMotionValue, useSpring } from "framer-motion";
@@ -178,49 +178,17 @@ const PROJECTS: Project[] = [
   },
 ];
 
-// ── Helpers ─────────────────────────────────────────────────────────
+// ── Upgraded Tags (Matches PostCard Inline Styles) ───────────────────
 
-function Tag({ label }: { label: string }) {
+function CustomTag({ label }: { label: string }) {
   return (
-    <span className="inline-block bg-indigo-50 border border-indigo-100 text-indigo-500 text-[10px] font-semibold uppercase tracking-widest rounded-full px-2.5 py-0.5">
+    <span className="px-2 py-0.5 font-mono text-[10px] rounded bg-indigo-50/60 border border-indigo-100/30 text-indigo-700 font-medium tracking-wide uppercase">
       {label}
     </span>
   );
 }
 
-function FilterChip({
-  label,
-  active,
-  count,
-  onClick,
-}: {
-  label: string;
-  active: boolean;
-  count: number;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={`inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest rounded-full px-3 py-1.5 border transition-all duration-200 cursor-pointer ${
-        active
-          ? "bg-indigo-900 text-white border-indigo-900 shadow-sm"
-          : "bg-white text-indigo-500 border-indigo-200 hover:border-indigo-400 hover:text-indigo-700"
-      }`}
-    >
-      {label}
-      <span
-        className={`text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center ${
-          active ? "bg-indigo-700 text-white" : "bg-indigo-100 text-indigo-400"
-        }`}
-      >
-        {count}
-      </span>
-    </button>
-  );
-}
-
-// ── Stacked Project Card ─────────────────────────────────────────────
+// ── Stacked Project Card Component ───────────────────────────────────
 
 function ProjectCard({ project, index, total }: { project: Project; index: number; total: number }) {
   const [hovered, setHovered] = useState(false);
@@ -230,19 +198,16 @@ function ProjectCard({ project, index, total }: { project: Project; index: numbe
   const primaryLink = project.links.find((l) => !l.disabled);
   const stickyTop = 80 + index * 14;
 
-  // Track Mouse coordinates for Custom Follow-Cursor
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Smooth out coordinate tracking
   const springConfig = { damping: 25, stiffness: 250, mass: 0.5 };
   const cursorX = useSpring(mouseX, springConfig);
   const cursorY = useSpring(mouseY, springConfig);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (!ref.current) return;
     const rect = e.currentTarget.getBoundingClientRect();
-    // Position tracking relative to the dynamic panel box
     mouseX.set(e.clientX - rect.left);
     mouseY.set(e.clientY - rect.top);
   };
@@ -260,27 +225,26 @@ function ProjectCard({ project, index, total }: { project: Project; index: numbe
         }}
         className="rounded-2xl overflow-hidden shadow-md border border-black/5"
       >
-        {/* ── Bento grid layout ── */}
         <div className="grid grid-cols-1 md:grid-cols-5 min-h-[480px]">
-          {/* Left: text panel — 2/5 */}
+          {/* Left Side: Content Data Block */}
           <div className="md:col-span-2 flex flex-col justify-between p-8 md:p-10">
             <div>
-              <div className="flex flex-wrap gap-1.5 mb-6">
+              <div className="flex flex-wrap gap-1 mb-5">
                 {project.tags.map((tag) => (
-                  <Tag key={tag} label={tag} />
+                  <CustomTag key={tag} label={tag} />
                 ))}
               </div>
 
-              <h2 className="text-2xl md:text-3xl font-extrabold text-indigo-900 leading-tight mb-5">
+              <h2 className="text-2xl md:text-3xl font-extrabold text-indigo-950 tracking-tight leading-tight mb-5">
                 {project.title}
               </h2>
 
               {project.description.length > 0 && (
                 <ul className="space-y-3">
                   {project.description.map((point, i) => (
-                    <li key={i} className="flex gap-3 text-sm text-gray-600 leading-relaxed">
-                      <span className="mt-2 shrink-0 w-1.5 h-1.5 rounded-full bg-indigo-300" />
-                      {point}
+                    <li key={i} className="flex gap-3 text-sm text-slate-600 leading-relaxed">
+                      <span className="mt-2 shrink-0 w-1.5 h-1.5 rounded-full bg-indigo-400" />
+                      <span>{point}</span>
                     </li>
                   ))}
                 </ul>
@@ -292,7 +256,7 @@ function ProjectCard({ project, index, total }: { project: Project; index: numbe
                 link.disabled ? (
                   <span
                     key={link.label}
-                    className="inline-block bg-black/5 text-gray-400 text-sm font-semibold rounded-full py-2 px-5 cursor-not-allowed"
+                    className="inline-block bg-black/5 text-slate-400 text-xs font-bold rounded-full py-2 px-5 cursor-not-allowed uppercase tracking-wider"
                   >
                     {link.label}
                   </span>
@@ -302,7 +266,7 @@ function ProjectCard({ project, index, total }: { project: Project; index: numbe
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block bg-indigo-900 text-white text-sm font-semibold rounded-full py-2 px-5 border border-indigo-900 hover:bg-transparent hover:text-indigo-900 transition duration-300"
+                    className="inline-block bg-indigo-950 text-white text-xs font-bold rounded-full py-2 px-5 border border-indigo-950 hover:bg-transparent hover:text-indigo-950 transition-colors duration-300 uppercase tracking-wider"
                   >
                     {link.label}
                   </Link>
@@ -311,7 +275,7 @@ function ProjectCard({ project, index, total }: { project: Project; index: numbe
             </div>
           </div>
 
-          {/* Right: image panel — 3/5 */}
+          {/* Right Side: Media Panels */}
           {primaryLink ? (
             <Link
               href={primaryLink.href}
@@ -343,29 +307,17 @@ function ProjectCard({ project, index, total }: { project: Project; index: numbe
                 }}
               />
 
-              {/* Dynamic Tracking Cursor Overlay Button */}
               <AnimatePresence>
                 {hovered && (
                   <motion.div
-                    style={{
-                      left: cursorX,
-                      top: cursorY,
-                      translateX: "-50%",
-                      translateY: "-50%",
-                    }}
+                    style={{ left: cursorX, top: cursorY, translateX: "-50%", translateY: "-50%" }}
                     initial={{ scale: 0, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 0, opacity: 0 }}
-                    className="absolute pointer-events-none z-30 hidden md:flex items-center gap-1.5 bg-indigo-900 text-white font-bold text-xs rounded-full px-5 py-3 shadow-xl whitespace-nowrap"
+                    className="absolute pointer-events-none z-30 hidden md:flex items-center gap-1.5 bg-indigo-950 text-white font-bold text-xs rounded-full px-5 py-3 shadow-xl whitespace-nowrap"
                   >
                     Go to project
-                    <svg
-                      className="w-3.5 h-3.5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2.5}
-                    >
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M7 7h10v10" />
                     </svg>
                   </motion.div>
@@ -373,7 +325,6 @@ function ProjectCard({ project, index, total }: { project: Project; index: numbe
               </AnimatePresence>
             </Link>
           ) : (
-            // Static image wrapper for unlinked items (e.g., "Coming Soon")
             <div
               className="md:col-span-3 relative overflow-hidden min-h-[260px] cursor-not-allowed"
               onMouseEnter={() => setHovered(true)}
@@ -412,19 +363,16 @@ function ProjectCard({ project, index, total }: { project: Project; index: numbe
           )}
         </div>
 
-        {/* Bottom edge counter */}
         <div className="absolute bottom-3 right-4 text-xs font-semibold text-black/20 tabular-nums select-none">
           {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
         </div>
       </motion.div>
-
-      {/* Spacer so the next card has room to scroll over this one */}
       <div className="h-6" />
     </div>
   );
 }
 
-// ── Page ─────────────────────────────────────────────────────────────
+// ── Main Page Engine ─────────────────────────────────────────────────
 
 export default function Projects() {
   const [activeTag, setActiveTag] = useState<string | null>(null);
@@ -445,76 +393,70 @@ export default function Projects() {
   );
 
   return (
-    <main className="min-h-screen bg-gray-50 overflow-x-hidden">
-      {/* ── Header ── */}
+    <main className="min-h-screen bg-gray-50/30 text-slate-900 selection:bg-indigo-100 selection:text-indigo-900 overflow-x-hidden">
+      
+      {/* ── Content Frame Header ── */}
       <div className="max-w-5xl mx-auto px-8 pt-14 pb-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
-          <h1 className="text-4xl font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-3 leading-tight">
+          <h1 className="text-4xl leading-10 font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-3 tracking-tight">
             Projects
           </h1>
-          <p className="text-gray-500 text-lg leading-relaxed">
+          <p className="text-gray-500 text-lg leading-relaxed max-w-2xl">
             Things I&apos;ve built — data dashboards, social apps, shell interpreters, and more.
           </p>
         </motion.div>
 
-        {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8"
-        >
-          {[
-            { value: PROJECTS.length, label: "Projects" },
-            { value: "4", label: "Live apps" },
-            { value: "Full-stack", label: "Focus area" },
-            { value: "Python", label: "Go-to stack" },
-          ].map(({ value, label }) => (
-            <div key={label} className="bg-white border border-gray-100 rounded-xl p-5 flex flex-col gap-1 shadow-sm">
-              <span className="text-3xl font-extrabold text-indigo-900">{value}</span>
-              <span className="text-xs font-semibold text-indigo-700 uppercase tracking-widest">{label}</span>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Filter bar */}
+        {/* ── Filter Bar (Upgraded with Spring Layout Animation) ── */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.18 }}
-          className="mt-8"
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="mt-10 border-b border-slate-200/60 pb-6"
         >
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-1.5">
             <button
               onClick={() => setActiveTag(null)}
-              className={`inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest rounded-full px-3 py-1.5 border transition-all duration-200 cursor-pointer ${
-                activeTag === null
-                  ? "bg-indigo-900 text-white border-indigo-900 shadow-sm"
-                  : "bg-white text-indigo-500 border-indigo-200 hover:border-indigo-400 hover:text-indigo-700"
-              }`}
+              className="relative px-3.5 py-1.5 text-xs font-bold rounded-xl focus:outline-none transition-colors duration-200"
             >
-              All
-              <span
-                className={`text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center ${
-                  activeTag === null ? "bg-indigo-700 text-white" : "bg-indigo-100 text-indigo-400"
-                }`}
-              >
-                {PROJECTS.length}
+              {activeTag === null && (
+                <motion.span
+                  layoutId="projects-tag-pill"
+                  className="absolute inset-0 bg-indigo-950 rounded-xl"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              )}
+              <span className={`relative z-10 flex items-center gap-1.5 ${activeTag === null ? "text-white" : "text-slate-400 hover:text-slate-600"}`}>
+                All
+                <span className={`text-[10px] font-mono px-1 rounded ${activeTag === null ? "bg-indigo-800 text-indigo-200" : "bg-slate-100 text-slate-400"}`}>
+                  {PROJECTS.length}
+                </span>
               </span>
             </button>
 
             {tagCounts.map(([tag, count]) => (
-              <FilterChip
+              <button
                 key={tag}
-                label={tag}
-                active={activeTag === tag}
-                count={count}
                 onClick={() => setActiveTag(activeTag === tag ? null : tag)}
-              />
+                className="relative px-3.5 py-1.5 text-xs font-bold rounded-xl focus:outline-none transition-colors duration-200"
+              >
+                {activeTag === tag && (
+                  <motion.span
+                    layoutId="projects-tag-pill"
+                    className="absolute inset-0 bg-indigo-950 rounded-xl"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
+                <span className={`relative z-10 flex items-center gap-1.5 uppercase tracking-wider ${activeTag === tag ? "text-white" : "text-slate-400 hover:text-slate-600"}`}>
+                  {tag}
+                  <span className={`text-[10px] font-mono px-1 rounded ${activeTag === tag ? "bg-indigo-800 text-indigo-200" : "bg-slate-100 text-slate-400"}`}>
+                    {count}
+                  </span>
+                </span>
+              </button>
             ))}
           </div>
 
@@ -525,7 +467,7 @@ export default function Projects() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.2 }}
-                className="mt-3 text-sm text-indigo-400"
+                className="mt-4 text-sm text-indigo-400"
               >
                 Showing {filteredProjects.length} project{filteredProjects.length !== 1 ? "s" : ""} tagged{" "}
                 <span className="font-semibold text-indigo-600">{activeTag}</span>
@@ -559,7 +501,7 @@ export default function Projects() {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center text-gray-400 py-24"
+            className="text-center font-mono text-sm text-slate-400 py-24"
           >
             No projects match this tag.
           </motion.p>
@@ -567,7 +509,7 @@ export default function Projects() {
       </div>
 
       {/* ── Footer ── */}
-      <div className="max-w-5xl mx-auto px-8 py-6 text-xs text-gray-400">
+      <div className="max-w-5xl mx-auto px-8 py-6 text-xs text-slate-400 font-mono border-t border-slate-200/60">
         Updated June 2026
       </div>
     </main>
