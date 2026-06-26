@@ -82,7 +82,7 @@ export default function Music() {
 
         {/* Footer */}
         <div className="mt-12 pt-6 border-t border-gray-100 flex flex-wrap justify-between gap-2 text-xs text-gray-400">
-          <span>Updated Apr 2026</span>
+          <span>Updated June 2026</span>
           <Link
             href="https://www.youtube.com/channel/UC3jv-V2sKktWbd16ISmz2WQ"
             target="_blank"

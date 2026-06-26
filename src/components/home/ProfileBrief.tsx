@@ -113,7 +113,8 @@ export default function ProfileBrief() {
             {[
               { href: "/projects", label: "Projects →" },
               { href: "/experience", label: "Experience →" },
-              { href: "/blog", label: "Blog →" },
+              { href: "/bookshelf", label: "Bookshelf →"}
+              // { href: "/blog", label: "Blog →" },
             ].map(({ href, label }) => (
               <Link
                 key={href}

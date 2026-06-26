@@ -309,7 +309,7 @@ export default function AboutMe() {
 
         {/* Footer */}
         <div className="mt-12 pt-6 border-t border-gray-100 text-xs text-gray-400">
-          <span>Updated Apr 2026</span>
+          <span>Updated June 2026</span>
         </div>
       </div>
       <div>
