@@ -1,8 +1,8 @@
 "use client";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView, useMotionValue, useSpring } from "framer-motion";
 
 // ── Data ────────────────────────────────────────────────────────────
 
@@ -12,95 +12,86 @@ interface Project {
   description: string[];
   tags: string[];
   links: { label: string; href: string; disabled?: boolean }[];
+  accent?: string;
 }
 
 const PROJECTS: Project[] = [
   {
-  title: "AfterWord",
-  image: "/images/blog/afterword_full_logo.png",
-  tags: ["React", "TypeScript", "FastAPI", "PostgreSQL", "Mobile App"],
-  description: [
-    "AI-powered reading companion that transforms Kindle highlights into a searchable personal knowledge platform, helping users rediscover and retain insights from everything they've read",
-    "Designed and built the entire product from UX to backend infrastructure, including semantic retrieval, vector search, AI-generated insights, reading analytics, and scalable ingestion pipelines"
-  ],
-  links: [
-    {
-      label: "Get AfterWord",
-      href: "https://getafterword.vercel.app/",
-      disabled: false
-    },
-    {
-      label: "Blog Post",
-      href: "./blog/devlog2",
-      disabled: false
-    }
-  ],
-},
-
+    title: "AfterWord",
+    image: "/images/blog/notes_afterword_dashboard.png",
+    tags: ["React", "TypeScript", "FastAPI", "PostgreSQL", "Mobile App"],
+    accent: "#eef2ff",
+    description: [
+      "AI-powered reading companion that transforms Kindle highlights into a searchable personal knowledge platform",
+      "Semantic retrieval, vector search, AI-generated insights, reading analytics, and scalable ingestion pipelines",
+    ],
+    links: [
+      { label: "Get AfterWord", href: "https://getafterword.vercel.app/" },
+      { label: "Blog Post", href: "./blog/devlog2" },
+    ],
+  },
   {
     title: "Where Does Your Data Go?",
     image: "/images/projects/datago.png",
     tags: ["Python", "Streamlit", "Data Viz"],
+    accent: "#f0fdf4",
     description: [
-      "Interactive Streamlit app that visualizes the real-time journey of your data across the internet, from your device through CDNs, load balancers, servers, and storage",
-      "Features four data scenarios (photo upload, message, search, video stream) each with an animated node-by-node reveal"
+      "Visualizes the real-time journey of your data across CDNs, load balancers, servers, and storage",
+      "Four animated scenarios: photo upload, message, search, and video stream",
     ],
-    links: [{ label: "Visit Live App", href: "https://where-does-your-data-go.streamlit.app/", disabled: false },
+    links: [
+      { label: "Visit Live App", href: "https://where-does-your-data-go.streamlit.app/" },
       { label: "Source Code", href: "https://github.com/vvegesna01/Where-Does-Your-Data-Go" },
-      {label: "Blog Post", href:"./blog/wheredoesyourdatago"}
+      { label: "Blog Post", href: "./blog/wheredoesyourdatago" },
     ],
   },
   {
-  title: "Jot",
-  image: "/images/projects/jot_triage.gif",
-  tags: ["Electron", "macOS"],
-  description: [
-    "Frictionless macOS thought-capture tool that uses a global hotkey to summon a minimal floating input.",
-    "Parses inline syntax (#folder, !priority, due:date) in real time, with a triage window to keep, snooze, convert to task, or delete captured thoughts.",
-    "Let's you categorize into folders and manage different views including Today, Snoozed, etc",
-  ],
-  links: [
-    { label: "Download dmg (Coming Soon!)", href: "", disabled: true},
-    { label: "Blog Post", href:"./blog/smallsoftware"}
-  ],
-},
-{
-  title: "KrachBooks",
-  image: "/images/projects/krachbooks.gif",
-  tags: ["Python", "Streamlit", "Data Viz", "Dashboard"],
-  description: [
-    "A stats dashboard and badge tracker for a friend group book club.",
-    "Parses monthly Google Form CSV exports to surface reading stats across the club.",
-    "Features a per-member badge collection tracking streaks, reading speed, rating habits, and more.",
-    "Interactive charts for completion rates, rating distributions, and member breakdowns built with Plotly.",
-    "Includes a curator picker spin wheel to randomly select who runs the next month's meeting.",
-  ],
-  links: [{
-    label: "Website", href:"https://krach-books-dashboard.streamlit.app/"
+    title: "Jot",
+    image: "/images/projects/jot_triage.gif",
+    tags: ["Electron", "macOS"],
+    accent: "#fefce8",
+    description: [
+      "Global hotkey summons a minimal floating input — capture thoughts without breaking flow",
+      "Inline syntax (#folder, !priority, due:date) parsed in real time with a full triage window",
+    ],
+    links: [
+      { label: "Download dmg (Coming Soon!)", href: "", disabled: true },
+      { label: "Blog Post", href: "./blog/smallsoftware" },
+    ],
   },
-    { label: "Source Code", href: "https://github.com/vvegesna01/KrachBooks" },
-  ],
-},
+  {
+    title: "KrachBooks",
+    image: "/images/projects/krachbooks.gif",
+    tags: ["Python", "Streamlit", "Data Viz", "Dashboard"],
+    accent: "#fff7ed",
+    description: [
+      "Stats dashboard and badge tracker for a friend group book club",
+      "Parses monthly CSV exports, Plotly charts, per-member badges, and a spin-wheel curator picker",
+    ],
+    links: [
+      { label: "Website", href: "https://krach-books-dashboard.streamlit.app/" },
+      { label: "Source Code", href: "https://github.com/vvegesna01/KrachBooks" },
+    ],
+  },
   {
     title: "Obsidian Movie Vault",
     image: "/images/projects/add_movie.gif",
     tags: ["Obsidian"],
+    accent: "#fdf4ff",
     description: [
-      "A personal movie database built inside Obsidian using Markdown and Dataview.",
-      "Integrates with the IMDb API to automatically fetch movie metadata including ratings, genres, cast, and release year.",
-      "Supports dynamic queries to sort and filter movies by genre, rating, or watch status directly in Obsidian.",
-      "Designed as a lightweight, local alternative to third-party movie tracking apps.",
+      "Personal movie database inside Obsidian — IMDb API pulls metadata, Dataview handles dynamic queries",
+      "Sort and filter by genre, rating, or watch status; a lightweight local alternative to tracking apps",
     ],
-    links: [{ label: "Tutorial coming soon!", href: "", disabled: true },],
+    links: [{ label: "Tutorial coming soon!", href: "", disabled: true }],
   },
   {
     title: "Shelf This",
     image: "/images/projects/shelf_this.png",
     tags: ["Python", "Streamlit", "Data Viz", "Dashboard"],
+    accent: "#f0f9ff",
     description: [
-      "A dashboard to visualise reading habits using imported Goodreads / Storygraph data.",
-      "Built with Streamlit and Python.",
-      "Stats include Highest Rated Reads, Books by Format, Reading Pace metrics, and more.",
+      "Dashboard to visualise reading habits from Goodreads / Storygraph exports",
+      "Stats: Highest Rated Reads, Books by Format, Reading Pace, and more",
     ],
     links: [
       { label: "Source Code", href: "https://github.com/vvegesna01/ShelfThis" },
@@ -110,13 +101,11 @@ const PROJECTS: Project[] = [
   {
     title: "Investogram",
     image: "/images/projects/investogram_profile.png",
-    tags: ["React", "Next.js", "MongoDB", "Dashboard", "Capstone Project"],
+    tags: ["React", "Next.js", "MongoDB", "Dashboard"],
+    accent: "#ecfdf5",
     description: [
-      "An app for beginner traders to start with play money and interact with the stock market to learn about investing.",
-      "Built with MongoDB backend and React / Next.js frontend.",
-      "Features include making, commenting, and liking posts on your feed from friends.",
-      "A personal dashboard showing portfolio value, money invested, all previous trades, and current holdings.",
-      "Leaderboard incentives to get better at investing.",
+      "Beginner trading app with play money — learn investing by doing, with a live social feed",
+      "Portfolio dashboard, leaderboard, and full social layer: posts, comments, likes",
     ],
     links: [
       { label: "Source Code", href: "https://github.com/CS-407/Investogram-Frontend" },
@@ -127,10 +116,10 @@ const PROJECTS: Project[] = [
     title: "The Eras Tour Tracker",
     image: "/images/projects/eras_tour.png",
     tags: ["React", "Next.js", "Data Viz", "Dashboard"],
+    accent: "#fdf2f8",
     description: [
-      "A tracker for venues, openers, and song analytics for Taylor Swift's Eras Tour.",
-      "Geo-coded data with React / Next.js frontend and OpenStreetMaps API.",
-      "Dynamic visual representation of tour locations, setlists, openers, and venue info across devices.",
+      "Geo-coded tracker for Taylor Swift's Eras Tour — venues, openers, and song analytics on a live map",
+      "Dynamic visual representation of setlists and venue info across all devices",
     ],
     links: [
       { label: "Source Code", href: "https://github.com/vvegesna01/eras-tour-tracker" },
@@ -141,22 +130,22 @@ const PROJECTS: Project[] = [
     title: "Design Detective 🔎",
     image: "/images/projects/font_detective.gif",
     tags: ["HTML/CSS/JS", "Browser Extension"],
+    accent: "#fffbeb",
     description: [
-      "Let's you hover over fonts and colors on the interwebs and copy the font names and hex codes to your clipboard",
+      "Hover over any font or color on any website and copy the font name or hex code instantly",
     ],
     links: [
-      {label: "Download Extension", href: "https://github.com/vvegesna01/Design-Detective"},
-    ]
+      { label: "Download Extension", href: "https://github.com/vvegesna01/Design-Detective" },
+    ],
   },
   {
     title: "PurduePAL",
     image: "/images/projects/purduePAL.png",
-    tags: ["React", "Python", "MongoDB", "Capstone Project"],
+    tags: ["React", "Python", "MongoDB"],
+    accent: "#f5f3ff",
     description: [
-      "A social media app for Purdue students to connect with each other.",
-      "Built with React frontend and Python / MongoDB backend.",
-      "Features include liking, commenting, posting, and following interest pages.",
-      "Anonymous posting option and profile customization with picture, bio, and username.",
+      "Social media app for Purdue students — posts, comments, likes, and interest-based pages",
+      "Anonymous posting, profile customization with bio, photo, and username",
     ],
     links: [
       { label: "Source Code", href: "https://github.com/CS307Spring2022/PurduePAL-Backend" },
@@ -165,10 +154,11 @@ const PROJECTS: Project[] = [
   {
     title: "Shell Project",
     image: "/images/projects/shell.png",
-    tags: ["C", "Systems Programming", "Capstone Project"],
+    tags: ["C", "Systems Programming"],
+    accent: "#f8fafc",
     description: [
-      "Shell interpreter written in C++ that replicates functionality of csh and bash shells.",
-      "Features include piping and file redirection, exit signal handling, subshell, environment variable expansion, wildcard expansion, command history, and path completion.",
+      "Shell interpreter in C++ replicating csh and bash: piping, redirection, subshell, wildcard expansion",
+      "Command history, path completion, exit signal handling, and environment variable expansion",
     ],
     links: [
       { label: "CSH", href: "https://www2.cs.duke.edu/csl/docs/csh.html" },
@@ -179,6 +169,7 @@ const PROJECTS: Project[] = [
     title: "Old Portfolio Website",
     image: "/images/projects/old_portfolio.png",
     tags: ["HTML/CSS/JS", "Portfolio"],
+    accent: "#f1f5f9",
     description: [],
     links: [
       { label: "Source Code", href: "https://github.com/vvegesna01/old-portfolio" },
@@ -187,34 +178,17 @@ const PROJECTS: Project[] = [
   },
 ];
 
-// ── Variants ─────────────────────────────────────────────────────────
-
-const fadeInVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-};
-
-const staggerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-};
-
-const cardVariant = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-};
-
-// ── Sub-components ───────────────────────────────────────────────────
+// ── Helpers ─────────────────────────────────────────────────────────
 
 function Tag({ label }: { label: string }) {
   return (
-    <span className="inline-block bg-indigo-50 border border-indigo-100 text-indigo-500 text-xs font-semibold uppercase tracking-widest rounded-full px-3 py-0.5">
+    <span className="inline-block bg-indigo-50 border border-indigo-100 text-indigo-500 text-[10px] font-semibold uppercase tracking-widest rounded-full px-2.5 py-0.5">
       {label}
     </span>
   );
 }
 
-function FilterTag({
+function FilterChip({
   label,
   active,
   count,
@@ -228,22 +202,17 @@ function FilterTag({
   return (
     <button
       onClick={onClick}
-      className={`
-        inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest rounded-full px-3 py-1.5
-        border transition-all duration-200 cursor-pointer
-        ${
-          active
-            ? "bg-indigo-900 text-white border-indigo-900 shadow-sm"
-            : "bg-white text-indigo-500 border-indigo-200 hover:border-indigo-400 hover:text-indigo-700"
-        }
-      `}
+      className={`inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest rounded-full px-3 py-1.5 border transition-all duration-200 cursor-pointer ${
+        active
+          ? "bg-indigo-900 text-white border-indigo-900 shadow-sm"
+          : "bg-white text-indigo-500 border-indigo-200 hover:border-indigo-400 hover:text-indigo-700"
+      }`}
     >
       {label}
       <span
-        className={`
-          text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center
-          ${active ? "bg-indigo-700 text-white" : "bg-indigo-100 text-indigo-400"}
-        `}
+        className={`text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center ${
+          active ? "bg-indigo-700 text-white" : "bg-indigo-100 text-indigo-400"
+        }`}
       >
         {count}
       </span>
@@ -251,92 +220,207 @@ function FilterTag({
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
-  const [imgLoaded, setImgLoaded] = useState(false);
+// ── Stacked Project Card ─────────────────────────────────────────────
+
+function ProjectCard({ project, index, total }: { project: Project; index: number; total: number }) {
+  const [hovered, setHovered] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-60px" });
+
+  const primaryLink = project.links.find((l) => !l.disabled);
+  const stickyTop = 80 + index * 14;
+
+  // Track Mouse coordinates for Custom Follow-Cursor
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth out coordinate tracking
+  const springConfig = { damping: 25, stiffness: 250, mass: 0.5 };
+  const cursorX = useSpring(mouseX, springConfig);
+  const cursorY = useSpring(mouseY, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    // Position tracking relative to the dynamic panel box
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  };
 
   return (
-    <motion.div
-      variants={cardVariant}
-      layout
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -16, transition: { duration: 0.2 } }}
-      className="group relative bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden"
-    >
-      {/* Left accent bar */}
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-indigo-900 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-l-xl" />
+    <div ref={ref} style={{ zIndex: index + 1 }} className="relative max-w-5xl mx-auto px-4 md:px-8">
+      <motion.div
+        initial={{ opacity: 0, y: 60 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        style={{
+          position: "sticky",
+          top: stickyTop,
+          backgroundColor: project.accent ?? "#fff",
+        }}
+        className="rounded-2xl overflow-hidden shadow-md border border-black/5"
+      >
+        {/* ── Bento grid layout ── */}
+        <div className="grid grid-cols-1 md:grid-cols-5 min-h-[480px]">
+          {/* Left: text panel — 2/5 */}
+          <div className="md:col-span-2 flex flex-col justify-between p-8 md:p-10">
+            <div>
+              <div className="flex flex-wrap gap-1.5 mb-6">
+                {project.tags.map((tag) => (
+                  <Tag key={tag} label={tag} />
+                ))}
+              </div>
 
-      <div className="flex flex-col sm:flex-row gap-0">
-        {/* Image panel */}
-        <div className="relative sm:w-64 sm:shrink-0 h-52 sm:h-auto bg-indigo-50 overflow-hidden">
-          {!imgLoaded && (
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-100 to-indigo-50 animate-pulse" />
-          )}
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className={`object-cover transition-opacity duration-300 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
-            onLoad={() => setImgLoaded(true)}
-            unoptimized
-          />
-          <div className="absolute inset-0 bg-indigo-900/0 group-hover:bg-indigo-900/10 transition-all duration-300" />
-        </div>
+              <h2 className="text-2xl md:text-3xl font-extrabold text-indigo-900 leading-tight mb-5">
+                {project.title}
+              </h2>
 
-        {/* Content panel */}
-        <div className="flex-1 p-6 flex flex-col justify-between gap-4">
-          <div>
-            {/* Tags */}
-            <div className="flex flex-wrap gap-1.5 mb-3">
-              {project.tags.map((tag) => (
-                <Tag key={tag} label={tag} />
-              ))}
+              {project.description.length > 0 && (
+                <ul className="space-y-3">
+                  {project.description.map((point, i) => (
+                    <li key={i} className="flex gap-3 text-sm text-gray-600 leading-relaxed">
+                      <span className="mt-2 shrink-0 w-1.5 h-1.5 rounded-full bg-indigo-300" />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
 
-            {/* Title */}
-            <h3 className="text-xl font-extrabold text-indigo-900 group-hover:text-purple-500 transition-colors duration-300 leading-tight mb-3">
-              {project.title}
-            </h3>
-
-            {/* Description */}
-            {project.description.length > 0 && (
-              <ul className="space-y-2">
-                {project.description.map((point, i) => (
-                  <li key={i} className="flex gap-2 text-sm text-gray-600 leading-relaxed">
-                    <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-indigo-300" />
-                    {point}
-                  </li>
-                ))}
-              </ul>
-            )}
+            <div className="flex flex-wrap gap-2 mt-8">
+              {project.links.map((link) =>
+                link.disabled ? (
+                  <span
+                    key={link.label}
+                    className="inline-block bg-black/5 text-gray-400 text-sm font-semibold rounded-full py-2 px-5 cursor-not-allowed"
+                  >
+                    {link.label}
+                  </span>
+                ) : (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-indigo-900 text-white text-sm font-semibold rounded-full py-2 px-5 border border-indigo-900 hover:bg-transparent hover:text-indigo-900 transition duration-300"
+                  >
+                    {link.label}
+                  </Link>
+                )
+              )}
+            </div>
           </div>
 
-          {/* Links */}
-          <div className="flex flex-wrap gap-2 pt-1">
-            {project.links.map((link) =>
-              link.disabled ? (
-                <span
-                  key={link.label}
-                  className="inline-block bg-gray-100 text-gray-400 text-sm font-semibold rounded-full py-1.5 px-4 cursor-not-allowed"
-                >
-                  {link.label}
-                </span>
-              ) : (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block bg-indigo-900 text-white text-sm font-semibold rounded-full py-1.5 px-4 border border-indigo-900 hover:bg-transparent hover:text-indigo-900 transition duration-300"
-                >
-                  {link.label}
-                </Link>
-              )
-            )}
-          </div>
+          {/* Right: image panel — 3/5 */}
+          {primaryLink ? (
+            <Link
+              href={primaryLink.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="md:col-span-3 relative overflow-hidden min-h-[260px] cursor-none block"
+              onMouseEnter={() => setHovered(true)}
+              onMouseLeave={() => setHovered(false)}
+              onMouseMove={handleMouseMove}
+            >
+              <motion.div
+                animate={{ scale: hovered ? 1.035 : 1 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="absolute inset-0 h-full w-full"
+              >
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover"
+                  unoptimized
+                />
+              </motion.div>
+
+              <div
+                className="absolute inset-y-0 left-0 w-16 pointer-events-none z-10"
+                style={{
+                  background: `linear-gradient(to right, ${project.accent ?? "#fff"}, transparent)`,
+                }}
+              />
+
+              {/* Dynamic Tracking Cursor Overlay Button */}
+              <AnimatePresence>
+                {hovered && (
+                  <motion.div
+                    style={{
+                      left: cursorX,
+                      top: cursorY,
+                      translateX: "-50%",
+                      translateY: "-50%",
+                    }}
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0, opacity: 0 }}
+                    className="absolute pointer-events-none z-30 hidden md:flex items-center gap-1.5 bg-indigo-900 text-white font-bold text-xs rounded-full px-5 py-3 shadow-xl whitespace-nowrap"
+                  >
+                    Go to project
+                    <svg
+                      className="w-3.5 h-3.5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2.5}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M7 7h10v10" />
+                    </svg>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </Link>
+          ) : (
+            // Static image wrapper for unlinked items (e.g., "Coming Soon")
+            <div
+              className="md:col-span-3 relative overflow-hidden min-h-[260px] cursor-not-allowed"
+              onMouseEnter={() => setHovered(true)}
+              onMouseLeave={() => setHovered(false)}
+            >
+              <div className="absolute inset-0">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover opacity-75 grayscale-[20%]"
+                  unoptimized
+                />
+              </div>
+              <div
+                className="absolute inset-y-0 left-0 w-16 pointer-events-none"
+                style={{
+                  background: `linear-gradient(to right, ${project.accent ?? "#fff"}, transparent)`,
+                }}
+              />
+              <AnimatePresence>
+                {hovered && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-0 bg-black/40 flex items-center justify-center backdrop-blur-[2px]"
+                  >
+                    <span className="bg-white/90 text-gray-800 text-xs font-bold tracking-wider uppercase rounded-full px-5 py-2.5 shadow">
+                      Coming soon
+                    </span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
         </div>
-      </div>
-    </motion.div>
+
+        {/* Bottom edge counter */}
+        <div className="absolute bottom-3 right-4 text-xs font-semibold text-black/20 tabular-nums select-none">
+          {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+        </div>
+      </motion.div>
+
+      {/* Spacer so the next card has room to scroll over this one */}
+      <div className="h-6" />
+    </div>
   );
 }
 
@@ -345,7 +429,6 @@ function ProjectCard({ project }: { project: Project }) {
 export default function Projects() {
   const [activeTag, setActiveTag] = useState<string | null>(null);
 
-  // Collect all unique tags with counts
   const tagCounts = useMemo(() => {
     const counts: Record<string, number> = {};
     for (const project of PROJECTS) {
@@ -353,44 +436,37 @@ export default function Projects() {
         counts[tag] = (counts[tag] ?? 0) + 1;
       }
     }
-    // Sort by count descending, then alphabetically
     return Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
   }, []);
 
   const filteredProjects = useMemo(
-    () =>
-      activeTag
-        ? PROJECTS.filter((p) => p.tags.includes(activeTag))
-        : PROJECTS,
+    () => (activeTag ? PROJECTS.filter((p) => p.tags.includes(activeTag)) : PROJECTS),
     [activeTag]
   );
 
   return (
-    <main className="flex min-h-screen flex-col p-10 bg-white overflow-x-hidden">
-      <div className="max-w-4xl w-full mx-auto">
-
-        {/* Header */}
+    <main className="min-h-screen bg-gray-50 overflow-x-hidden">
+      {/* ── Header ── */}
+      <div className="max-w-5xl mx-auto px-8 pt-14 pb-10">
         <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={fadeInVariants}
-          className="mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
         >
-          <h1 className="text-4xl leading-10 font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-3">
+          <h1 className="text-4xl font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-3 leading-tight">
             Projects
           </h1>
-          <p className="text-gray-500 leading-8 text-lg">
-            Things I&apos;ve built, from data dashboards to social apps to shell interpreters.
+          <p className="text-gray-500 text-lg leading-relaxed">
+            Things I&apos;ve built — data dashboards, social apps, shell interpreters, and more.
           </p>
         </motion.div>
 
-        {/* Stats row */}
+        {/* Stats */}
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={fadeInVariants}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8"
         >
           {[
             { value: PROJECTS.length, label: "Projects" },
@@ -398,39 +474,28 @@ export default function Projects() {
             { value: "Full-stack", label: "Focus area" },
             { value: "Python", label: "Go-to stack" },
           ].map(({ value, label }) => (
-            <div
-              key={label}
-              className="bg-indigo-50 border border-indigo-100 rounded-lg p-5 flex flex-col gap-1"
-            >
+            <div key={label} className="bg-white border border-gray-100 rounded-xl p-5 flex flex-col gap-1 shadow-sm">
               <span className="text-3xl font-extrabold text-indigo-900">{value}</span>
-              <span className="text-xs font-semibold text-indigo-700 uppercase tracking-widest">
-                {label}
-              </span>
+              <span className="text-xs font-semibold text-indigo-700 uppercase tracking-widest">{label}</span>
             </div>
           ))}
         </motion.div>
 
-        {/* Tag filter bar */}
+        {/* Filter bar */}
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={fadeInVariants}
-          className="mb-6"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.18 }}
+          className="mt-8"
         >
           <div className="flex flex-wrap items-center gap-2">
-            {/* "All" pill */}
             <button
               onClick={() => setActiveTag(null)}
-              className={`
-                inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest rounded-full px-3 py-1.5
-                border transition-all duration-200 cursor-pointer
-                ${
-                  activeTag === null
-                    ? "bg-indigo-900 text-white border-indigo-900 shadow-sm"
-                    : "bg-white text-indigo-500 border-indigo-200 hover:border-indigo-400 hover:text-indigo-700"
-                }
-              `}
+              className={`inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest rounded-full px-3 py-1.5 border transition-all duration-200 cursor-pointer ${
+                activeTag === null
+                  ? "bg-indigo-900 text-white border-indigo-900 shadow-sm"
+                  : "bg-white text-indigo-500 border-indigo-200 hover:border-indigo-400 hover:text-indigo-700"
+              }`}
             >
               All
               <span
@@ -443,7 +508,7 @@ export default function Projects() {
             </button>
 
             {tagCounts.map(([tag, count]) => (
-              <FilterTag
+              <FilterChip
                 key={tag}
                 label={tag}
                 active={activeTag === tag}
@@ -453,7 +518,6 @@ export default function Projects() {
             ))}
           </div>
 
-          {/* Active filter summary */}
           <AnimatePresence>
             {activeTag && (
               <motion.p
@@ -476,36 +540,35 @@ export default function Projects() {
             )}
           </AnimatePresence>
         </motion.div>
+      </div>
 
-        {/* Project cards */}
-        <motion.div
-          variants={staggerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.05 }}
-          className="flex flex-col gap-4"
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
-              <ProjectCard key={project.title} project={project} />
-            ))}
-          </AnimatePresence>
+      {/* ── Stacked project cards ── */}
+      <div className="pb-40">
+        <AnimatePresence mode="popLayout">
+          {filteredProjects.map((project, i) => (
+            <ProjectCard
+              key={project.title}
+              project={project}
+              index={i}
+              total={filteredProjects.length}
+            />
+          ))}
+        </AnimatePresence>
 
-          {filteredProjects.length === 0 && (
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center text-gray-400 py-12"
-            >
-              No projects match this tag.
-            </motion.p>
-          )}
-        </motion.div>
+        {filteredProjects.length === 0 && (
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center text-gray-400 py-24"
+          >
+            No projects match this tag.
+          </motion.p>
+        )}
+      </div>
 
-        {/* Footer */}
-        <div className="mt-12 pt-6 border-t border-gray-100 flex flex-wrap justify-between gap-2 text-xs text-gray-400">
-          <span>Updated June 2026</span>
-        </div>
+      {/* ── Footer ── */}
+      <div className="max-w-5xl mx-auto px-8 py-6 text-xs text-gray-400">
+        Updated June 2026
       </div>
     </main>
   );
