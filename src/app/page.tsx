@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import CurrentlyBrief from '@/components/home/currentlyBrief';
+import ExpBrief from '@/components/home/ExpBrief'
 
 export default function Home() {
   return (
