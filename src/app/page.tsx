@@ -4,12 +4,11 @@ import ShowcaseBrief from '@/components/home/showCase';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
-import CurrentlyBrief from '@/components/home/currentlyBrief';
-import ExpBrief from '@/components/home/ExpBrief'
+import PageContainer from '@/components/layout/PageContainer';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col justify-between p-5">
+    <PageContainer className="flex flex-col justify-between pt-5" size="default">
       <div>
         <ProfileBrief />
 
@@ -40,6 +39,6 @@ export default function Home() {
           </h1>
         </div>
       </div>
-    </main>
+    </PageContainer>
   );
 }

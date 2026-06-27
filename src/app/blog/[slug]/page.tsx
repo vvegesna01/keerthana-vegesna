@@ -4,6 +4,8 @@ import { remark } from "remark";
 import html from "remark-html";
 import remarkGfm from "remark-gfm";
 import Link from "next/link";
+import PageContainer from "@/components/layout/PageContainer";
+import Tag from "@/components/ui/Tag";
 
 export default async function BlogPostPage({
   params,
@@ -24,7 +26,7 @@ export default async function BlogPostPage({
   const contentHtml = processedContent.toString();
 
   return (
-    <main className="max-w-3xl mx-auto px-6 pt-16 pb-16">
+    <PageContainer size="narrow" className="pt-16 pb-16">
       {/* Back */}
       <Link
         href="/blog"
@@ -55,12 +57,11 @@ export default async function BlogPostPage({
       {/* Tags */}
       <div className="flex flex-wrap gap-2 mb-8">
         {post.tags.map((tag: string) => (
-          <span
+          <Tag
             key={tag}
-            className="text-xs px-2 py-1 bg-indigo-50 text-indigo-700 rounded-md"
-          >
-            {tag}
-          </span>
+            label={tag}
+            variant="blog-detail"
+          />
         ))}
       </div>
 
@@ -81,6 +82,6 @@ export default async function BlogPostPage({
                    prose-strong:text-indigo-900"
         dangerouslySetInnerHTML={{ __html: contentHtml }}
       />
-    </main>
+    </PageContainer>
   );
 }

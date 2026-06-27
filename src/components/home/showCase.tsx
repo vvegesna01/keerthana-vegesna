@@ -3,6 +3,8 @@ import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
+import Section from "@/components/layout/Section";
+import Tag from "@/components/ui/Tag";
 
 const projects = [
   { title: "Where Does Your Data Go?", image: "/images/projects/datago.png", link: "/projects", colSpan: "md:col-span-2", rowSpan: "md:row-span-2", large: true },
@@ -22,14 +24,6 @@ const posts = [
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
-}
-
-function Tag({ label }: { label: string }) {
-  return (
-    <span className="inline-block px-2 py-0.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-[10px] font-medium tracking-wide">
-      {label}
-    </span>
-  );
 }
 
 type Tab = "projects" | "writing";
@@ -71,7 +65,7 @@ export default function ShowcaseBrief() {
   };
 
   return (
-    <section className="max-w-4xl mx-auto px-6 py-10">
+    <Section className="py-10">
       {/* Tab Header Section */}
       <div className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
         <div>
@@ -195,9 +189,7 @@ export default function ShowcaseBrief() {
                   <div className="absolute inset-x-0 bottom-0 p-6 z-10">
                     <div className="flex gap-1.5 mb-2.5 flex-wrap">
                       {featured.tags.map((t) => (
-                        <span key={t} className="px-2 py-0.5 rounded-full bg-white/20 text-white text-[10px] font-medium tracking-wide backdrop-blur-md">
-                          {t}
-                        </span>
+                        <Tag key={t} label={t} variant="featured" />
                       ))}
                     </div>
                     <p className="text-white font-extrabold text-lg md:text-xl leading-snug mb-1.5">{featured.title}</p>
@@ -254,6 +246,6 @@ export default function ShowcaseBrief() {
           {tab === "projects" ? "All Projects →" : "All Writing →"}
         </Link>
       </div>
-    </section>
+    </Section>
   );
 }
