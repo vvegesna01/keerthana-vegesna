@@ -14,10 +14,10 @@ interface MiniBook {
 const FEATURED: MiniBook[] = [
   { title: "Babel", author: "R.F. Kuang", isbn: "9780063021426" },
   { title: "Project Hail Mary", author: "Andy Weir", isbn: "9780593135204" },
-  { title: "Exhalation", author: "Ted Chiang", isbn: "9781101947906" },
-  { title: "Flowers for Algernon", author: "Daniel Keyes", isbn: "9780063320222" },
+  { title: "Exhalation", author: "Ted Chiang", isbn: "9781101972083" },
+  { title: "Flowers for Algernon", author: "Daniel Keyes", isbn: "9781407230030" },
   { title: "Tomorrow, and Tomorrow, and Tomorrow", author: "Gabrielle Zevin", isbn: "9781529115543" },
-  { title: "The Invisible Life of Addie LaRue", author: "V.E. Schwab", isbn: "9781250777959" },
+  { title: "The Invisible Life of Addie LaRue", author: "V.E. Schwab", isbn: "9780765387561" },
   { title: "God of Small Things", author: "Arundhati Roy", isbn: "9780143028574" },
   { title: "The Martian", author: "Andy Weir", isbn: "0804139032" },
 ];
