@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
+import Tag from "@/components/ui/Tag";
 
 type Post = {
   slug: string;
@@ -63,12 +64,11 @@ export default function PostCard({ post }: { post: Post }) {
             {/* Tags Inline Code Block tags */}
             <div className="flex flex-wrap gap-1 mt-2">
               {post.tags.map((tag: string) => (
-                <span
+                <Tag
                   key={tag}
-                  className="px-1.5 py-0.5 font-mono text-[9px] rounded bg-indigo-50/50 border border-indigo-100/30 text-indigo-600 font-medium tracking-wide uppercase"
-                >
-                  {tag}
-                </span>
+                  label={tag}
+                  variant="mono"
+                />
               ))}
             </div>
           </div>

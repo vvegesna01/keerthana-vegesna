@@ -2,6 +2,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import PageContainer from "@/components/layout/PageContainer";
+import PageHeader from "@/components/layout/PageHeader";
+import StatCard from "@/components/ui/StatCard";
+import Tag from "@/components/ui/Tag";
+import FooterMetadata from "@/components/layout/FooterMetadata";
 
 // ── Data ────────────────────────────────────────────────────────────
 
@@ -112,14 +117,6 @@ const cardVariant = {
 
 // ── Sub-components ───────────────────────────────────────────────────
 
-function StatPill({ label }: { label: string }) {
-  return (
-    <span className="inline-block bg-indigo-50 border border-indigo-100 text-indigo-500 text-xs font-semibold uppercase tracking-widest rounded-full px-3 py-0.5">
-      {label}
-    </span>
-  );
-}
-
 function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
   const [imgLoaded, setImgLoaded] = useState(false);
 
@@ -155,7 +152,7 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
             <span className="text-xs font-semibold uppercase tracking-widest text-indigo-400">
               {exp.duration}
             </span>
-            {exp.tag && <StatPill label={exp.tag} />}
+            {exp.tag && <Tag label={exp.tag} variant="stat" />}
           </div>
 
           <h3 className="text-xl font-extrabold text-indigo-900 group-hover:text-purple-500 transition-colors duration-300 leading-tight">
@@ -181,68 +178,47 @@ function ExperienceCard({ exp, index }: { exp: Experience; index: number }) {
 
 export default function Experiences() {
   return (
-    <main className="flex min-h-screen flex-col p-10 bg-white overflow-x-hidden">
-      <div className="max-w-4xl w-full mx-auto">
+    <PageContainer className="flex flex-col" size="default">
 
-        {/* Header */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={fadeInVariants}
-          className="mb-10"
-        >
-          <h1 className="text-4xl leading-10 font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-3">
-            Experience
-          </h1>
-          <p className="text-gray-500 leading-8 text-lg">
-            A timeline of the roles and teams that shaped how I build things.
-          </p>
-        </motion.div>
+      {/* Header */}
+      <PageHeader
+        title="Experience"
+        subtitle="A timeline of the roles and teams that shaped how I build things."
+      />
 
-        {/* Quick stats */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={fadeInVariants}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10"
-        >
-          {[
-            { value: EXPERIENCES.length, label: "Roles" },
-            { value: "2+", label: "Years" },
-            { value: "AWS", label: "Cloud Focus" },
-            { value: "Python", label: "Go-to Stack" },
-          ].map(({ value, label }) => (
-            <div
-              key={label}
-              className="bg-indigo-50 border border-indigo-100 rounded-lg p-5 flex flex-col gap-1"
-            >
-              <span className="text-3xl font-extrabold text-indigo-900">{value}</span>
-              <span className="text-xs font-semibold text-indigo-700 uppercase tracking-widest">
-                {label}
-              </span>
-            </div>
-          ))}
-        </motion.div>
+      {/* Quick stats */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={fadeInVariants}
+        className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10"
+      >
+        {[
+          { value: EXPERIENCES.length, label: "Roles" },
+          { value: "2+", label: "Years" },
+          { value: "AWS", label: "Cloud Focus" },
+          { value: "Python", label: "Go-to Stack" },
+        ].map(({ value, label }) => (
+          <StatCard key={label} value={value} label={label} />
+        ))}
+      </motion.div>
 
-        {/* Experience cards */}
-        <motion.div
-          variants={staggerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.05 }}
-          className="flex flex-col gap-4"
-        >
-          {EXPERIENCES.map((exp, index) => (
-            <ExperienceCard key={index} exp={exp} index={index} />
-          ))}
-        </motion.div>
+      {/* Experience cards */}
+      <motion.div
+        variants={staggerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.05 }}
+        className="flex flex-col gap-4"
+      >
+        {EXPERIENCES.map((exp, index) => (
+          <ExperienceCard key={index} exp={exp} index={index} />
+        ))}
+      </motion.div>
 
-        {/* Footer */}
-        <div className="mt-12 pt-6 border-t border-gray-100 flex flex-wrap justify-between gap-2 text-xs text-gray-400">
-          <span>Updated June 2026</span>
-        </div>
-      </div>
-    </main>
+      {/* Footer */}
+      <FooterMetadata updatedText="Updated June 2026" />
+    </PageContainer>
   );
 }

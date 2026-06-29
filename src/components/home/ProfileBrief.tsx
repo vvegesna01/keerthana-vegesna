@@ -1,7 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import Section from "@/components/layout/Section";
+import ProfileImage from "@/components/ui/ProfileImage";
 
 // Mix resume words with genuine personality — the contrast is the point
 const WORDS = [
@@ -56,39 +57,16 @@ export default function ProfileBrief() {
   const typed = useTypewriter(WORDS);
 
   return (
-    <section className="max-w-4xl mx-auto px-6 pt-16 pb-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+    <Section className="pt-16 pb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mt-20">
 
         {/* Image — tilted frame that straightens on hover */}
-        <Link
-          className="
-            relative w-full h-80 md:h-[420px] rounded-xl overflow-hidden
-            bg-indigo-100
-            rotate-[-3deg] hover:rotate-0 hover:scale-[1.02]
-            transition-all duration-300 ease-out
-            cursor-pointer
-            shadow-md hover:shadow-xl
-          "
-          href={"/about"}
-        >
-          <Image
-            src="/images/profiles/profile-headshot.jpg"
-            alt="Keerthana profile"
-            fill
-            className="object-cover"
-          />
-
-          {/* Corner tag — feels personal, not resume-y */}
-          <div className="
-            absolute bottom-3 left-3
-            bg-white/85 backdrop-blur-sm
-            rounded-lg px-3 py-1
-            text-[11px] font-mono text-white
-            tracking-wide z-10
-          ">
-            keerthana.dev
-          </div>
-        </Link>
+        <ProfileImage
+          src="/images/profiles/profile-headshot.jpg"
+          alt="Keerthana profile"
+          cornerTag="keerthana.dev"
+          href="/about"
+        />
 
         {/* Text */}
         <div>
@@ -132,6 +110,6 @@ export default function ProfileBrief() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

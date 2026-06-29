@@ -1,9 +1,12 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import BookRecommender from "@/components/bookshelf/readNext";
+import PageContainer from "@/components/layout/PageContainer";
+import PageHeader from "@/components/layout/PageHeader";
+import FooterMetadata from "@/components/layout/FooterMetadata";
+import StatCard from "@/components/ui/StatCard";
 
 // ── Data ────────────────────────────────────────────────────────────
 
@@ -192,25 +195,7 @@ function BookCoverCard({
   );
 }
 
-function StatCard({
-  value,
-  label,
-  sub,
-}: {
-  value: string | number;
-  label: string;
-  sub?: string;
-}) {
-  return (
-    <div className="bg-indigo-50 border border-indigo-100 rounded-lg p-5 flex flex-col gap-1">
-      <span className="text-3xl font-extrabold text-indigo-900">{value}</span>
-      <span className="text-xs font-semibold text-indigo-700 uppercase tracking-widest">
-        {label}
-      </span>
-      {sub && <span className="text-xs text-indigo-400">{sub}</span>}
-    </div>
-  );
-}
+
 
 function RatingChart() {
   const max = Math.max(...RATING_DIST.map((r) => r.count));
@@ -369,31 +354,25 @@ export default function Bookshelf() {
   const visible = showAll ? FIVE_STARS : FIVE_STARS.slice(0, 10);
 
   return (
-    <main className="flex min-h-screen flex-col p-10 bg-white overflow-x-hidden">
-      <div className="max-w-4xl w-full mx-auto">
-        {/* Header */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={fadeInVariants}
-          className="mb-10"
-        >
-          <h1 className="text-4xl leading-10 font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-3">
-            Bookshelf
-          </h1>
-          <p className="text-localhost_text leading-8 text-lg">
+    <PageContainer className="flex flex-col" size="default">
+      {/* Header */}
+      <PageHeader
+        title="Bookshelf"
+        subtitle={
+          <>
             I read A LOT and I track it obsessively on{" "}
             <Link
               href="https://app.thestorygraph.com/profile/books_keerthana_reads"
               target="_blank"
               rel="noopener"
-              className="text-xl text-links_color underline hover:text-transparent hover:bg-gradient-to-r hover:bg-clip-text hover:from-purple-500 hover:to-indigo-500 transition transform hover:-translate-y-1"
+              className="text-xl text-links_color underline hover:text-transparent hover:bg-gradient-to-r hover:bg-clip-text hover:from-purple-500 hover:to-indigo-500 transition inline-block align-baseline"
             >
               Storygraph
             </Link>
             . Here&apos;s a data view of my reading life.
-          </p>
-        </motion.div>
+          </>
+        }
+      />
                 {/* 5-star reads with covers */}
         <motion.div
           initial="hidden"
@@ -462,24 +441,17 @@ export default function Bookshelf() {
 
 
 
-        {/* Footer */}
-        <div className="mt-12 pt-6 border-t border-gray-100 flex flex-wrap justify-between gap-2 text-xs text-gray-400">
-          <span>Data from Storygraph export · updated Apr 2026</span>
-          <div className="flex gap-4">
-            {/* <Link href="/blog" className="hover:text-indigo-500 transition">
-              📓 Keeth&apos;s Field Notes →
-            </Link> */}
-            <Link
-              href="/blog"
-              target="_blank"
-              rel="noopener"
-              className="text-links_color underline hover:text-transparent hover:bg-gradient-to-r hover:bg-clip-text hover:from-purple-500 hover:to-indigo-500 transition"
-            >
-              ✎ᝰ Keeth&apos;s Field Notes →
-            </Link>
-          </div>
-        </div>
-      </div>
-    </main>
+      {/* Footer */}
+      <FooterMetadata updatedText="Data from Storygraph export · updated Apr 2026">
+        <Link
+          href="/blog"
+          target="_blank"
+          rel="noopener"
+          className="text-links_color underline hover:text-transparent hover:bg-gradient-to-r hover:bg-clip-text hover:from-purple-500 hover:to-indigo-500 transition"
+        >
+          ✎ᝰ Keeth&apos;s Field Notes →
+        </Link>
+      </FooterMetadata>
+    </PageContainer>
   );
 }

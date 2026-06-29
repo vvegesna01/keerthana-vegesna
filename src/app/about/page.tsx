@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Globe2, Users, BookOpen, Camera, Music } from "lucide-react";
@@ -8,6 +7,9 @@ import BlogBrief from "@/components/home/BlogBrief";
 
 import PhotographyGrid from "@/components/about/photographyGrid";
 import HikingGame from "@/components/about/hikingGame";
+import PageContainer from "@/components/layout/PageContainer";
+import ProfileImage from "@/components/ui/ProfileImage";
+import FooterMetadata from "@/components/layout/FooterMetadata";
 
 // ── Variants ─────────────────────────────────────────────────────────
 
@@ -61,8 +63,7 @@ export default function AboutMe() {
   const [hikingActive, setHikingActive] = useState(false);
 
   return (
-    <main className="flex min-h-screen flex-col p-10 bg-white overflow-x-hidden">
-      <div className="max-w-4xl w-full mx-auto">
+    <PageContainer className="flex flex-col" size="default">
         {/* ── Hero ── */}
         <motion.div
           initial="hidden"
@@ -72,34 +73,11 @@ export default function AboutMe() {
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             {/* Image (LEFT) */}
-                    <div
-          className="
-            relative w-full h-80 md:h-[420px] rounded-xl overflow-hidden
-            bg-indigo-100
-            rotate-[-3deg] hover:rotate-0 hover:scale-[1.02]
-            transition-all duration-300 ease-out
-            cursor-pointer
-            shadow-md hover:shadow-xl
-          "
-        >
-          <Image
-            src="/images/profiles/grad_2023.jpg"
-            alt="Keerthana profile"
-            fill
-            className="object-cover"
-          />
-
-          {/* Corner tag — feels personal, not resume-y */}
-          <div className="
-            absolute bottom-3 left-3
-            bg-white/85 backdrop-blur-sm
-            rounded-lg px-3 py-1
-            text-[11px] font-mono text-white
-            tracking-wide z-10
-          ">
-            purdue.grad
-          </div>
-        </div>
+            <ProfileImage
+              src="/images/profiles/grad_2023.jpg"
+              alt="Keerthana profile"
+              cornerTag="purdue.grad"
+            />
             {/* <div className="relative w-full h-80 md:h-[420px] rounded-xl overflow-hidden shadow-lg">
               <Image
                 src="/images/profiles/grad_2023.jpg"
@@ -308,15 +286,10 @@ export default function AboutMe() {
         
 
         {/* Footer */}
-        <div className="mt-12 pt-6 border-t border-gray-100 text-xs text-gray-400">
-          <span>Updated June 2026</span>
-        </div>
-      </div>
-      <div>
-  {hikingActive && (
-    <HikingGame onClose={() => setHikingActive(false)} />
-  )}
-</div>
-    </main>
+        <FooterMetadata updatedText="Updated June 2026" />
+      {hikingActive && (
+        <HikingGame onClose={() => setHikingActive(false)} />
+      )}
+    </PageContainer>
   );
 }

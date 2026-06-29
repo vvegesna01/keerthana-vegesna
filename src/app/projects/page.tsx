@@ -3,6 +3,11 @@ import React, { useState, useMemo, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence, useInView, useMotionValue, useSpring } from "framer-motion";
+import PageContainer from "@/components/layout/PageContainer";
+import PageHeader from "@/components/layout/PageHeader";
+import FooterMetadata from "@/components/layout/FooterMetadata";
+import Tag from "@/components/ui/Tag";
+import Button from "@/components/ui/Button";
 
 // ── Data ────────────────────────────────────────────────────────────
 
@@ -178,15 +183,7 @@ const PROJECTS: Project[] = [
   },
 ];
 
-// ── Upgraded Tags (Matches PostCard Inline Styles) ───────────────────
-
-function CustomTag({ label }: { label: string }) {
-  return (
-    <span className="px-2 py-0.5 font-mono text-[10px] rounded bg-indigo-50/60 border border-indigo-100/30 text-indigo-700 font-medium tracking-wide uppercase">
-      {label}
-    </span>
-  );
-}
+// ── Stacked Project Card Component ───────────────────────────────────
 
 // ── Stacked Project Card Component ───────────────────────────────────
 
@@ -213,7 +210,7 @@ function ProjectCard({ project, index, total }: { project: Project; index: numbe
   };
 
   return (
-    <div ref={ref} style={{ zIndex: index + 1 }} className="relative max-w-5xl mx-auto px-4 md:px-8">
+    <div ref={ref} style={{ zIndex: index + 1 }} className="relative">
       <motion.div
         initial={{ opacity: 0, y: 60 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -231,7 +228,7 @@ function ProjectCard({ project, index, total }: { project: Project; index: numbe
             <div>
               <div className="flex flex-wrap gap-1 mb-5">
                 {project.tags.map((tag) => (
-                  <CustomTag key={tag} label={tag} />
+                  <Tag key={tag} label={tag} variant="project-mono" />
                 ))}
               </div>
 
@@ -252,26 +249,18 @@ function ProjectCard({ project, index, total }: { project: Project; index: numbe
             </div>
 
             <div className="flex flex-wrap gap-2 mt-8">
-              {project.links.map((link) =>
-                link.disabled ? (
-                  <span
-                    key={link.label}
-                    className="inline-block bg-black/5 text-slate-400 text-xs font-bold rounded-full py-2 px-5 cursor-not-allowed uppercase tracking-wider"
-                  >
-                    {link.label}
-                  </span>
-                ) : (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block bg-indigo-950 text-white text-xs font-bold rounded-full py-2 px-5 border border-indigo-950 hover:bg-transparent hover:text-indigo-950 transition-colors duration-300 uppercase tracking-wider"
-                  >
-                    {link.label}
-                  </Link>
-                )
-              )}
+              {project.links.map((link) => (
+                <Button
+                  key={link.label}
+                  href={link.disabled ? undefined : link.href}
+                  disabled={link.disabled}
+                  variant={link.disabled ? "disabled" : "primary"}
+                  size="sm"
+                  target="_blank"
+                >
+                  {link.label}
+                </Button>
+              ))}
             </div>
           </div>
 
@@ -393,99 +382,90 @@ export default function Projects() {
   );
 
   return (
-    <main className="min-h-screen bg-gray-50/30 text-slate-900 selection:bg-indigo-100 selection:text-indigo-900 overflow-x-hidden">
+    <PageContainer className="bg-gray-50/30 text-slate-900 selection:bg-indigo-100 selection:text-indigo-900" size="default">
       
-      {/* ── Content Frame Header ── */}
-      <div className="max-w-5xl mx-auto px-8 pt-14 pb-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-        >
-          <h1 className="text-4xl leading-10 font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-3 tracking-tight">
-            Projects
-          </h1>
-          <p className="text-gray-500 text-lg leading-relaxed max-w-2xl">
-            Things I&apos;ve built — data dashboards, social apps, shell interpreters, and more.
-          </p>
-        </motion.div>
+      {/* ── Header ── */}
+      <PageHeader
+        title="Projects"
+        subtitle="Things I've built — data dashboards, social apps, shell interpreters, and more."
+        animate={false}
+      />
 
-        {/* ── Filter Bar (Upgraded with Spring Layout Animation) ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="mt-10 border-b border-slate-200/60 pb-6"
-        >
-          <div className="flex flex-wrap items-center gap-1.5">
+      {/* ── Filter Bar (Upgraded with Spring Layout Animation) ── */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.1 }}
+        className="mt-10 border-b border-slate-200/60 pb-6"
+      >
+        <div className="flex flex-wrap items-center gap-1.5">
+          <button
+            onClick={() => setActiveTag(null)}
+            className="relative px-3.5 py-1.5 text-xs font-bold rounded-xl focus:outline-none transition-colors duration-200"
+          >
+            {activeTag === null && (
+              <motion.span
+                layoutId="projects-tag-pill"
+                className="absolute inset-0 bg-indigo-950 rounded-xl"
+                transition={{ type: "spring", stiffness: 380, damping: 30 }}
+              />
+            )}
+            <span className={`relative z-10 flex items-center gap-1.5 ${activeTag === null ? "text-white" : "text-slate-400 hover:text-slate-600"}`}>
+              All
+              <span className={`text-[10px] font-mono px-1 rounded ${activeTag === null ? "bg-indigo-800 text-indigo-200" : "bg-slate-100 text-slate-400"}`}>
+                {PROJECTS.length}
+              </span>
+            </span>
+          </button>
+
+          {tagCounts.map(([tag, count]) => (
             <button
-              onClick={() => setActiveTag(null)}
+              key={tag}
+              onClick={() => setActiveTag(activeTag === tag ? null : tag)}
               className="relative px-3.5 py-1.5 text-xs font-bold rounded-xl focus:outline-none transition-colors duration-200"
             >
-              {activeTag === null && (
+              {activeTag === tag && (
                 <motion.span
                   layoutId="projects-tag-pill"
                   className="absolute inset-0 bg-indigo-950 rounded-xl"
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               )}
-              <span className={`relative z-10 flex items-center gap-1.5 ${activeTag === null ? "text-white" : "text-slate-400 hover:text-slate-600"}`}>
-                All
-                <span className={`text-[10px] font-mono px-1 rounded ${activeTag === null ? "bg-indigo-800 text-indigo-200" : "bg-slate-100 text-slate-400"}`}>
-                  {PROJECTS.length}
+              <span className={`relative z-10 flex items-center gap-1.5 uppercase tracking-wider ${activeTag === tag ? "text-white" : "text-slate-400 hover:text-slate-600"}`}>
+                {tag}
+                <span className={`text-[10px] font-mono px-1 rounded ${activeTag === tag ? "bg-indigo-800 text-indigo-200" : "bg-slate-100 text-slate-400"}`}>
+                  {count}
                 </span>
               </span>
             </button>
+          ))}
+        </div>
 
-            {tagCounts.map(([tag, count]) => (
+        <AnimatePresence>
+          {activeTag && (
+            <motion.p
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.2 }}
+              className="mt-4 text-sm text-indigo-400"
+            >
+              Showing {filteredProjects.length} project{filteredProjects.length !== 1 ? "s" : ""} tagged{" "}
+              <span className="font-semibold text-indigo-600">{activeTag}</span>
+              {" · "}
               <button
-                key={tag}
-                onClick={() => setActiveTag(activeTag === tag ? null : tag)}
-                className="relative px-3.5 py-1.5 text-xs font-bold rounded-xl focus:outline-none transition-colors duration-200"
+                onClick={() => setActiveTag(null)}
+                className="underline underline-offset-2 hover:text-indigo-800 transition-colors"
               >
-                {activeTag === tag && (
-                  <motion.span
-                    layoutId="projects-tag-pill"
-                    className="absolute inset-0 bg-indigo-950 rounded-xl"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <span className={`relative z-10 flex items-center gap-1.5 uppercase tracking-wider ${activeTag === tag ? "text-white" : "text-slate-400 hover:text-slate-600"}`}>
-                  {tag}
-                  <span className={`text-[10px] font-mono px-1 rounded ${activeTag === tag ? "bg-indigo-800 text-indigo-200" : "bg-slate-100 text-slate-400"}`}>
-                    {count}
-                  </span>
-                </span>
+                Clear filter
               </button>
-            ))}
-          </div>
-
-          <AnimatePresence>
-            {activeTag && (
-              <motion.p
-                initial={{ opacity: 0, y: -6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.2 }}
-                className="mt-4 text-sm text-indigo-400"
-              >
-                Showing {filteredProjects.length} project{filteredProjects.length !== 1 ? "s" : ""} tagged{" "}
-                <span className="font-semibold text-indigo-600">{activeTag}</span>
-                {" · "}
-                <button
-                  onClick={() => setActiveTag(null)}
-                  className="underline underline-offset-2 hover:text-indigo-800 transition-colors"
-                >
-                  Clear filter
-                </button>
-              </motion.p>
-            )}
-          </AnimatePresence>
-        </motion.div>
-      </div>
+            </motion.p>
+          )}
+        </AnimatePresence>
+      </motion.div>
 
       {/* ── Stacked project cards ── */}
-      <div className="pb-40">
+      <div className="mt-8">
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((project, i) => (
             <ProjectCard
@@ -509,9 +489,7 @@ export default function Projects() {
       </div>
 
       {/* ── Footer ── */}
-      <div className="max-w-5xl mx-auto px-8 py-6 text-xs text-slate-400 font-mono border-t border-slate-200/60">
-        Updated June 2026
-      </div>
-    </main>
+      <FooterMetadata updatedText="Updated June 2026" className="border-slate-200/60" />
+    </PageContainer>
   );
 }
