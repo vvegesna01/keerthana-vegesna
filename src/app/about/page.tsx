@@ -228,10 +228,7 @@ export default function AboutMe() {
           </div>
         </motion.div>
 
-        
-
-        {/* Footer */}
-        <FooterMetadata updatedText="Updated June 2026" />
+      
       {hikingActive && (
         <HikingGame onClose={() => setHikingActive(false)} />
       )}

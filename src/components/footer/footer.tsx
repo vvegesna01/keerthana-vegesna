@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import FooterMetadata from "../layout/FooterMetadata";
 
 export default function Footer() {
   return (
     <footer className="border-t border-gray-100">
       <div className="max-w-4xl mx-auto px-6 py-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-400">
-
+        
         <span>© 2026 Keerthana Vegesna</span>
+        
 
         <div className="flex gap-4 items-center">
           <Link
@@ -24,7 +26,9 @@ export default function Footer() {
           >
             <FaLinkedin size={14} />
           </Link>
+          <span>Updated June 2026</span>
         </div>
+        
 
       </div>
     </footer>
