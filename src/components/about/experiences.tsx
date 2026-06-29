@@ -313,7 +313,7 @@ function BentoCell({
         {exp.techTags && (
           <div className={`flex flex-wrap gap-1 mt-3 color-black ${active ? "" : "opacity-40"}`}>
             {exp.techTags.slice(0, isLg ? 5 : 2).map((t) => (
-              <Tag key={t} label={t} variant="tech" />
+              <Tag key={t} label={t} variant="default" />
             ))}
           </div>
         )}
@@ -321,7 +321,7 @@ function BentoCell({
 
       {active && (
         <div className="absolute inset-0 bg-indigo-900/0 group-hover:bg-indigo-900/85 transition-all duration-300 flex items-end p-4 pointer-events-none">
-          <div className="translate-y-3 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center gap-1 text-white text-xs font-semibold">
+          <div className="translate-y-3 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center gap-1 text-indigo-900 bg-white text-xs font-semibold">
             View details <ArrowUpRight size={14} />
           </div>
         </div>
@@ -384,7 +384,7 @@ function ExperienceModal({ exp, onClose }: { exp: Experience; onClose: () => voi
         {exp.techTags && (
           <div className="flex flex-wrap gap-1.5 mb-3">
             {exp.techTags.map((t) => (
-              <Tag key={t} label={t} variant="tech" />
+              <Tag key={t} label={t} variant="default" />
             ))}
           </div>
         )}
