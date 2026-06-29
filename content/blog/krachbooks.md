@@ -27,7 +27,7 @@ Okay so the first thing you see is a **Overview Dashboard** with lots of pretty 
 
 This tab has some nice shelves with the books we've read so far and clicking on them gives you all the stats and quotes for that book. If you know me you also know that I love maps so I added a fun little map to show where in the world our reading endeavours have taken us.
 
-[preview coming soon]
+![KrachBooks](/images/blog/krachbookstab.gif)
 
 # Check-In
 
@@ -45,15 +45,15 @@ My favourite pa-aaart! This whole site started cause I wanted to get fun badges 
 
 The way our club works is we have a curator pick out a few books each month and let everyone vote (using Ranked Choice) to decide which book we'll be reading for the month. So members see this view when voting is open:
 
-
-![KrachBooks](/images/blog/curator.gif)
-
+![KrachBooks](/images/blog/krachvoting.gif)
 
 Curators get a special control panel that lets them add books, open voting, see results and close voting to automatically pick a winner and change the config to the next month.
 
+
+![KrachBooks](/images/blog/curator.gif)
 
 # Improvements?
 
 Next thing I'm working on is showing progress towards badges and having a better layout cause there's a lot of badges now and too much scrolling on this page. The book shelf also doesn't render great on mobile so gotta fix that too.
 
-and that's it! Super proud of the book club we've been able to keep going for months now and I'll definitely be doing some updates or adding new badges to celebrate our first full year of reading together.
+And that's it! Super proud of the book club we've been able to keep going for months now and I'll definitely be doing some updates or adding new badges to celebrate our first full year of reading together.
