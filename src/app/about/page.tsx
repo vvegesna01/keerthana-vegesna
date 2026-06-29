@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Globe2, Users, BookOpen, Camera, Music } from "lucide-react";
+import { Globe2, Users, BookOpen, Camera, Music, ArrowRight } from "lucide-react";
 import BlogBrief from "@/components/home/BlogBrief";
 
 import PhotographyGrid from "@/components/about/photographyGrid";
@@ -10,6 +10,8 @@ import HikingGame from "@/components/about/hikingGame";
 import PageContainer from "@/components/layout/PageContainer";
 import ProfileImage from "@/components/ui/ProfileImage";
 import FooterMetadata from "@/components/layout/FooterMetadata";
+import FloatingHobbies from "@/components/about/FloatingHobbies";
+import MiniBookshelf from "@/components/about/MiniBookshelf";
 
 // ── Variants ─────────────────────────────────────────────────────────
 
@@ -78,15 +80,6 @@ export default function AboutMe() {
               alt="Keerthana profile"
               cornerTag="purdue.grad"
             />
-            {/* <div className="relative w-full h-80 md:h-[420px] rounded-xl overflow-hidden shadow-lg">
-              <Image
-                src="/images/profiles/grad_2023.jpg"
-                fill
-                className="object-cover object-top"
-                alt="Keerthana profile"
-                priority
-              />
-            </div> */}
 
             {/* Text (RIGHT) */}
             <div>
@@ -140,57 +133,8 @@ export default function AboutMe() {
         </motion.div>
 
         {/* ── Beyond Tech — 4-up cards linking to sections ── */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeInVariants}
-          className="mb-12"
-        >
-          <h2 className="text-2xl font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-6">
-            🎧 Beyond Tech
-          </h2>
-          <motion.div
-            variants={staggerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            className="grid grid-cols-2 sm:grid-cols-4 gap-3"
-          >
-            {HOBBIES.map(({ icon: Icon, label, color, href }) => (
-              <motion.div key={label} variants={itemVariant}>
-                {label === "Hiking" ? (
-                  // Hiking triggers the game instead of navigating
-                  <button
-                    onClick={() => setHikingActive(true)}
-                    className="group bg-indigo-50 border border-indigo-100 rounded-lg p-5 flex flex-col items-center gap-2 hover:shadow-md transition-shadow duration-300 text-center w-full"
-                  >
-                    <Icon
-                      size={24}
-                      className={`${color} group-hover:scale-110 transition-transform duration-200`}
-                    />
-                    <span className="text-xs font-semibold uppercase tracking-widest text-indigo-700">
-                      {label}
-                    </span>
-                  </button>
-                ) : (
-                  <Link
-                    href={href}
-                    className="group bg-indigo-50 border border-indigo-100 rounded-lg p-5 flex flex-col items-center gap-2 hover:shadow-md transition-shadow duration-300 text-center block"
-                  >
-                    <Icon
-                      size={24}
-                      className={`${color} group-hover:scale-110 transition-transform duration-200`}
-                    />
-                    <span className="text-xs font-semibold uppercase tracking-widest text-indigo-700">
-                      {label}
-                    </span>
-                  </Link>
-                )}
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
+        <FloatingHobbies setHikingActive={setHikingActive}></FloatingHobbies>
+
 
         {/* ── Music ── */}
         <motion.div
@@ -234,6 +178,7 @@ export default function AboutMe() {
             ))}
           </div>
         </motion.div>
+        <MiniBookshelf></MiniBookshelf>
 
         {/* ── Photography ── */}
         <motion.div
@@ -283,10 +228,7 @@ export default function AboutMe() {
           </div>
         </motion.div>
 
-        
-
-        {/* Footer */}
-        <FooterMetadata updatedText="Updated June 2026" />
+      
       {hikingActive && (
         <HikingGame onClose={() => setHikingActive(false)} />
       )}

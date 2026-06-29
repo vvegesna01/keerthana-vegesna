@@ -488,8 +488,6 @@ export default function Projects() {
         )}
       </div>
 
-      {/* ── Footer ── */}
-      <FooterMetadata updatedText="Updated June 2026" className="border-slate-200/60" />
     </PageContainer>
   );
 }
