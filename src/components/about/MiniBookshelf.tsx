@@ -65,7 +65,7 @@ export default function MiniBookshelf() {
             📚 Bookshelf
           </h2>
         <p className="text-gray-500 leading-8 text-lg mb-6">
-            Recent favorites & recommendations
+            Recent favourites & recs
           </p>
         </div>
         <Link

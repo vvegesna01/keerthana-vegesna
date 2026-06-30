@@ -4,45 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
+
 const posts = [
-      {
-    slug: "q1_books",
-    title: "Quarterly Reading Recap",
-    date: "2025-03-31",
-    tags: ["books", "personal-essay"],
-    coverImage: "/images/blog/babel.jpg",
-  },
-
-
-    {
-    slug: "3_wheredoesyourdatago",
-    title: "Where Does Your Data Go?",
-    date: "2026-04-24",
-    tags: ["coding-projects", "technical-learnings"],
-    coverImage: "/images/blog/photo_upload.jpg",
-  },
-    {
-    slug: "1_walkingallofnycinaday",
-    title: "Walking all of NYC in a Day",
-    date: "2025-06-08",
-    tags: ["storytime"],
-    coverImage: "/images/blog/nycstrava.png",
-  },
-
-  {
-    slug: "typinggame",
-    title: "How fast can you type?",
-    date: "2026-04-27",
-    tags: ["coding-projects"],
-    coverImage: "/images/blog/keyboard.jpg",
-  },
-  {
-    slug: "agentvsapi",
-    title: "Building AI Agents vs API Design",
-    date: "2025-01-15",
-    tags: ["technical-learnings"],
-    coverImage: "/images/blog/aivsapi.jpeg",
-  },
+  { slug: "q1_books", title: "Quarterly Reading Recap", date: "2025-03-31", tags: ["books", "personal-essay"], coverImage: "/images/blog/babel.jpg" },
+  { slug: "recordhighsweetandsour", title: "Record High Sweet & Sours", date: "2025-05-21", tags: ["short-story"], coverImage: "/images/blog/mangoes2026.jpg" },
+  { slug: "thearchitectureofperception", title: "The Architecture of Perception", date: "2026-05-18", tags: ["linguistics", "personal-essay"], coverImage: "/images/blog/arrival.jpg" },
+  { slug: "typinggame", title: "How fast can you type?", date: "2026-04-27", tags: ["coding-projects"], coverImage: "/images/blog/keyboard.jpg" },
+  { slug: "1_walkingallofnycinaday", title: "Walking all of NYC in a Day", date: "2025-06-08", tags: ["storytime"], coverImage: "/images/blog/nycstrava.png" },
 ];
 
 function formatDate(dateStr: string) {
