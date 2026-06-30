@@ -6,13 +6,15 @@ import ProfileImage from "@/components/ui/ProfileImage";
 
 // Mix resume words with genuine personality — the contrast is the point
 const WORDS = [
-  "Software Engineer",
-  "Bookworm",
-  "Currently job-hunting",
-  "Data Science Researcher",
-  "Guitarist + Songwriter",
-  "Will talk for hours about books",
-  "Data is my jam",
+  "💻 Software Engineer",
+  "📚 Bookworm",
+  "📊 Data Science Researcher",
+  "📓 Teaching Assistant",
+  "🎸 Guitarist & Singer-Songwriter",
+  "Purdue Alum, Boiler Up!",
+  "🔨 Built this site with code & some blood, sweat and tears as well",
+  "☕️ Amateur Barista (decent lattes)",
+  "🎧 Currently listening to an audiobook (probably)"
 ];
 
 function useTypewriter(words: string[], typeSpeed = 65, deleteSpeed = 35, pauseMs = 1600) {
@@ -80,11 +82,10 @@ export default function ProfileBrief() {
             <span className="animate-pulse">|</span>
           </p>
 
-          <p className="text-localhost_text leading-7 mb-4">
-            I enjoy building systems, exploring data, and creating things that are both useful and thoughtful.
-          </p>
-          <p className="text-localhost_text leading-7 mb-6">
-            Outside of work I love reading, playing guitar + songwriting, and building small interactive projects around books and data.
+          <p className="text-localhost_text leading-7 mb-5">
+            I’m a Software Engineer who loves clean systems, good documentation, and fun UI.
+          <p className="text-localhost_text leading-7 mt-2 mb-6">
+            Outside of engineering, my life is mostly run on books, songwriting, and sharing my weekly field notes.</p>
           </p>
 
           <div className="flex gap-5 text-sm flex-wrap">
