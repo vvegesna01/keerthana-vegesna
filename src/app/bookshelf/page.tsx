@@ -12,64 +12,18 @@ import StatCard from "@/components/ui/StatCard";
 
 const FIVE_STARS: { title: string; author: string; isbn: string }[] = [
   { title: "Babel", author: "R.F. Kuang", isbn: "9780063021426" },
-  {
-    title: "Flowers for Algernon",
-    author: "Daniel Keyes",
-    isbn: "9781474605731",
-  },
-  { title: "Betty", author: "Tiffany McDaniel", isbn: "9780525657071" },
-  {
-    title: "Sunrise On The Reaping",
-    author: "Suzanne Collins",
-    isbn: "9781546171461",
-  },
   { title: "Project Hail Mary", author: "Andy Weir", isbn: "9780593135204" },
-  { title: "The Guest Cat", author: "Takashi Hiraide", isbn: "9780811221504" },
+  { title: "Exhalation", author: "Ted Chiang", isbn: "9781101972083" },
+  { title: "Flowers for Algernon", author: "Daniel Keyes", isbn: "9781407230030" },
+  { title: "Tomorrow, and Tomorrow, and Tomorrow", author: "Gabrielle Zevin", isbn: "9781529115543" },
+  { title: "The Invisible Life of Addie LaRue", author: "V.E. Schwab", isbn: "9780765387561" },
+  { title: "God of Small Things", author: "Arundhati Roy", isbn: "9780143028574" },
+  { title: "The Martian", author: "Andy Weir", isbn: "0804139032" },
+  { title: "The Missing README", author: "Chris Riccomini, Dmitriy Ryaboy", isbn: "9781718501836" },
   {
-    title: "Crying in H Mart",
-    author: "Michelle Zauner",
-    isbn: "9780525657743",
-  },
-  {
-    title: "Lessons in Chemistry",
-    author: "Bonnie Garmus",
-    isbn: "9780385547345",
-  },
-  { title: "Educated", author: "Tara Westover", isbn: "9780525510673" },
-  { title: "Open Water", author: "Caleb Azumah Nelson", isbn: "9780241448779" },
-  { title: "A Suitable Boy", author: "Vikram Seth", isbn: "9780062433657" },
-  {
-    title: "Someone Who Will Love You in All Your Damaged Glory",
-    author: "Raphael Bob-Waksberg",
-    isbn: "9781984891891",
-  },
-  { title: "Strange Houses", author: "Uketsu", isbn: "9780063433151" },
-  {
-    title: "Everything is Tuberculosis",
-    author: "John Green",
-    isbn: "9798217082391",
-  },
-  {
-    title: "The Hunger Games",
-    author: "Suzanne Collins",
-    isbn: "9780439023481",
-  },
-  { title: "Such a Fun Age", author: "Kiley Reid", isbn: "9780525541929" },
-  { title: "The Martian", author: "Andy Weir", isbn: "9780804139021" },
-  {
-    title: "The Little Book of Hygge",
-    author: "Meik Wiking",
-    isbn: "9780241283912",
-  },
-  {
-    title: "The Invisible Life of Addie LaRue",
-    author: "V.E. Schwab",
-    isbn: "9781250777959",
-  },
-  {
-    title: "We Should All Be Feminists",
-    author: "Chimamanda Ngozi Adichie",
-    isbn: "9781101872932",
+    title: "Enders Game",
+    author: "Orson Scott Card",
+    isbn: "9780812550702",
   },
 ];
 
@@ -368,6 +322,13 @@ export default function Bookshelf() {
               className="text-xl text-links_color underline hover:text-transparent hover:bg-gradient-to-r hover:bg-clip-text hover:from-purple-500 hover:to-indigo-500 transition inline-block align-baseline"
             >
               Storygraph
+            </Link> and <Link
+              href="https://fable.co/fabler/keerthana-375959759596"
+              target="_blank"
+              rel="noopener"
+              className="text-xl text-links_color underline hover:text-transparent hover:bg-gradient-to-r hover:bg-clip-text hover:from-purple-500 hover:to-indigo-500 transition inline-block align-baseline"
+            >
+              Fable
             </Link>
             . Here&apos;s a data view of my reading life.
           </>

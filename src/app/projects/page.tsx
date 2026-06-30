@@ -23,7 +23,7 @@ interface Project {
 const PROJECTS: Project[] = [
   {
     title: "AfterWord",
-    image: "/images/blog/notes_afterword_dashboard.png",
+    image: "/images/projects/aw_mockup.jpeg",
     tags: ["React", "TypeScript", "FastAPI", "PostgreSQL", "Mobile App"],
     accent: "#eef2ff",
     description: [
@@ -37,7 +37,7 @@ const PROJECTS: Project[] = [
   },
   {
     title: "Where Does Your Data Go?",
-    image: "/images/projects/datago.png",
+    image: "/images/projects/datago_mockup.png",
     tags: ["Python", "Streamlit", "Data Viz"],
     accent: "#f0fdf4",
     description: [
@@ -66,7 +66,7 @@ const PROJECTS: Project[] = [
   },
   {
     title: "KrachBooks",
-    image: "/images/projects/krachbooks.gif",
+    image: "/images/projects/krachbooks_mockup1.png",
     tags: ["Python", "Streamlit", "Data Viz", "Dashboard"],
     accent: "#fff7ed",
     description: [
@@ -74,7 +74,7 @@ const PROJECTS: Project[] = [
       "Parses monthly CSV exports, Plotly charts, per-member badges, and a spin-wheel curator picker",
     ],
     links: [
-      { label: "Website", href: "https://krach-books-dashboard.streamlit.app/" },
+      { label: "Check it out!", href: "./blog/krachbooks" },
       { label: "Source Code", href: "https://github.com/vvegesna01/KrachBooks" },
     ],
   },
@@ -119,7 +119,7 @@ const PROJECTS: Project[] = [
   },
   {
     title: "The Eras Tour Tracker",
-    image: "/images/projects/eras_tour.png",
+    image: "/images/projects/eras_mockup.png",
     tags: ["React", "Next.js", "Data Viz", "Dashboard"],
     accent: "#fdf2f8",
     description: [
