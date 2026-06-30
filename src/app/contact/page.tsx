@@ -61,15 +61,15 @@ export default function Contact() {
               onClick={() => setShowCard(true)}
             >
               <Image
-                src="/images/logo/standard.png"
-                alt="Keerthana working at a laptop"
+                src="/images/logo/hover.png"
+                alt="Keerthana looking up from laptop"
                 fill
                 className="object-contain rounded-xl transition-opacity duration-300 group-hover:opacity-0"
                 unoptimized
               />
               <Image
-                src="/images/logo/hover.png"
-                alt="Keerthana looking up from laptop"
+                src="/images/logo/standard.png"
+                alt="Keerthana working at a laptop"
                 fill
                 className="absolute inset-0 object-contain rounded-xl transition-opacity duration-300 opacity-0 group-hover:opacity-100"
                 unoptimized
@@ -221,14 +221,14 @@ export default function Contact() {
                         level={"H"}
                         fgColor="#1C4E9C"
                         includeMargin={false}
-                        imageSettings={{
-                          src: "/images/logo/hover.png", 
-                          x: undefined,
-                          y: undefined,
-                          height: 28,
-                          width: 28,
-                          excavate: true,
-                        }}
+                        // imageSettings={{
+                        //   src: "/images/logo/hover.png", 
+                        //   x: undefined,
+                        //   y: undefined,
+                        //   height: 28,
+                        //   width: 28,
+                        //   excavate: true,
+                        // }}
                       />
                     ) : (
                       <div className="w-[150px] h-[150px] bg-slate-100 animate-pulse rounded-xl" />
