@@ -34,7 +34,7 @@ export default function Contact() {
       
       <div className="mb-2">
         <p className="text-xl text-slate-700">
-          SWE <span className="text-slate-300 font-normal px-1">@</span> <span className="">Maksika Group</span>
+          MTS <span className="text-slate-300 font-normal px-1">@</span> <span className="">ApexFlo Labs</span>
         </p>
         <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider m-2 flex items-center justify-center gap-1">
   <FaMapMarkerAlt className="text-[#1C4E9C] text-[10px]" />

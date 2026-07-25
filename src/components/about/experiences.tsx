@@ -32,58 +32,98 @@ interface Experience {
 }
 
 const EXPERIENCES: Experience[] = [
-  {
-    duration: "FEB 2026",
-    company: "AfterWord",
-    tag: "Current",
-    role: "Founder & Solo-Developer",
-    bentoSize: "lg",
-    skills: ["Backend", "AI/Infra", "Cloud", "Frontend"],
-    description: [
-      "Built a knowledge ingestion and retrieval platform using FastAPI, PostgreSQL, PostGIS, pgvector, and Next.js to structure and resurface long-term reading and research data.",
-      "Designed asynchronous ingestion pipelines to parse, normalize, chunk, embed, and index external content — including reading exports — into vectorized, queryable knowledge entries.",
-      "Implemented semantic retrieval and ranking systems enabling low-latency search across 10k+ embedded highlights using vector similarity queries and Redis caching.",
-      "Architected and deployed the full platform independently, including backend services, infrastructure, database schema design, AI integration, and frontend development.",
-    ],
-    stats: [
-      { value: "10K+", label: "embedded highlights" },
-      { value: "100%", label: "solo-architected" },
-    ],
-    techTags: ["FastAPI", "PostgreSQL", "pgvector", "Redis", "Next.js"],
-    image: "/images/exp/aw-logo.png",
-  },
-  {
-    duration: "JAN 2026",
-    company: "Maksika Group",
-    tag: "Current",
-    role: "Software Engineer",
-    bentoSize: "md",
-    skills: ["Backend", "Cloud", "Frontend"],
-    description: [
-      "Develop and maintain GIS and geospatial applications supporting Earth Science Engineering and mineral prospecting workflows across international projects.",
-      "Build and maintain the official web platform and customer-facing digital applications for Maksika Group.",
-      "Contribute to spatial data workflows and geospatial analytics solutions using open-source GIS technologies and PostgreSQL/PostGIS databases.",
-    ],
-    stats: [],
-    techTags: ["PostGIS", "PostgreSQL", "GIS", "Python"],
-    image: "/images/exp/maksika.png",
-  },
-  {
-    duration: "OCT 2025 - JAN 2026",
-    company: "EMVO.AI",
-    role: "Platform & AgentOps Engineer",
-    bentoSize: "md",
-    skills: ["Backend", "Cloud", "AI/Infra"],
-    description: [
-      "Built backend orchestration services coordinating external services, authentication flows, and tool execution across customer-facing AI applications.",
-      "Improved availability and reliability of production AWS services through monitoring, observability improvements, and infrastructure optimization.",
-      "Investigated and resolved production incidents involving asynchronous workflows, API failures, and cloud infrastructure issues to maintain service reliability and customer uptime.",
-      "Collaborated cross-functionally with frontend, product, and infrastructure teams to ship production-ready features under tight timelines.",
-    ],
-    stats: [{ value: "~30%", label: "faster incident resolution" }],
-    techTags: ["AWS", "S3/CloudWatch/Lambda", "REST APIs", "Async Workflows", "Microservices", "ElevenLabs", "Google ADKs"],
-    image: "/images/exp/emvo_new_logo.png",
-  },
+{
+  duration: "JUL 2026 – PRESENT",
+  company: "ApexFlo.ai",
+  tag: "Current",
+  role: "Member of Technical Staff (MTS-1)",
+  bentoSize: "lg",
+  skills: ["Systems", "Backend", "AI/Infra", "Computer Vision"],
+  description: [
+    "Develop backend services and AI infrastructure powering on-premise computer vision systems and enterprise legal AI applications.",
+    "Build retrieval-augmented generation (RAG) pipelines for legal document search, contextual retrieval, and LLM-assisted workflows.",
+    "Develop Linux edge software using Go, Python, systemd, and OpenCV for deployment on dedicated hardware.",
+    "Collaborate across hardware, backend, and AI teams to integrate computer vision pipelines into production deployments."
+  ],
+  stats: [
+    { value: "Go", label: "Primary Language" },
+    { value: "Linux", label: "Edge Systems" }
+  ],
+  techTags: [
+    "Go",
+    "Python",
+    "Linux",
+    "systemd",
+    "OpenCV",
+    "RAG",
+    "PostgreSQL"
+  ],
+  image: "/images/exp/apexflo.png",
+},
+{
+  duration: "2026",
+  company: "AfterWord",
+  role: "Founder & Solo Developer",
+  bentoSize: "md",
+  skills: ["Backend", "AI/Infra", "Frontend"],
+  description: [
+    "Built a knowledge ingestion and retrieval platform using FastAPI, PostgreSQL, PostGIS, pgvector, Redis, and Next.js.",
+    "Designed asynchronous ingestion pipelines to parse, normalize, embed, and index long-form reading data.",
+    "Implemented semantic retrieval across 10K+ embedded highlights using vector similarity search and Redis caching.",
+    "Architected the entire platform including backend infrastructure, AI pipelines, database design, and frontend."
+  ],
+  stats: [
+    { value: "10K+", label: "Embeddings" },
+    { value: "100%", label: "Built Solo" }
+  ],
+  techTags: [
+    "FastAPI",
+    "PostgreSQL",
+    "PostGIS",
+    "pgvector",
+    "Redis",
+    "Next.js"
+  ],
+  image: "/images/exp/aw-logo.png",
+},
+  // {
+  //   duration: "JAN 2026",
+  //   company: "Maksika Group",
+  //   tag: "",
+  //   role: "Software Engineer",
+  //   bentoSize: "md",
+  //   skills: ["Backend", "Cloud", "Frontend"],
+  //   description: [
+  //     "Develop and maintain GIS and geospatial applications supporting Earth Science Engineering and mineral prospecting workflows across international projects.",
+  //     "Build and maintain the official web platform and customer-facing digital applications for Maksika Group.",
+  //     "Contribute to spatial data workflows and geospatial analytics solutions using open-source GIS technologies and PostgreSQL/PostGIS databases.",
+  //   ],
+  //   stats: [],
+  //   techTags: ["PostGIS", "PostgreSQL", "GIS", "Python"],
+  //   image: "/images/exp/maksika.png",
+  // },
+{
+  duration: "OCT 2025 – JAN 2026",
+  company: "EMVO.ai",
+  role: "Platform & AgentOps Engineer",
+  bentoSize: "md",
+  skills: ["Backend", "Cloud", "AI/Infra"],
+  description: [
+    "Improved availability and reliability of production AWS services through monitoring, observability, and infrastructure optimization.",
+    "Resolved production incidents involving asynchronous workflows, API failures, and cloud infrastructure issues.",
+    "Implemented backend services coordinating authentication, external integrations, and tool execution.",
+    "Partnered with frontend, infrastructure, and product teams to ship production-ready AI features."
+  ],
+  techTags: [
+    "AWS",
+    "CloudWatch",
+    "REST APIs",
+    "Microservices",
+    "Python",
+    "Async Workflows"
+  ],
+  image: "/images/exp/emvo_new_logo.png",
+},
   {
     duration: "JAN 2024 - MAY 2025",
     company: "Purdue University",
@@ -105,12 +145,12 @@ const EXPERIENCES: Experience[] = [
     role: "Software Engineering Intern",
     bentoSize: "sm",
     skills: ["Cloud", "Backend"],
-    description: [
-      "Monitored and debugged distributed AWS workflows in production environments to identify reliability and performance bottlenecks.",
-      "Improved CloudWatch observability pipelines and alerting systems, reducing operational overhead and improving incident response.",
-      "Automated internal workflow and validation systems handling large-scale operational data transfers.",
-      "Performed root cause analysis and debugging for cloud infrastructure failures and asynchronous workflow issues.",
-    ],
+description: [
+  "Monitored distributed AWS workflows to identify production reliability bottlenecks.",
+  "Improved CloudWatch observability and alerting for faster incident response.",
+  "Automated validation workflows handling large-scale operational data.",
+  "Performed root cause analysis for asynchronous cloud infrastructure failures."
+],
     techTags: ["AWS", "CloudWatch", "Lambda", "S3", "Python"],
     image: "/images/exp/cummins-logo-round.jpeg",
   },
@@ -120,12 +160,12 @@ const EXPERIENCES: Experience[] = [
     role: "Data Science Researcher & TA",
     bentoSize: "sm",
     skills: ["Backend", "Mentorship"],
-    description: [
-      "Built Python-based data pipelines and analytics workflows using SQL, AWS S3, and Databricks.",
-      "Developed dashboards and reporting workflows to improve visibility into operational and research metrics.",
-      "Provided debugging support and technical mentorship for research and software workflows.",
-      "Communicated technical findings and troubleshooting steps to both technical and non-technical collaborators.",
-    ],
+description: [
+  "Built Python data pipelines using SQL, AWS S3, and Databricks.",
+  "Developed dashboards and reporting workflows for research visibility.",
+  "Provided debugging support and technical mentorship.",
+  "Communicated technical findings across research teams."
+],
     techTags: ["Python", "AWS", "Databricks", "SQL", "Jupyter"],
     image: "/images/exp/Merck.png",
   },
@@ -201,7 +241,7 @@ function BentoCell({
 }) {
   const [imgLoaded, setImgLoaded] = useState(false);
   const isLg = exp.bentoSize === "lg";
-  const logoSize = isLg ? "w-20 h-20" : "w-14 h-14";
+  const logoSize = isLg ? "w-24 h-24" : "w-16 h-16";
 
   return (
     <motion.button
