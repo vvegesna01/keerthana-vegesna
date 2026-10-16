@@ -58,7 +58,7 @@ const EXPERIENCES: Experience[] = [
     "RAG",
     "PostgreSQL"
   ],
-  image: "/images/exp/apexflo.png",
+  image: "/images/exp/apexflo-logo.png",
 },
 {
   duration: "2026",
