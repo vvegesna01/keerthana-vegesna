@@ -1,5 +1,5 @@
 ---
-title: Pigeon Post - Letters to yourself
+title: Pigeon Post - Digital Journalling
 date: 2026-10-16
 description: Sharing a tool I built for myself to help you journal, and why you should journal at all.
 tags:
@@ -21,7 +21,7 @@ It lets me type it out quickly on my phone, attach pictures, and although it is 
 
 I wanted to make this experience a bit more fun, personable and feel more like scrapbooking and journaling so I had initially started out with email templates that render nicely in my inbox and then decided to build a little tool for myself that sits as an app on my phone and opens to a pretty distraction-free environment to write in. I slowly added more fun things like a stamp maker and more templates to document books and food and coffee's I've tried and it has now become a whole thing.
 
-I have been an avid evangelist when it comes to journaling and in another attempt of that here's the tool for you, dear reader, to try your hand at it too.
+I have been an avid evangelist when it comes to journaling and in another attempt of that here's the tool for you, dear reader, to try your hand at too.
 
 [Pigeon Post 🕊️](https://pigeon-poster.vercel.app/ "Your pigeon awaits.")
 
