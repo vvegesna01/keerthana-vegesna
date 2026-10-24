@@ -83,9 +83,10 @@ export default function ProfileBrief() {
           </p>
 
           <p className="text-localhost_text leading-7 mb-5">
-            I’m a Software Engineer who loves clean systems, good documentation, and fun UI.
+            I&apos;m a software engineer focused on backend systems, cloud infrastructure, and data platforms.
+            
           <p className="text-localhost_text leading-7 mt-2 mb-6">
-            Outside of engineering, my life is mostly run on books, songwriting, and sharing my weekly field notes.</p>
+            Outside of work, my life is mostly books, making random side projects, watching a lot of movies and logging them.</p>
           </p>
 
           <div className="flex gap-5 text-sm flex-wrap">

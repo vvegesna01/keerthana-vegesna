@@ -1,13 +1,12 @@
 "use client";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, X } from "lucide-react";
+import { ArrowUpRight, ChevronDown, X } from "lucide-react";
 import PageContainer from "@/components/layout/PageContainer";
 import PageHeader from "@/components/layout/PageHeader";
 import StatCard from "@/components/ui/StatCard";
 import Tag from "@/components/ui/Tag";
-import FooterMetadata from "@/components/layout/FooterMetadata";
 
 // ── Data ────────────────────────────────────────────────────────────
 
@@ -24,6 +23,11 @@ interface Experience {
   role: string;
   description: string[];
   image: string;
+  // "contain" (default) fits a logo inside the tile with padding.
+  // "cover" fills the tile edge-to-edge; use it for photos / full-bleed images.
+  logoFit?: "contain" | "cover";
+  // Older roles collapse into a compact list under "Earlier roles".
+  earlier?: boolean;
   tag?: string;
   stats?: Stat[];
   techTags?: string[];
@@ -33,59 +37,44 @@ interface Experience {
 
 const EXPERIENCES: Experience[] = [
 {
-  duration: "JUL 2026 – PRESENT",
-  company: "ApexFlo.ai",
-  tag: "Current",
-  role: "Member of Technical Staff (MTS-1)",
-  bentoSize: "lg",
-  skills: ["Systems", "Backend", "AI/Infra", "Computer Vision"],
-  description: [
-    "Develop backend services and AI infrastructure powering on-premise computer vision systems and enterprise legal AI applications.",
-    "Build retrieval-augmented generation (RAG) pipelines for legal document search, contextual retrieval, and LLM-assisted workflows.",
-    "Develop Linux edge software using Go, Python, systemd, and OpenCV for deployment on dedicated hardware.",
-    "Collaborate across hardware, backend, and AI teams to integrate computer vision pipelines into production deployments."
-  ],
-  stats: [
-    { value: "Go", label: "Primary Language" },
-    { value: "Linux", label: "Edge Systems" }
-  ],
-  techTags: [
-    "Go",
-    "Python",
-    "Linux",
-    "systemd",
-    "OpenCV",
-    "RAG",
-    "PostgreSQL"
-  ],
-  image: "/images/exp/apexflo-logo.png",
-},
-{
-  duration: "2026",
-  company: "AfterWord",
-  role: "Founder & Solo Developer",
-  bentoSize: "md",
-  skills: ["Backend", "AI/Infra", "Frontend"],
-  description: [
-    "Built a knowledge ingestion and retrieval platform using FastAPI, PostgreSQL, PostGIS, pgvector, Redis, and Next.js.",
-    "Designed asynchronous ingestion pipelines to parse, normalize, embed, and index long-form reading data.",
-    "Implemented semantic retrieval across 10K+ embedded highlights using vector similarity search and Redis caching.",
-    "Architected the entire platform including backend infrastructure, AI pipelines, database design, and frontend."
-  ],
-  stats: [
-    { value: "10K+", label: "Embeddings" },
-    { value: "100%", label: "Built Solo" }
-  ],
-  techTags: [
-    "FastAPI",
-    "PostgreSQL",
-    "PostGIS",
-    "pgvector",
-    "Redis",
-    "Next.js"
-  ],
-  image: "/images/exp/aw-logo.png",
-},
+    duration: "JUL 2026 – PRESENT",
+    company: "ApexFlo.ai",
+    tag: "Current",
+    role: "Member of Technical Staff (MTS-1)",
+    bentoSize: "lg",
+    skills: ["Systems", "Backend", "AI/Infra", "Computer Vision"],
+    description: [
+      "Architected and delivered 3 production edge-AI platforms spanning real-time CV pipelines, event-driven services, pgvector search, and K3s edge deployments.",
+      "Engineered infrastructure for face re-id and visual scene search pipelines utilizing 512D face embeddings and 768D SigLIP2 embeddings on pgvector, enabling natural-language camera evidence search.",
+      "Optimized heterogeneous accelerator workloads (Intel GPU/NPU) across 8 concurrent 1080p camera streams, maintaining compute headroom at 17.07% average CPU usage.",
+      "Built idempotent, retry-safe ingestion architectures benchmarked at 200+ ingests/sec with 122ms p95 latency (51% below target) and integrated automated incident/drone dispatch workflows.",
+    ],
+    stats: [
+      { value: "200+", label: "Ingests/sec" },
+      { value: "11+", label: "CV Use Cases" },
+    ],
+    techTags: ["k3s", "Python", "Linux", "systemd", "OpenCV", "pgvector", "SigLIP2"],
+    image: "/images/exp/apexflo-logo.png",
+  },
+  // {
+  //   duration: "2026",
+  //   company: "AfterWord",
+  //   role: "Founder & Solo Developer",
+  //   bentoSize: "md",
+  //   skills: ["Backend", "AI/Infra", "Frontend"],
+  //   description: [
+  //     "Built a knowledge ingestion and retrieval platform using FastAPI, PostgreSQL, PostGIS, pgvector, Redis, and Next.js.",
+  //     "Designed asynchronous ingestion pipelines to parse, normalize, embed, and index long-form reading data.",
+  //     "Implemented semantic retrieval across 10K+ embedded highlights using vector similarity search and Redis caching.",
+  //     "Architected the entire platform including backend infrastructure, AI pipelines, database design, and frontend.",
+  //   ],
+  //   stats: [
+  //     { value: "10K+", label: "Embeddings" },
+  //     { value: "100%", label: "Built Solo" },
+  //   ],
+  //   techTags: ["FastAPI", "PostgreSQL", "PostGIS", "pgvector", "Redis", "Next.js"],
+  //   image: "/images/exp/aw-logo.png",
+  // },
   // {
   //   duration: "JAN 2026",
   //   company: "Maksika Group",
@@ -102,32 +91,27 @@ const EXPERIENCES: Experience[] = [
   //   techTags: ["PostGIS", "PostgreSQL", "GIS", "Python"],
   //   image: "/images/exp/maksika.png",
   // },
-{
-  duration: "OCT 2025 – JAN 2026",
-  company: "EMVO.ai",
-  role: "Platform & AgentOps Engineer",
-  bentoSize: "md",
-  skills: ["Backend", "Cloud", "AI/Infra"],
-  description: [
-    "Improved availability and reliability of production AWS services through monitoring, observability, and infrastructure optimization.",
-    "Resolved production incidents involving asynchronous workflows, API failures, and cloud infrastructure issues.",
-    "Implemented backend services coordinating authentication, external integrations, and tool execution.",
-    "Partnered with frontend, infrastructure, and product teams to ship production-ready AI features."
-  ],
-  techTags: [
-    "AWS",
-    "CloudWatch",
-    "REST APIs",
-    "Microservices",
-    "Python",
-    "Async Workflows"
-  ],
-  image: "/images/exp/emvo_new_logo.png",
-},
+  {
+    duration: "OCT 2025 – JAN 2026",
+    company: "EMVO.ai",
+    role: "Platform & AgentOps Engineer",
+    // "sm" (not "md") so EMVO + Purdue sit side by side next to the large
+    // ApexFlo cell, which makes the featured grid a clean 2-row block.
+    bentoSize: "sm",
+    skills: ["Backend", "Cloud", "AI/Infra"],
+    description: [
+      "Improved availability and reliability of production AWS services through monitoring, observability, and infrastructure optimization.",
+      "Resolved production incidents involving asynchronous workflows, API failures, and cloud infrastructure issues.",
+      "Implemented backend services coordinating authentication, external integrations, and tool execution.",
+      "Partnered with frontend, infrastructure, and product teams to ship production-ready AI features.",
+    ],
+    techTags: ["AWS", "CloudWatch", "REST APIs", "Microservices", "Python", "Async Workflows"],
+    image: "/images/exp/emvo_new_logo.png",
+  },
   {
     duration: "JAN 2024 - MAY 2025",
     company: "Purdue University",
-    role: "Software Developer",
+    role: "Web Developer",
     bentoSize: "sm",
     skills: ["Backend", "Frontend"],
     description: [
@@ -138,19 +122,20 @@ const EXPERIENCES: Experience[] = [
     ],
     techTags: ["HTML", "CSS", "JS", "CI/CD", "CMS"],
     image: "/images/exp/purdue_sidearch.jpg",
+    logoFit: "cover", // this one is a photo, not a logo — flip to "contain" if it crops badly
   },
   {
     duration: "JUN 2022 - AUG 2022",
     company: "Cummins, Inc.",
     role: "Software Engineering Intern",
-    bentoSize: "sm",
+    bentoSize: "md",
     skills: ["Cloud", "Backend"],
-description: [
-  "Monitored distributed AWS workflows to identify production reliability bottlenecks.",
-  "Improved CloudWatch observability and alerting for faster incident response.",
-  "Automated validation workflows handling large-scale operational data.",
-  "Performed root cause analysis for asynchronous cloud infrastructure failures."
-],
+    description: [
+      "Monitored distributed AWS workflows to identify production reliability bottlenecks.",
+      "Improved CloudWatch observability and alerting for faster incident response.",
+      "Automated validation workflows handling large-scale operational data.",
+      "Performed root cause analysis for asynchronous cloud infrastructure failures.",
+    ],
     techTags: ["AWS", "CloudWatch", "Lambda", "S3", "Python"],
     image: "/images/exp/cummins-logo-round.jpeg",
   },
@@ -159,13 +144,14 @@ description: [
     company: "Merck",
     role: "Data Science Researcher & TA",
     bentoSize: "sm",
+    earlier: true,
     skills: ["Backend", "Mentorship"],
-description: [
-  "Built Python data pipelines using SQL, AWS S3, and Databricks.",
-  "Developed dashboards and reporting workflows for research visibility.",
-  "Provided debugging support and technical mentorship.",
-  "Communicated technical findings across research teams."
-],
+    description: [
+      "Built Python data pipelines using SQL, AWS S3, and Databricks.",
+      "Developed dashboards and reporting workflows for research visibility.",
+      "Provided debugging support and technical mentorship.",
+      "Communicated technical findings across research teams.",
+    ],
     techTags: ["Python", "AWS", "Databricks", "SQL", "Jupyter"],
     image: "/images/exp/Merck.png",
   },
@@ -174,6 +160,7 @@ description: [
     company: "Purdue CS Dept.",
     role: "TA · CS Bridge Program",
     bentoSize: "sm",
+    earlier: true,
     skills: ["Mentorship"],
     description: [
       "Mentored 45+ incoming CS students through OOP fundamentals and Java during the summer bridge program.",
@@ -197,18 +184,9 @@ function spanClasses(size: BentoSize): string {
   }
 }
 
-// Only controls how many lines the single visible bullet can wrap to —
-// count is no longer tier-based, since every cell shows just one bullet now.
+// Only controls how many lines the single visible bullet can wrap to.
 function bulletClamp(size: BentoSize): string {
-  switch (size) {
-    case "lg":
-      return "line-clamp-2";
-    case "md":
-      return "line-clamp-2";
-    case "sm":
-    default:
-      return "line-clamp-3";
-  }
+  return size === "sm" ? "line-clamp-3" : "line-clamp-2";
 }
 
 // ── Variants ────────────────────────────────────────────────────────
@@ -228,6 +206,72 @@ const cellVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
 };
 
+// ── Logo ────────────────────────────────────────────────────────────
+// One component renders every logo, so they all share the same tile:
+// fixed square, white background, hairline ring, same radius, padded
+// "contain" fit. Mismatched source files (round JPEG, wide PNG, etc.)
+// end up looking like a set. If an image fails to load, we fall back to
+// a monogram instead of a broken icon.
+
+type LogoSize = "sm" | "md" | "lg";
+
+const LOGO_DIMS: Record<LogoSize, string> = {
+  sm: "w-10 h-10",
+  md: "w-12 h-12",
+  lg: "w-16 h-16",
+};
+
+function monogram(company: string): string {
+  // First two capitals: "ApexFlo.ai" -> "AF", "Cummins, Inc." -> "CI"
+  return company.match(/[A-Z]/g)?.slice(0, 2).join("") ?? company.charAt(0).toUpperCase();
+}
+
+function Logo({
+  exp,
+  size,
+  dimmed = false,
+}: {
+  exp: Experience;
+  size: LogoSize;
+  dimmed?: boolean;
+}) {
+  const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const cover = exp.logoFit === "cover";
+
+  return (
+    <div
+      className={`relative shrink-0 overflow-hidden rounded-lg bg-white ring-1 ring-slate-200 ${
+        LOGO_DIMS[size]
+      } ${dimmed ? "grayscale opacity-60" : ""}`}
+    >
+      {failed ? (
+        <div className="absolute inset-0 flex items-center justify-center bg-indigo-50 text-sm font-extrabold tracking-tight text-indigo-900">
+          {monogram(exp.company)}
+        </div>
+      ) : (
+        <>
+          {!loaded && (
+            <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-indigo-100 to-indigo-50" />
+          )}
+          <Image
+            src={exp.image}
+            alt=""
+            fill
+            sizes="64px"
+            className={`transition-opacity duration-300 ${
+              cover ? "object-cover" : "object-contain p-1.5"
+            } ${loaded ? "opacity-100" : "opacity-0"}`}
+            onLoad={() => setLoaded(true)}
+            onError={() => setFailed(true)}
+            unoptimized
+          />
+        </>
+      )}
+    </div>
+  );
+}
+
 // ── Bento cell ──────────────────────────────────────────────────────
 
 function BentoCell({
@@ -239,9 +283,7 @@ function BentoCell({
   active: boolean;
   onOpen: () => void;
 }) {
-  const [imgLoaded, setImgLoaded] = useState(false);
   const isLg = exp.bentoSize === "lg";
-  const logoSize = isLg ? "w-24 h-24" : "w-16 h-16";
 
   return (
     <motion.button
@@ -267,25 +309,8 @@ function BentoCell({
       />
 
       <div className="flex flex-col h-full p-4">
-        {/* Header: bigger logo + company/role/duration */}
         <div className="flex items-center gap-3 mb-2">
-          <div
-            className={`relative shrink-0 bg-indigo-50 rounded-md overflow-hidden ${logoSize} ${
-              active ? "" : "grayscale opacity-60"
-            }`}
-          >
-            {!imgLoaded && (
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-100 to-indigo-50 animate-pulse" />
-            )}
-            <Image
-              src={exp.image}
-              alt=""
-              fill
-              className={`object-contain transition-opacity duration-300 ${imgLoaded ? "opacity-100" : "opacity-0"}`}
-              onLoad={() => setImgLoaded(true)}
-              unoptimized
-            />
-          </div>
+          <Logo exp={exp} size={isLg ? "lg" : "md"} dimmed={!active} />
           <div className="min-w-0">
             <p
               className={`font-extrabold leading-tight truncate ${isLg ? "text-lg" : "text-sm"} ${
@@ -309,7 +334,7 @@ function BentoCell({
           {exp.role}
         </p>
 
-        {/* Always show exactly one bullet on the card; full list lives in the modal */}
+        {/* One bullet on the card; the full list lives in the modal */}
         {exp.description.length > 0 && (
           <div className="flex-1">
             <p
@@ -323,7 +348,6 @@ function BentoCell({
               {exp.description[0]}
             </p>
 
-            {/* Affordance hint — tells the reader there's more without giving it away */}
             {exp.description.length > 1 && (
               <p
                 className={`mt-1 text-[11px] font-medium ${
@@ -336,12 +360,15 @@ function BentoCell({
           </div>
         )}
 
-        {/* Stats — lg cells only, kept compact so they don't compete with bullets for space */}
         {isLg && exp.stats && exp.stats.length > 0 && (
           <div className="flex flex-wrap gap-6 mt-3">
             {exp.stats.map((s) => (
               <div key={s.label}>
-                <p className={`font-extrabold leading-none text-3xl ${active ? "text-indigo-900" : "text-gray-300"}`}>
+                <p
+                  className={`font-extrabold leading-none text-3xl ${
+                    active ? "text-indigo-900" : "text-gray-300"
+                  }`}
+                >
                   {s.value}
                 </p>
                 <p className={`text-[11px] ${active ? "text-gray-400" : "text-gray-300"}`}>{s.label}</p>
@@ -351,7 +378,7 @@ function BentoCell({
         )}
 
         {exp.techTags && (
-          <div className={`flex flex-wrap gap-1 mt-3 color-black ${active ? "" : "opacity-40"}`}>
+          <div className={`flex flex-wrap gap-1 mt-3 ${active ? "" : "opacity-40"}`}>
             {exp.techTags.slice(0, isLg ? 5 : 2).map((t) => (
               <Tag key={t} label={t} variant="default" />
             ))}
@@ -370,9 +397,65 @@ function BentoCell({
   );
 }
 
+// ── Compact row for "Earlier roles" ─────────────────────────────────
+
+function EarlierRow({
+  exp,
+  active,
+  onOpen,
+}: {
+  exp: Experience;
+  active: boolean;
+  onOpen: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      disabled={!active}
+      aria-label={`${exp.company} — ${exp.role}`}
+      className={`group flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-all duration-300 ${
+        active
+          ? "bg-white border-indigo-100 hover:border-indigo-200 hover:shadow-md"
+          : "bg-gray-50 border-gray-100"
+      }`}
+    >
+      <Logo exp={exp} size="sm" dimmed={!active} />
+      <div className="min-w-0 flex-1">
+        <p
+          className={`truncate text-sm font-extrabold leading-tight ${
+            active ? "text-indigo-900" : "text-gray-400"
+          }`}
+        >
+          {exp.company}
+        </p>
+        <p className={`truncate text-xs italic ${active ? "text-gray-500" : "text-gray-300"}`}>
+          {exp.role}
+        </p>
+      </div>
+      <p className="hidden sm:block shrink-0 text-[11px] text-gray-400">{exp.duration}</p>
+      <ArrowUpRight
+        size={14}
+        className={`shrink-0 transition-colors ${
+          active ? "text-gray-300 group-hover:text-indigo-600" : "text-gray-200"
+        }`}
+      />
+    </button>
+  );
+}
+
 // ── Detail modal ────────────────────────────────────────────────────
 
 function ExperienceModal({ exp, onClose }: { exp: Experience; onClose: () => void }) {
+  // Escape closes the modal — expected behaviour for any dialog
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
   return (
     <motion.div
       className="fixed inset-0 bg-indigo-900/60 z-50 flex items-center justify-center p-4"
@@ -382,6 +465,9 @@ function ExperienceModal({ exp, onClose }: { exp: Experience; onClose: () => voi
       onClick={onClose}
     >
       <motion.div
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${exp.company} — ${exp.role}`}
         className="bg-white rounded-xl max-w-lg w-full p-6 relative max-h-[85vh] overflow-y-auto"
         initial={{ opacity: 0, scale: 0.96, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -397,9 +483,16 @@ function ExperienceModal({ exp, onClose }: { exp: Experience; onClose: () => voi
           <X size={20} />
         </button>
 
-        <p className="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-1">{exp.duration}</p>
-        <h3 className="text-2xl font-extrabold text-indigo-900 leading-tight">{exp.company}</h3>
-        <p className="text-sm italic text-gray-500 mt-0.5 mb-4">{exp.role}</p>
+        <div className="flex items-center gap-4 mb-4 pr-8">
+          <Logo exp={exp} size="lg" />
+          <div className="min-w-0">
+            <p className="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-1">
+              {exp.duration}
+            </p>
+            <h3 className="text-2xl font-extrabold text-indigo-900 leading-tight">{exp.company}</h3>
+            <p className="text-sm italic text-gray-500 mt-0.5">{exp.role}</p>
+          </div>
+        </div>
 
         <ul className="space-y-2 mb-4">
           {exp.description.map((point, i) => (
@@ -438,19 +531,32 @@ function ExperienceModal({ exp, onClose }: { exp: Experience; onClose: () => voi
 export default function Experiences() {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [selected, setSelected] = useState<Experience | null>(null);
+  const [earlierOpen, setEarlierOpen] = useState(false);
 
-  // Mirrors the Projects page's tagCounts pattern: derive counts from data,
-  // sort by frequency then alphabetically, so the filter bar self-maintains
-  // as you add/remove roles instead of needing a hand-kept list.
+  // Derive filter chips from the data so they self-maintain. A chip is only
+  // useful if it actually narrows the list, so skip skills that appear on
+  // just one role (nothing to compare) or on all-but-one (barely filters).
   const skillCounts = useMemo(() => {
+    const total = EXPERIENCES.length;
     const counts: Record<string, number> = {};
     for (const exp of EXPERIENCES) {
       for (const skill of exp.skills) {
         counts[skill] = (counts[skill] ?? 0) + 1;
       }
     }
-    return Object.entries(counts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    return Object.entries(counts)
+      .filter(([, count]) => count >= 2 && count <= total - 2)
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
   }, []);
+
+  const matches = (exp: Experience) => activeFilter === null || exp.skills.includes(activeFilter);
+  const featured = EXPERIENCES.filter((e) => !e.earlier);
+  const earlier = EXPERIENCES.filter((e) => e.earlier);
+
+  // If a filter matches an older role, open that section automatically so
+  // a filtered result is never hidden behind a collapsed toggle.
+  const filterHitsEarlier = activeFilter !== null && earlier.some(matches);
+  const showEarlier = earlierOpen || filterHitsEarlier;
 
   return (
     <PageContainer className="flex flex-col" size="default">
@@ -467,16 +573,16 @@ export default function Experiences() {
         className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8"
       >
         {[
-          { value: EXPERIENCES.length, label: "Roles" },
-          { value: "2+", label: "Years" },
-          { value: "AWS", label: "Cloud Focus" },
-          { value: "Python", label: "Go-to Stack" },
+          // { value: EXPERIENCES.length, label: "Roles" },
+          // { value: "2+", label: "Years" },
+          // { value: "Backend", label: "Focus" },
+          // { value: "Python, React", label: "Core Stack" },
         ].map(({ value, label }) => (
           <StatCard key={label} value={value} label={label} />
         ))}
       </motion.div>
 
-      {/* Filter bar — same layoutId-pill pattern as the Projects page */}
+      {/* Filter bar */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
@@ -564,24 +670,72 @@ export default function Experiences() {
         </AnimatePresence>
       </motion.div>
 
-      {/* Bento grid — minmax keeps a 180px floor for clean span math, but lets
-          taller bullet content grow a cell past it rather than clip/overflow. */}
+      {/* Featured bento grid */}
       <motion.div
         variants={gridVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.05 }}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(180px,auto)] gap-3 mb-10"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(180px,auto)] gap-3 mb-8"
       >
-        {EXPERIENCES.map((exp) => (
+        {featured.map((exp) => (
           <BentoCell
             key={exp.company}
             exp={exp}
-            active={activeFilter === null || exp.skills.includes(activeFilter)}
+            active={matches(exp)}
             onOpen={() => setSelected(exp)}
           />
         ))}
       </motion.div>
+
+      {/* Earlier roles — collapsed by default */}
+      {earlier.length > 0 && (
+        <div className="mb-10">
+          {filterHitsEarlier ? (
+            <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Earlier roles</p>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setEarlierOpen((o) => !o)}
+              aria-expanded={earlierOpen}
+              className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-indigo-900 transition-colors"
+            >
+              Earlier roles
+              <span className="rounded bg-slate-100 px-1 font-mono text-[10px] text-slate-400">
+                {earlier.length}
+              </span>
+              <ChevronDown
+                size={14}
+                className={`transition-transform duration-300 ${earlierOpen ? "rotate-180" : ""}`}
+              />
+            </button>
+          )}
+
+          <AnimatePresence initial={false}>
+            {showEarlier && (
+              <motion.div
+                key="earlier"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <div className="space-y-2 pt-4">
+                  {earlier.map((exp) => (
+                    <EarlierRow
+                      key={exp.company}
+                      exp={exp}
+                      active={matches(exp)}
+                      onOpen={() => setSelected(exp)}
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
 
       <AnimatePresence>
         {selected && <ExperienceModal exp={selected} onClose={() => setSelected(null)} />}

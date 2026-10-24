@@ -86,26 +86,37 @@ export default function AboutMe() {
               <h1 className="text-4xl leading-tight font-extrabold text-indigo-900 mb-4">
                 Hi there! I&apos;m Keerthana.
               </h1>
+
               <p className="text-gray-600 leading-7 mb-4">
-                I&apos;m currently a Platform Engineer at Emvo.ai.
+                I&apos;m a software engineer focused on backend systems, cloud
+                infrastructure, and data platforms. Right now I&apos;m a Member
+                of Technical Staff at ApexFlo.ai, building backend services and
+                AI infrastructure for on-premise computer vision and legal AI
+                systems.
               </p>
 
               <p className="text-gray-600 leading-7 mb-4">
-                I got my Bachelor&apos;s Degree at{" "}
+                I studied Computer Science at{" "}
                 <Link
                   href="https://www.purdue.edu/"
                   className="text-purdue_color font-semibold underline transition duration-300 hover:text-blue-500"
                 >
                   Purdue University
-                </Link>{" "}
-                studying Computer Science. I&apos;ve been a Web Developer for
-                the Purdue Honors College, a Software Engineering Intern at
-                Cummins and also a TA for The Data Mine and for the CS Bridge
-                Program.
+                </Link>
+                , where I maintained web services as a developer for the Honors
+                College, interned at Cummins, and TA&apos;d for The Data Mine
+                and the CS Bridge Program.
               </p>
 
+              {/* <p className="text-gray-600 leading-7 mb-4">
+                I like systems that are clear, observable, and well documented.
+                I also build small tools for an audience of one, like a
+                thought-capture app and a book club dashboard, and write about
+                what I learn in my Field Notes.
+              </p> */}
+
               <p className="text-gray-600 leading-8 py-3 animate-fadeIn">
-                I&apos;m involved in communities that empower women in stem like{" "}
+                I&apos;m involved in communities that empower women in STEM like{" "}
                 <Link
                   href="https://www.cs.purdue.edu/diversity/womens-history/girls-who-code.html"
                   className="text-gwc_color font-semibold underline transition duration-300 hover:text-blue-500"
