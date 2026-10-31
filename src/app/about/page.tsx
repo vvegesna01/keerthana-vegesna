@@ -115,30 +115,21 @@ export default function AboutMe() {
                 what I learn in my Field Notes.
               </p> */}
 
-              <p className="text-gray-600 leading-8 py-3 animate-fadeIn">
-                I&apos;m involved in communities that empower women in STEM like{" "}
-                <Link
-                  href="https://www.cs.purdue.edu/diversity/womens-history/girls-who-code.html"
-                  className="text-gwc_color font-semibold underline transition duration-300 hover:text-blue-500"
-                >
-                  Girls Who Code
-                </Link>
-                {", "}
-                <Link
-                  href="https://rewritingthecode.org/"
-                  className="text-rtc_color font-semibold underline transition duration-300 hover:text-blue-500"
-                >
-                  Rewriting the Code
-                </Link>
-                {","} and the{" "}
-                <Link
-                  href="https://swe.org/"
-                  className="text-links_color font-semibold underline transition duration-300 hover:text-blue-500"
-                >
-                  Society of Women Engineers
-                </Link>
-                {"."}
-              </p>
+              <div className="flex flex-wrap gap-2 py-3 animate-fadeIn">
+                {[
+                  { href: "https://www.cs.purdue.edu/about/womens-history/girls-who-code.html", label: "Girls Who Code", color: "text-gwc_color" },
+                  { href: "https://rewritingthecode.org/", label: "Rewriting the Code", color: "text-rtc_color" },
+                  { href: "https://swe.org/", label: "Society of Women Engineers", color: "text-links_color" },
+                ].map(({ href, label, color }) => (
+                  <Link
+                    key={label}
+                    href={href}
+                    className={`px-3 py-1.5 rounded-full bg-gray-200/70 text-xs font-semibold ${color} transition hover:bg-gray-200`}
+                  >
+                    {label}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>

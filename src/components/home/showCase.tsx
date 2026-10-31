@@ -120,26 +120,21 @@ export default function ShowcaseBrief({ posts }: { posts: ShowcasePost[] }) {
   };
 
   return (
-    <Section className="py-10">
+    <Section className="pt-8 pb-4 md:pt-12 md:pb-6">
       {/* Tab header */}
-      <div className="mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+      <div className="mb-4 flex flex-row items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-extrabold text-indigo-900 mb-1">
-            {tab === "projects" ? "What I've built" : "What I've been writing"}
+          <h2 className="text-lg font-extrabold text-indigo-900">
+            {tab === "projects" ? "" : ""}
           </h2>
-          <p className="text-gray-400 text-sm italic">
-            {tab === "projects"
-              ? "Things I've built for fun, curiosity, and exploration."
-              : "Notes on what I've been thinking about and learning."}
-          </p>
         </div>
 
-        <div className="inline-flex bg-indigo-50 rounded-full p-1 self-start sm:self-auto shadow-inner">
+        <div className="inline-flex bg-indigo-50 rounded-full p-0.5 self-start sm:self-auto shadow-inner">
           {(["projects", "writing"] as Tab[]).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
-              className="relative px-4 py-1.5 text-sm font-semibold rounded-full focus:outline-none"
+              className="relative px-4 py-1.5 text-xs font-semibold rounded-full focus:outline-none"
             >
               {tab === t && (
                 <motion.span
@@ -195,7 +190,7 @@ export default function ShowcaseBrief({ posts }: { posts: ShowcasePost[] }) {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, margin: "-100px" }}
-              className="grid grid-cols-1 md:grid-cols-3 gap-3 auto-rows-[180px]"
+              className="grid grid-flow-col grid-rows-[repeat(2,20.5rem)] auto-cols-[72%] overflow-x-scroll snap-x snap-mandatory scroll-px-6 gap-3 -mx-6 px-6 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0 md:pb-0 md:overflow-visible md:grid-flow-row md:grid-rows-none md:grid-cols-3 md:auto-cols-auto md:auto-rows-[180px]"
             >
               {PINNED.map((project, i) => (
                 // The Link is the grid child (it carries the span classes);
@@ -204,7 +199,7 @@ export default function ShowcaseBrief({ posts }: { posts: ShowcasePost[] }) {
                 <Link
                   key={project.title}
                   href="/projects"
-                  className={`block ${projectSpan(i, PINNED.length)}`}
+                  className={`block snap-start ${projectSpan(i, PINNED.length)}`}
                 >
                   <motion.div
                     variants={itemVariants}
@@ -313,6 +308,10 @@ export default function ShowcaseBrief({ posts }: { posts: ShowcasePost[] }) {
           )}
         </AnimatePresence>
       </div>
+
+      {tab === "projects" && (
+        <p className="md:hidden mt-2 text-[11px] font-mono text-gray-400">swipe →</p>
+      )}
 
       <div className="mt-6 text-right">
         <Link

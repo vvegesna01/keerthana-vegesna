@@ -12,6 +12,7 @@ export default function BlogPage() {
       <PageHeader
         title="My Field Notes"
         subtitle="Notes, ideas, and things I keep thinking about, pulled from my Obsidian vault."
+        className="mb-4"
       />
 
       <BlogClientPage posts={posts} />

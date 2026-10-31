@@ -47,7 +47,7 @@ export default function BlogClientPage({ posts }: { posts: Post[] }) {
   };
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-8">
       
       {/* ── Dynamic Spring Tag Navigation Bar ── */}
       <div className="border-b border-slate-200/60 pb-6">
@@ -99,9 +99,9 @@ export default function BlogClientPage({ posts }: { posts: Post[] }) {
       {displayGrid && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {/* Main Huge Cover Feature */}
-          <Link href={`/blog/${featuredPost.slug}`} className="lg:col-span-2 group relative h-96 rounded-2xl overflow-hidden bg-slate-100 border border-slate-200/40 shadow-sm hover:shadow-xl transition-all duration-300">
+          <Link href={`/blog/${featuredPost.slug}`} className="lg:col-span-2 group relative h-96 rounded-2xl overflow-hidden bg-slate-100 border border-slate-200/40 hover:border-indigo-300 transition-colors duration-300">
             {featuredPost.coverImage && (
-              <Image src={featuredPost.coverImage} alt={featuredPost.title} fill className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]" />
+              <Image src={featuredPost.coverImage} alt={featuredPost.title} fill className="object-cover transition-transform duration-700 ease-out" />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 p-6 z-10 text-white">
@@ -115,7 +115,7 @@ export default function BlogClientPage({ posts }: { posts: Post[] }) {
           {/* Secondary Columns Stack */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
             {[secondPost, thirdPost].map((post) => (
-              <Link key={post.slug} href={`/blog/${post.slug}`} className="group relative h-[184px] rounded-2xl overflow-hidden bg-slate-900 border border-slate-200/40 p-5 flex flex-col justify-end shadow-sm hover:shadow-lg transition-all duration-300">
+              <Link key={post.slug} href={`/blog/${post.slug}`} className="group relative h-[184px] rounded-2xl overflow-hidden bg-slate-900 border border-slate-200/40 p-5 flex flex-col justify-end hover:border-indigo-300 transition-colors duration-300">
                 {post.coverImage && (
                   <Image src={post.coverImage} alt={post.title} fill className="object-cover opacity-35 group-hover:opacity-45 transition-opacity duration-500" />
                 )}

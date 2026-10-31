@@ -470,9 +470,10 @@ export default function Projects() {
       size="default"
     >
       <PageHeader
-        title="Projects"
+        title="Play"
         subtitle="Things I've built: data dashboards, social apps, shell interpreters, and more."
         animate={false}
+        className="mb-4"
       />
 
       {/* ── Filter bar ── */}
@@ -480,7 +481,7 @@ export default function Projects() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.1 }}
-        className="mt-10 border-b border-slate-200/60 pb-6"
+        className="border-b border-slate-200/60 pb-6"
       >
         <div className="flex flex-wrap items-center gap-1.5">
           <button

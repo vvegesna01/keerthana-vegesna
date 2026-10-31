@@ -10,25 +10,25 @@ export default function Navbar() {
 
   const links = [
     { href: "/about", label: "About" },
-    { href: "/projects", label: "Projects" },
-    { href: "/experience", label: "Experience" },
+    { href: "/experience", label: "Work" },
+    { href: "/projects", label: "Play" },
     { href: "/blog", label: "Blog"},
     { href: "/contact", label: "Contact" },
   ];
 
   return (
-    <header className="w-full border-b border-gray-100 bg-white">
-      <div className="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
+    <header className="sticky top-0 z-50 w-full bg-[whitesmoke]/80 backdrop-blur">
+      <div className="max-w-4xl mx-auto px-6 py-2.5 flex justify-between items-center">
         {/* Logo and Name */}
         <Link
           href="/"
-          className="flex items-center gap-2.5 text-lg sm:text-2xl font-semibold text-indigo-900 transition-colors duration-300 hover:text-purple-500"
+          className="flex items-center gap-2 text-base sm:text-lg font-semibold text-indigo-900 transition-colors duration-300 hover:text-purple-500"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onFocus={() => setIsHovered(true)}
           onBlur={() => setIsHovered(false)}
         >
-          <div className="w-12 h-12 rounded-full overflow-hidden  shrink-0 relative">
+          <div className="w-8 h-8 rounded-full overflow-hidden  shrink-0 relative">
             <Image
               src={isHovered ? "/images/logo/hover1.png" : "/images/logo/standard.png"}
               alt="Keerthana Vegesna"
@@ -41,7 +41,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-6 text-xl text-gray-500">
+        <nav className="hidden md:flex gap-5 text-sm text-gray-500">
           {links.map((link) => (
             <Link
               key={link.href}
@@ -58,14 +58,14 @@ export default function Navbar() {
           onClick={() => setOpen(!open)}
           className="md:hidden text-gray-600 hover:text-indigo-900 transition"
         >
-          {open ? <X size={24} /> : <Menu size={24} />}
+          {open ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {open && (
-        <div className="md:hidden border-t border-gray-100">
-          <nav className="flex flex-col px-6 py-4 gap-4 text-gray-600 text-base">
+        <div className="md:hidden">
+          <nav className="flex flex-col px-6 py-3 gap-3 text-gray-600 text-sm">
             {links.map((link) => (
               <Link
                 key={link.href}

@@ -19,11 +19,8 @@ export default function PostCard({ post }: { post: Post }) {
 
   return (
     <Link href={`/blog/${post.slug}`}>
-      <div className="group relative border border-slate-100 bg-white rounded-2xl p-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+      <div className="group relative border border-slate-100 bg-white rounded-2xl p-4 hover:border-indigo-300 transition-colors duration-300">
         
-        {/* Decorative left brand identity line */}
-        <div className="absolute left-0 top-0 bottom-0 w-1 bg-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-l-2xl" />
-
         <div className="flex items-center gap-5">
           
           {/* Enhanced Image Frame Panel */}
@@ -33,7 +30,7 @@ export default function PostCard({ post }: { post: Post }) {
                 src={post.coverImage}
                 alt={post.title}
                 fill
-                className={`object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04] ${imgLoaded ? "opacity-100" : "opacity-0"}`}
+                className={`object-cover transition-transform duration-500 ease-out ${imgLoaded ? "opacity-100" : "opacity-0"}`}
                 onLoad={() => setImgLoaded(true)}
               />
             </div>
@@ -74,7 +71,7 @@ export default function PostCard({ post }: { post: Post }) {
           </div>
 
           {/* Slide Arrow Reveal Indicator */}
-          <span className="text-indigo-400 bg-indigo-50/60 group-hover:bg-indigo-950 group-hover:text-white p-2 rounded-full text-xs transform opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 flex-shrink-0 hidden sm:block">
+          <span className="text-indigo-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex-shrink-0 hidden sm:block">
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
             </svg>

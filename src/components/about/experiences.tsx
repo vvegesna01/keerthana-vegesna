@@ -296,18 +296,12 @@ function BentoCell({
         exp.bentoSize
       )} ${
         active
-          ? "bg-white border-indigo-100 hover:shadow-lg hover:border-indigo-200"
+          ? "bg-white border-indigo-100 hover:border-indigo-300"
           : "bg-gray-50 border-gray-100"
       }`}
       style={{ pointerEvents: active ? "auto" : "none" }}
       aria-label={`${exp.company} — ${exp.role}`}
     >
-      <div
-        className={`absolute left-0 top-0 bottom-0 w-1 bg-indigo-900 transition-opacity duration-300 ${
-          active ? "opacity-0 group-hover:opacity-100" : "opacity-0"
-        }`}
-      />
-
       <div className="flex flex-col h-full p-4">
         <div className="flex items-center gap-3 mb-2">
           <Logo exp={exp} size={isLg ? "lg" : "md"} dimmed={!active} />
@@ -387,11 +381,10 @@ function BentoCell({
       </div>
 
       {active && (
-        <div className="absolute inset-0 bg-indigo-900/0 group-hover:bg-indigo-900/85 transition-all duration-300 flex items-end p-4 pointer-events-none">
-          <div className="translate-y-3 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center gap-1 text-indigo-900 bg-white text-xs font-semibold">
-            View details <ArrowUpRight size={14} />
-          </div>
-        </div>
+        <ArrowUpRight
+          size={14}
+          className="absolute top-3 right-3 text-indigo-300 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        />
       )}
     </motion.button>
   );
@@ -561,8 +554,9 @@ export default function Experiences() {
   return (
     <PageContainer className="flex flex-col" size="default">
       <PageHeader
-        title="Experience"
+        title="Work"
         subtitle="What I've been working on in a non-resume format! (click on the cards to learn more)"
+        className="mb-4"
       />
 
       <motion.div
@@ -570,7 +564,7 @@ export default function Experiences() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={fadeInVariants}
-        className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8"
+        className="grid grid-cols-2 sm:grid-cols-4 gap-3"
       >
         {[
           // { value: EXPERIENCES.length, label: "Roles" },
@@ -587,7 +581,7 @@ export default function Experiences() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.1 }}
-        className="mb-6 border-b border-slate-200/60 pb-6"
+        className="mb-8 border-b border-slate-200/60 pb-6"
       >
         <div className="flex flex-wrap items-center gap-1.5">
           <button
