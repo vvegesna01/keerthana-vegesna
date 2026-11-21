@@ -1,6 +1,6 @@
 
 import './globals.css'
-import { Inter, Work_Sans } from 'next/font/google'
+import { Work_Sans } from 'next/font/google'
 import { Analytics } from "@vercel/analytics/next"
 import Navbar from '@/components/navbar/navbar'
 import Footer from '@/components/footer/footer'

@@ -24,7 +24,7 @@ function formatDate(dateStr: string) {
 // Tag pill — keeps the colour consistent with the indigo palette
 function Tag({ label }: { label: string }) {
   return (
-    <span className="inline-block px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-500 text-[10px] font-medium tracking-wide">
+    <span className="inline-block px-2 py-0.5 rounded-full bg-surface-strong text-accent text-[10px] font-medium tracking-wide">
       {label}
     </span>
   );
@@ -37,14 +37,14 @@ export default function BlogBrief() {
     <section className="max-w-4xl mx-auto px-6 py-10">
       <div className="mb-8 flex items-end justify-between">
         <div>
-          <h2 className="text-2xl font-extrabold text-indigo-900 hover:text-purple-500 transition mb-1">
+          <h2 className="text-2xl font-extrabold text-heading hover:text-accent-soft transition mb-1">
             <Link href="/blog">🗒 Field Notes</Link>
           </h2>
-          <p className="text-gray-400 text-sm italic">
+          <p className="text-subtle text-sm italic">
             What I&apos;ve been thinking and writing about.
           </p>
         </div>
-        <Link href="/blog" className="text-xs text-indigo-400 hover:text-indigo-600 transition font-medium">
+        <Link href="/blog" className="text-xs text-accent-soft hover:text-accent transition font-medium">
           All posts →
         </Link>
       </div>
@@ -61,7 +61,7 @@ export default function BlogBrief() {
           <motion.div
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
-            className="group relative h-72 md:h-80 rounded-2xl overflow-hidden bg-indigo-100 cursor-pointer"
+            className="group relative h-72 md:h-80 rounded-2xl overflow-hidden bg-surface-strong cursor-pointer"
           >
             <Image
               src={featured.coverImage}
@@ -76,7 +76,7 @@ export default function BlogBrief() {
             <div className="absolute inset-x-0 bottom-0 p-5">
               <div className="flex gap-1.5 mb-2 flex-wrap">
                 {featured.tags.map((t) => (
-                  <span key={t} className="px-2 py-0.5 rounded-full bg-white/20 text-white text-[10px] tracking-wide backdrop-blur-sm">
+                  <span key={t} className="px-2 py-0.5 rounded-full bg-surface/20 text-white text-[10px] tracking-wide backdrop-blur-sm">
                     {t}
                   </span>
                 ))}
@@ -84,7 +84,7 @@ export default function BlogBrief() {
               <p className="text-white font-bold text-base leading-snug mb-1">
                 {featured.title}
               </p>
-              <p className="font-mono text-indigo-300 text-[11px] tracking-wide">
+              <p className="font-mono text-accent-soft text-[11px] tracking-wide">
                 {formatDate(featured.date)}
               </p>
             </div>
@@ -98,11 +98,11 @@ export default function BlogBrief() {
               <div className="
                 group flex items-center gap-3
                 py-3 px-2 -mx-2 rounded-lg
-                hover:bg-indigo-50
+                hover:bg-surface-alt
                 transition-colors duration-200
               ">
                 {/* Thumbnail — small, square */}
-                <div className="relative w-14 h-14 flex-shrink-0 rounded-lg overflow-hidden bg-indigo-100">
+                <div className="relative w-14 h-14 flex-shrink-0 rounded-lg overflow-hidden bg-surface-strong">
                   <Image
                     src={post.coverImage}
                     alt={post.title}
@@ -112,18 +112,18 @@ export default function BlogBrief() {
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-indigo-900 leading-snug line-clamp-2 group-hover:text-purple-600 transition-colors">
+                  <p className="text-sm font-semibold text-heading leading-snug line-clamp-2 group-hover:text-accent-soft transition-colors">
                     {post.title}
                   </p>
                   <div className="flex items-center gap-2 mt-1 flex-wrap">
-                    <span className="font-mono text-[10px] text-indigo-300">{formatDate(post.date)}</span>
+                    <span className="font-mono text-[10px] text-accent-soft">{formatDate(post.date)}</span>
                     {post.tags[0] && <Tag label={post.tags[0]} />}
                   </div>
                 </div>
 
                 {/* Arrow — appears on hover */}
                 <span className="
-                  text-indigo-300 text-sm flex-shrink-0
+                  text-accent-soft text-sm flex-shrink-0
                   opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0
                   transition-all duration-200
                 ">→</span>

@@ -18,8 +18,8 @@ export default function ScrollHint({ targetId }: { targetId?: string }) {
         transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         onClick={scroll}
       >
-        <span className="text-sm text-gray-500 mb-2">Scroll Down</span>
-        <ChevronDown className="w-6 h-6 text-gray-500" />
+        <span className="text-sm text-muted mb-2">Scroll Down</span>
+        <ChevronDown className="w-6 h-6 text-muted" />
       </motion.div>
     </div>
   );

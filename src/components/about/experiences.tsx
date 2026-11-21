@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ChevronDown, X } from "lucide-react";
 import PageContainer from "@/components/layout/PageContainer";
 import PageHeader from "@/components/layout/PageHeader";
-import StatCard from "@/components/ui/StatCard";
 import Tag from "@/components/ui/Tag";
 
 // ── Data ────────────────────────────────────────────────────────────
@@ -15,15 +14,23 @@ interface Stat {
   label: string;
 }
 
-type BentoSize = "lg" | "md" | "sm";
-
 interface Experience {
   duration: string;
   company: string;
   role: string;
+  summary: string;
   description: string[];
+  // Logo (or photo, see logoFit). Used next to the company name, in the modal,
+  // in the fallback panel, and in "Earlier roles".
   image: string;
-  // "contain" (default) fits a logo inside the tile with padding.
+  // Company site. The small logo by the name turns into an arrow and links here.
+  url?: string;
+  // Optional card image. Export at 16:10 (e.g. 1280x800) since it's cropped
+  // with object-cover. Without it, the card shows the logo on a tinted panel.
+  media?: string;
+  // Tint behind the logo panel when there's no media. Defaults to soft indigo.
+  accent?: string;
+  // "contain" (default) fits a logo cleanly without framing.
   // "cover" fills the tile edge-to-edge; use it for photos / full-bleed images.
   logoFit?: "contain" | "cover";
   // Older roles collapse into a compact list under "Earlier roles".
@@ -32,16 +39,17 @@ interface Experience {
   stats?: Stat[];
   techTags?: string[];
   skills: string[];
-  bentoSize: BentoSize;
 }
 
 const EXPERIENCES: Experience[] = [
-{
-    duration: "JUL 2026 – PRESENT",
-    company: "ApexFlo.ai",
+  {
+    duration: "2026 - Present",
+    company: "ApexFlo.ai (NVIDIA Inception Program)",
+    url: "https://apexflo.ai",
     tag: "Current",
-    role: "Member of Technical Staff (MTS-1)",
-    bentoSize: "lg",
+    role: "Platform Engineer",
+    summary:
+      "Architected and delivered 3 production edge-AI platforms spanning real-time CV pipelines, pgvector search, and K3s edge deployments.",
     skills: ["Systems", "Backend", "AI/Infra", "Computer Vision"],
     description: [
       "Architected and delivered 3 production edge-AI platforms spanning real-time CV pipelines, event-driven services, pgvector search, and K3s edge deployments.",
@@ -55,12 +63,15 @@ const EXPERIENCES: Experience[] = [
     ],
     techTags: ["k3s", "Python", "Linux", "systemd", "OpenCV", "pgvector", "SigLIP2"],
     image: "/images/exp/apexflo-logo.png",
+    media: "/images/exp/apexflo_nvidia.png",
   },
   // {
   //   duration: "2026",
   //   company: "AfterWord",
+  //   url: "https://getafterword.vercel.app/",
   //   role: "Founder & Solo Developer",
-  //   bentoSize: "md",
+  //   summary:
+  //     "Solo-built a knowledge ingestion and retrieval platform with async pipelines and semantic search over 10K+ embedded highlights.",
   //   skills: ["Backend", "AI/Infra", "Frontend"],
   //   description: [
   //     "Built a knowledge ingestion and retrieval platform using FastAPI, PostgreSQL, PostGIS, pgvector, Redis, and Next.js.",
@@ -80,7 +91,8 @@ const EXPERIENCES: Experience[] = [
   //   company: "Maksika Group",
   //   tag: "",
   //   role: "Software Engineer",
-  //   bentoSize: "md",
+  //   summary:
+  //     "Build GIS and geospatial applications for mineral prospecting workflows, plus the company's customer-facing web platform.",
   //   skills: ["Backend", "Cloud", "Frontend"],
   //   description: [
   //     "Develop and maintain GIS and geospatial applications supporting Earth Science Engineering and mineral prospecting workflows across international projects.",
@@ -92,12 +104,12 @@ const EXPERIENCES: Experience[] = [
   //   image: "/images/exp/maksika.png",
   // },
   {
-    duration: "OCT 2025 – JAN 2026",
+    duration: "2025",
     company: "EMVO.ai",
+    url: "https://emvo.ai",
     role: "Platform & AgentOps Engineer",
-    // "sm" (not "md") so EMVO + Purdue sit side by side next to the large
-    // ApexFlo cell, which makes the featured grid a clean 2-row block.
-    bentoSize: "sm",
+    summary:
+      "Improved availability of production AWS services through monitoring and observability while building the backend services behind AI features.",
     skills: ["Backend", "Cloud", "AI/Infra"],
     description: [
       "Improved availability and reliability of production AWS services through monitoring, observability, and infrastructure optimization.",
@@ -107,12 +119,15 @@ const EXPERIENCES: Experience[] = [
     ],
     techTags: ["AWS", "CloudWatch", "REST APIs", "Microservices", "Python", "Async Workflows"],
     image: "/images/exp/emvo_new_logo.png",
+    media: "/images/exp/emvo-media.png",
   },
   {
-    duration: "JAN 2024 - MAY 2025",
+    duration: "2024 - 2025",
     company: "Purdue University",
+    url: "https://www.purdue.edu",
     role: "Web Developer",
-    bentoSize: "sm",
+    summary:
+      "Kept production web services stable and automated deployment workflows, cutting release overhead by about 45%.",
     skills: ["Backend", "Frontend"],
     description: [
       "Maintained and improved production web services with focus on application stability, deployment reliability, and performance optimization.",
@@ -121,14 +136,17 @@ const EXPERIENCES: Experience[] = [
       "Refactored application components to improve maintainability and operational consistency.",
     ],
     techTags: ["HTML", "CSS", "JS", "CI/CD", "CMS"],
-    image: "/images/exp/purdue_sidearch.jpg",
-    logoFit: "cover", // this one is a photo, not a logo — flip to "contain" if it crops badly
+    image: "/images/exp/purdue_logo.png",
+    logoFit: "contain",
+    media: "/images/exp/purdue_sidearch.jpg",
   },
   {
-    duration: "JUN 2022 - AUG 2022",
+    duration: "Summer 2022",
     company: "Cummins, Inc.",
+    url: "https://www.cummins.com",
     role: "Software Engineering Intern",
-    bentoSize: "md",
+    summary:
+      "Monitored distributed AWS workflows to find reliability bottlenecks and improved CloudWatch alerting for faster incident response.",
     skills: ["Cloud", "Backend"],
     description: [
       "Monitored distributed AWS workflows to identify production reliability bottlenecks.",
@@ -137,13 +155,15 @@ const EXPERIENCES: Experience[] = [
       "Performed root cause analysis for asynchronous cloud infrastructure failures.",
     ],
     techTags: ["AWS", "CloudWatch", "Lambda", "S3", "Python"],
-    image: "/images/exp/cummins-logo-round.jpeg",
+    image: "/images/exp/cummins-logo.png",
   },
   {
-    duration: "AUG 2021 - MAY 2022",
+    duration: "2021 - 2022",
     company: "Merck",
+    url: "https://www.merck.com",
     role: "Data Science Researcher & TA",
-    bentoSize: "sm",
+    summary:
+      "Built Python data pipelines on SQL, S3, and Databricks, plus dashboards that gave research teams visibility.",
     earlier: true,
     skills: ["Backend", "Mentorship"],
     description: [
@@ -156,10 +176,11 @@ const EXPERIENCES: Experience[] = [
     image: "/images/exp/Merck.png",
   },
   {
-    duration: "MAY 2021 - AUG 2021",
+    duration: "Summer 2021",
     company: "Purdue CS Dept.",
+    url: "https://www.cs.purdue.edu",
     role: "TA · CS Bridge Program",
-    bentoSize: "sm",
+    summary: "Mentored 45+ incoming CS students through OOP fundamentals and Java in the summer bridge program.",
     earlier: true,
     skills: ["Mentorship"],
     description: [
@@ -170,55 +191,30 @@ const EXPERIENCES: Experience[] = [
   },
 ];
 
-// ── Layout helpers ──────────────────────────────────────────────────
-
-function spanClasses(size: BentoSize): string {
-  switch (size) {
-    case "lg":
-      return "sm:col-span-2 lg:col-span-2 row-span-2";
-    case "md":
-      return "sm:col-span-2 lg:col-span-2 row-span-1";
-    case "sm":
-    default:
-      return "row-span-1";
-  }
-}
-
-// Only controls how many lines the single visible bullet can wrap to.
-function bulletClamp(size: BentoSize): string {
-  return size === "sm" ? "line-clamp-3" : "line-clamp-2";
-}
-
 // ── Variants ────────────────────────────────────────────────────────
-
-const fadeInVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
-};
 
 const gridVariants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.06 } },
+  visible: { transition: { staggerChildren: 0.08 } },
 };
 
 const cellVariants = {
-  hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
 };
 
 // ── Logo ────────────────────────────────────────────────────────────
-// One component renders every logo, so they all share the same tile:
-// fixed square, white background, hairline ring, same radius, padded
-// "contain" fit. Mismatched source files (round JPEG, wide PNG, etc.)
-// end up looking like a set. If an image fails to load, we fall back to
-// a monogram instead of a broken icon.
+// Renders transparent logos cleanly without an outer box or border ring.
+// If an image fails to load, falls back to a subtle monogram tile.
 
-type LogoSize = "sm" | "md" | "lg";
+type LogoSize = "xs" | "sm" | "md" | "lg" | "xl";
 
 const LOGO_DIMS: Record<LogoSize, string> = {
-  sm: "w-10 h-10",
-  md: "w-12 h-12",
-  lg: "w-16 h-16",
+  xs: "w-5 h-5",
+  sm: "w-9 h-9",
+  md: "w-11 h-11",
+  lg: "w-14 h-14",
+  xl: "w-20 h-20",
 };
 
 function monogram(company: string): string {
@@ -241,27 +237,33 @@ function Logo({
 
   return (
     <div
-      className={`relative shrink-0 overflow-hidden rounded-lg bg-white ring-1 ring-slate-200 ${
-        LOGO_DIMS[size]
-      } ${dimmed ? "grayscale opacity-60" : ""}`}
+      className={`relative shrink-0 overflow-hidden ${LOGO_DIMS[size]} ${
+        dimmed ? "grayscale opacity-50" : ""
+      }`}
     >
       {failed ? (
-        <div className="absolute inset-0 flex items-center justify-center bg-indigo-50 text-sm font-extrabold tracking-tight text-indigo-900">
+        <div
+          className={`flex h-full w-full items-center justify-center rounded-md bg-sunken/80 font-bold tracking-tight text-heading ${
+            size === "xs" ? "text-[9px]" : "text-sm"
+          }`}
+        >
           {monogram(exp.company)}
         </div>
       ) : (
         <>
           {!loaded && (
-            <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-indigo-100 to-indigo-50" />
+            <div className="absolute inset-0 animate-pulse rounded-md bg-sunken/40" />
           )}
           <Image
             src={exp.image}
             alt=""
             fill
-            sizes="64px"
-            className={`transition-opacity duration-300 ${
-              cover ? "object-cover" : "object-contain p-1.5"
-            } ${loaded ? "opacity-100" : "opacity-0"}`}
+            sizes="80px"
+            className={`transition-all duration-300 ${
+              cover
+                ? "rounded-md object-cover"
+                : `object-contain ${loaded ? "opacity-100" : "opacity-0"}`
+            }`}
             onLoad={() => setLoaded(true)}
             onError={() => setFailed(true)}
             unoptimized
@@ -272,9 +274,63 @@ function Logo({
   );
 }
 
-// ── Bento cell ──────────────────────────────────────────────────────
+// ── Company link ────────────────────────────────────────────────────
+// Small logo + name. With a `url`, hovering swaps the logo for an arrow and
+// the whole thing links out to the company site. Without one, it's static.
 
-function BentoCell({
+function CompanyLink({ exp, active }: { exp: Experience; active: boolean }) {
+  const linked = Boolean(exp.url) && active;
+
+  const content = (
+    <>
+      <span className="relative flex h-5 w-5 shrink-0 items-center justify-center">
+        <span
+          className={`flex h-full w-full items-center justify-center transition-all duration-200 ${
+            linked ? "group-hover/link:scale-75 group-hover/link:opacity-0" : ""
+          }`}
+        >
+          <Logo exp={exp} size="xs" dimmed={!active} />
+        </span>
+        {linked && (
+          <span className="absolute inset-0 flex scale-75 items-center justify-center text-accent opacity-0 transition-all duration-200 group-hover/link:scale-100 group-hover/link:opacity-100">
+            <ArrowUpRight size={14} />
+          </span>
+        )}
+      </span>
+      <span
+        className={`truncate text-base font-semibold tracking-tight text-heading transition-colors ${
+          linked ? "group-hover/link:text-accent" : ""
+        }`}
+      >
+        {exp.company}
+      </span>
+    </>
+  );
+
+  if (!linked) {
+    return <span className="flex min-w-0 items-center gap-2">{content}</span>;
+  }
+
+  return (
+    <a
+      href={exp.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`${exp.company} website`}
+      className="group/link flex min-w-0 items-center gap-2"
+    >
+      {content}
+    </a>
+  );
+}
+
+// ── Card ────────────────────────────────────────────────────────────
+// Media on top, then a title row, one sentence, and a quiet cue. No box.
+// The company name links out; everything else opens the details modal.
+// (The link can't live inside a <button>, so the card is an <article> with
+// two button regions around the title row.)
+
+function ExperienceCard({
   exp,
   active,
   onOpen,
@@ -283,110 +339,76 @@ function BentoCell({
   active: boolean;
   onOpen: () => void;
 }) {
-  const isLg = exp.bentoSize === "lg";
-
   return (
-    <motion.button
-      type="button"
-      onClick={onOpen}
+    <motion.article
       variants={cellVariants}
-      animate={{ scale: active ? 1 : 0.96 }}
-      transition={{ duration: 0.3 }}
-      className={`group relative text-left rounded-xl shadow-sm transition-all duration-300 overflow-hidden border-2 ${spanClasses(
-        exp.bentoSize
-      )} ${
-        active
-          ? "bg-white border-indigo-100 hover:border-indigo-300"
-          : "bg-gray-50 border-gray-100"
-      }`}
-      style={{ pointerEvents: active ? "auto" : "none" }}
-      aria-label={`${exp.company} — ${exp.role}`}
+      className={`group transition-opacity duration-300 ${active ? "" : "opacity-40"}`}
     >
-      <div className="flex flex-col h-full p-4">
-        <div className="flex items-center gap-3 mb-2">
-          <Logo exp={exp} size={isLg ? "lg" : "md"} dimmed={!active} />
-          <div className="min-w-0">
-            <p
-              className={`font-extrabold leading-tight truncate ${isLg ? "text-lg" : "text-sm"} ${
-                active ? "text-indigo-900" : "text-gray-400"
-              }`}
-            >
-              {exp.company}
-            </p>
-            <p className={`text-[11px] truncate ${active ? "text-gray-400" : "text-gray-300"}`}>
-              {exp.duration}
-            </p>
-          </div>
+      {/* Media: a mouse target only; the text button below is the keyboard one */}
+      <button
+        type="button"
+        onClick={onOpen}
+        disabled={!active}
+        tabIndex={-1}
+        aria-hidden
+        className="block w-full text-left"
+      >
+        <div
+          className="relative aspect-[16/10] overflow-hidden rounded-xl"
+          style={{ backgroundColor: exp.accent ?? "#eef2ff" }}
+        >
+          {exp.media ? (
+            <div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.03]">
+              <Image src={exp.media} alt={exp.company} fill className="object-cover" unoptimized />
+            </div>
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <Logo exp={exp} size="xl" dimmed={!active} />
+            </div>
+          )}
+        </div>
+      </button>
+
+      <div className="mt-3 flex items-center justify-between gap-3">
+        <div className="flex min-w-0 items-center gap-2">
+          <h3 className="min-w-0">
+            <CompanyLink exp={exp} active={active} />
+          </h3>
           {exp.tag && active && <Tag label={exp.tag} variant="stat" />}
         </div>
-
-        <p
-          className={`italic mb-2 ${isLg ? "text-sm" : "text-xs"} line-clamp-1 ${
-            active ? "text-gray-500" : "text-gray-300"
-          }`}
-        >
-          {exp.role}
-        </p>
-
-        {/* One bullet on the card; the full list lives in the modal */}
-        {exp.description.length > 0 && (
-          <div className="flex-1">
-            <p
-              className={`flex gap-1.5 leading-relaxed ${isLg ? "text-sm" : "text-xs"} ${bulletClamp(
-                exp.bentoSize
-              )} ${active ? "text-gray-600" : "text-gray-400"}`}
-            >
-              <span
-                className={`mt-1.5 shrink-0 w-1 h-1 rounded-full ${active ? "bg-indigo-300" : "bg-gray-300"}`}
-              />
-              {exp.description[0]}
-            </p>
-
-            {exp.description.length > 1 && (
-              <p
-                className={`mt-1 text-[11px] font-medium ${
-                  active ? "text-indigo-400 group-hover:text-indigo-600" : "text-gray-300"
-                }`}
-              >
-                +{exp.description.length - 1} more →
-              </p>
-            )}
-          </div>
-        )}
-
-        {isLg && exp.stats && exp.stats.length > 0 && (
-          <div className="flex flex-wrap gap-6 mt-3">
-            {exp.stats.map((s) => (
-              <div key={s.label}>
-                <p
-                  className={`font-extrabold leading-none text-3xl ${
-                    active ? "text-indigo-900" : "text-gray-300"
-                  }`}
-                >
-                  {s.value}
-                </p>
-                <p className={`text-[11px] ${active ? "text-gray-400" : "text-gray-300"}`}>{s.label}</p>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {exp.techTags && (
-          <div className={`flex flex-wrap gap-1 mt-3 ${active ? "" : "opacity-40"}`}>
-            {exp.techTags.slice(0, isLg ? 5 : 2).map((t) => (
-              <Tag key={t} label={t} variant="default" />
-            ))}
-          </div>
-        )}
+        <span className="shrink-0 whitespace-nowrap text-xs tabular-nums text-subtle">{exp.duration}</span>
       </div>
 
-      {active && (
-        <ArrowUpRight
-          size={14}
-          className="absolute top-3 right-3 text-indigo-300 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        />
-      )}
-    </motion.button>
+      <button
+        type="button"
+        onClick={onOpen}
+        disabled={!active}
+        aria-label={`${exp.company} — ${exp.role}: details`}
+        className="block w-full text-left"
+      >
+        <p className="mt-0.5 text-sm text-subtle">{exp.role}</p>
+
+        <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">{exp.summary}</p>
+
+        {/* A single muted line for the headline numbers, if there are any */}
+        {exp.stats && exp.stats.length > 0 && (
+          <p className="mt-2 text-xs text-subtle">
+            {exp.stats.map((s, i) => (
+              <span key={s.label}>
+                {i > 0 && " · "}
+                <span className="font-semibold text-muted">{s.value}</span> {s.label}
+              </span>
+            ))}
+          </p>
+        )}
+
+        {exp.description.length > 1 && (
+          <p className="mt-3 flex items-center gap-1 text-xs font-medium text-subtle transition-colors group-hover:text-accent">
+            Details <ArrowUpRight size={12} />
+          </p>
+        )}
+      </button>
+    </motion.article>
   );
 }
 
@@ -409,28 +431,28 @@ function EarlierRow({
       aria-label={`${exp.company} — ${exp.role}`}
       className={`group flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-all duration-300 ${
         active
-          ? "bg-white border-indigo-100 hover:border-indigo-200 hover:shadow-md"
-          : "bg-gray-50 border-gray-100"
+          ? "bg-surface border-line hover:border-line hover:shadow-md"
+          : "bg-gray-50 border-line"
       }`}
     >
       <Logo exp={exp} size="sm" dimmed={!active} />
       <div className="min-w-0 flex-1">
         <p
           className={`truncate text-sm font-extrabold leading-tight ${
-            active ? "text-indigo-900" : "text-gray-400"
+            active ? "text-heading" : "text-subtle"
           }`}
         >
           {exp.company}
         </p>
-        <p className={`truncate text-xs italic ${active ? "text-gray-500" : "text-gray-300"}`}>
+        <p className={`truncate text-xs italic ${active ? "text-muted" : "text-subtle"}`}>
           {exp.role}
         </p>
       </div>
-      <p className="hidden sm:block shrink-0 text-[11px] text-gray-400">{exp.duration}</p>
+      <p className="hidden sm:block shrink-0 text-[11px] text-subtle">{exp.duration}</p>
       <ArrowUpRight
         size={14}
         className={`shrink-0 transition-colors ${
-          active ? "text-gray-300 group-hover:text-indigo-600" : "text-gray-200"
+          active ? "text-subtle group-hover:text-accent" : "text-subtle"
         }`}
       />
     </button>
@@ -461,7 +483,7 @@ function ExperienceModal({ exp, onClose }: { exp: Experience; onClose: () => voi
         role="dialog"
         aria-modal="true"
         aria-label={`${exp.company} — ${exp.role}`}
-        className="bg-white rounded-xl max-w-lg w-full p-6 relative max-h-[85vh] overflow-y-auto"
+        className="bg-surface rounded-xl max-w-lg w-full p-6 relative max-h-[85vh] overflow-y-auto"
         initial={{ opacity: 0, scale: 0.96, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.96, y: 10 }}
@@ -470,7 +492,7 @@ function ExperienceModal({ exp, onClose }: { exp: Experience; onClose: () => voi
       >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-indigo-900 transition-colors"
+          className="absolute top-4 right-4 text-subtle hover:text-heading transition-colors"
           aria-label="Close"
         >
           <X size={20} />
@@ -479,17 +501,17 @@ function ExperienceModal({ exp, onClose }: { exp: Experience; onClose: () => voi
         <div className="flex items-center gap-4 mb-4 pr-8">
           <Logo exp={exp} size="lg" />
           <div className="min-w-0">
-            <p className="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-1">
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent-soft mb-1">
               {exp.duration}
             </p>
-            <h3 className="text-2xl font-extrabold text-indigo-900 leading-tight">{exp.company}</h3>
-            <p className="text-sm italic text-gray-500 mt-0.5">{exp.role}</p>
+            <h3 className="text-2xl font-extrabold text-heading leading-tight">{exp.company}</h3>
+            <p className="text-sm italic text-muted mt-0.5">{exp.role}</p>
           </div>
         </div>
 
         <ul className="space-y-2 mb-4">
           {exp.description.map((point, i) => (
-            <li key={i} className="flex gap-2 text-sm text-gray-600 leading-relaxed">
+            <li key={i} className="flex gap-2 text-sm text-muted leading-relaxed">
               <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-indigo-300" />
               {point}
             </li>
@@ -500,8 +522,8 @@ function ExperienceModal({ exp, onClose }: { exp: Experience; onClose: () => voi
           <div className="flex flex-wrap gap-6 mb-4">
             {exp.stats.map((s) => (
               <div key={s.label}>
-                <p className="text-2xl font-extrabold text-indigo-900 leading-none">{s.value}</p>
-                <p className="text-xs text-gray-400">{s.label}</p>
+                <p className="text-2xl font-extrabold text-heading leading-none">{s.value}</p>
+                <p className="text-xs text-subtle">{s.label}</p>
               </div>
             ))}
           </div>
@@ -555,33 +577,16 @@ export default function Experiences() {
     <PageContainer className="flex flex-col" size="default">
       <PageHeader
         title="Work"
-        subtitle="What I've been working on in a non-resume format! (click on the cards to learn more)"
+        subtitle="Where I've worked and what I shipped. Click a card for details."
         className="mb-4"
       />
-
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={fadeInVariants}
-        className="grid grid-cols-2 sm:grid-cols-4 gap-3"
-      >
-        {[
-          // { value: EXPERIENCES.length, label: "Roles" },
-          // { value: "2+", label: "Years" },
-          // { value: "Backend", label: "Focus" },
-          // { value: "Python, React", label: "Core Stack" },
-        ].map(({ value, label }) => (
-          <StatCard key={label} value={value} label={label} />
-        ))}
-      </motion.div>
 
       {/* Filter bar */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, delay: 0.1 }}
-        className="mb-8 border-b border-slate-200/60 pb-6"
+        className="mb-8 border-b border-line/60 pb-6"
       >
         <div className="flex flex-wrap items-center gap-1.5">
           <button
@@ -591,19 +596,19 @@ export default function Experiences() {
             {activeFilter === null && (
               <motion.span
                 layoutId="exp-tag-pill"
-                className="absolute inset-0 bg-indigo-950 rounded-xl"
+                className="absolute inset-0 bg-brand rounded-xl"
                 transition={{ type: "spring", stiffness: 380, damping: 30 }}
               />
             )}
             <span
               className={`relative z-10 flex items-center gap-1.5 ${
-                activeFilter === null ? "text-white" : "text-slate-400 hover:text-slate-600"
+                activeFilter === null ? "text-white" : "text-subtle hover:text-muted"
               }`}
             >
               All
               <span
                 className={`text-[10px] font-mono px-1 rounded ${
-                  activeFilter === null ? "bg-indigo-800 text-indigo-200" : "bg-slate-100 text-slate-400"
+                  activeFilter === null ? "bg-indigo-800 text-indigo-200" : "bg-sunken text-subtle"
                 }`}
               >
                 {EXPERIENCES.length}
@@ -620,19 +625,19 @@ export default function Experiences() {
               {activeFilter === skill && (
                 <motion.span
                   layoutId="exp-tag-pill"
-                  className="absolute inset-0 bg-indigo-950 rounded-xl"
+                  className="absolute inset-0 bg-brand rounded-xl"
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               )}
               <span
                 className={`relative z-10 flex items-center gap-1.5 uppercase tracking-wider ${
-                  activeFilter === skill ? "text-white" : "text-slate-400 hover:text-slate-600"
+                  activeFilter === skill ? "text-white" : "text-subtle hover:text-muted"
                 }`}
               >
                 {skill}
                 <span
                   className={`text-[10px] font-mono px-1 rounded ${
-                    activeFilter === skill ? "bg-indigo-800 text-indigo-200" : "bg-slate-100 text-slate-400"
+                    activeFilter === skill ? "bg-indigo-800 text-indigo-200" : "bg-sunken text-subtle"
                   }`}
                 >
                   {count}
@@ -649,13 +654,13 @@ export default function Experiences() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.2 }}
-              className="mt-4 text-sm text-indigo-400"
+              className="mt-4 text-sm text-accent-soft"
             >
-              Showing roles tagged <span className="font-semibold text-indigo-600">{activeFilter}</span>
+              Showing roles tagged <span className="font-semibold text-accent">{activeFilter}</span>
               {" · "}
               <button
                 onClick={() => setActiveFilter(null)}
-                className="underline underline-offset-2 hover:text-indigo-800 transition-colors"
+                className="underline underline-offset-2 hover:text-accent transition-colors"
               >
                 Clear filter
               </button>
@@ -664,16 +669,16 @@ export default function Experiences() {
         </AnimatePresence>
       </motion.div>
 
-      {/* Featured bento grid */}
+      {/* Featured: two columns, same rhythm as the projects page */}
       <motion.div
         variants={gridVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.05 }}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(180px,auto)] gap-3 mb-8"
+        className="mb-10 grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-2"
       >
         {featured.map((exp) => (
-          <BentoCell
+          <ExperienceCard
             key={exp.company}
             exp={exp}
             active={matches(exp)}
@@ -686,16 +691,16 @@ export default function Experiences() {
       {earlier.length > 0 && (
         <div className="mb-10">
           {filterHitsEarlier ? (
-            <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Earlier roles</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-subtle">Earlier roles</p>
           ) : (
             <button
               type="button"
               onClick={() => setEarlierOpen((o) => !o)}
               aria-expanded={earlierOpen}
-              className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-indigo-900 transition-colors"
+              className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-subtle hover:text-heading transition-colors"
             >
               Earlier roles
-              <span className="rounded bg-slate-100 px-1 font-mono text-[10px] text-slate-400">
+              <span className="rounded bg-sunken px-1 font-mono text-[10px] text-subtle">
                 {earlier.length}
               </span>
               <ChevronDown

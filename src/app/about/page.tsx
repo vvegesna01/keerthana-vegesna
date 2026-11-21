@@ -8,10 +8,11 @@ import BlogBrief from "@/components/home/BlogBrief";
 import PhotographyGrid from "@/components/about/photographyGrid";
 import HikingGame from "@/components/about/hikingGame";
 import PageContainer from "@/components/layout/PageContainer";
-import ProfileImage from "@/components/ui/ProfileImage";
+// import ProfileImage from "@/components/ui/ProfileImage";
 import FooterMetadata from "@/components/layout/FooterMetadata";
 import FloatingHobbies from "@/components/about/FloatingHobbies";
 import MiniBookshelf from "@/components/about/MiniBookshelf";
+import AboutHero from "@/components/about/AboutHero";
 
 // ── Variants ─────────────────────────────────────────────────────────
 
@@ -66,73 +67,7 @@ export default function AboutMe() {
 
   return (
     <PageContainer className="flex flex-col" size="default">
-        {/* ── Hero ── */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={fadeInVariants}
-          className="mb-16"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-            {/* Image (LEFT) */}
-            <ProfileImage
-              src="/images/profiles/grad_2023.jpg"
-              alt="Keerthana profile"
-              cornerTag="purdue.grad"
-            />
-
-            {/* Text (RIGHT) */}
-            <div>
-              <h1 className="text-4xl leading-tight font-extrabold text-indigo-900 mb-4">
-                Hi there! I&apos;m Keerthana.
-              </h1>
-
-              <p className="text-gray-600 leading-7 mb-4">
-                I&apos;m a software engineer focused on backend systems, cloud
-                infrastructure, and data platforms. Right now I&apos;m a Member
-                of Technical Staff at ApexFlo.ai, building backend services and
-                AI infrastructure for on-premise computer vision and legal AI
-                systems.
-              </p>
-
-              <p className="text-gray-600 leading-7 mb-4">
-                I studied Computer Science at{" "}
-                <Link
-                  href="https://www.purdue.edu/"
-                  className="text-purdue_color font-semibold underline transition duration-300 hover:text-blue-500"
-                >
-                  Purdue University
-                </Link>
-                , where I maintained web services as a developer for the Honors
-                College, interned at Cummins, and TA&apos;d for The Data Mine
-                and the CS Bridge Program.
-              </p>
-
-              {/* <p className="text-gray-600 leading-7 mb-4">
-                I like systems that are clear, observable, and well documented.
-                I also build small tools for an audience of one, like a
-                thought-capture app and a book club dashboard, and write about
-                what I learn in my Field Notes.
-              </p> */}
-
-              <div className="flex flex-wrap gap-2 py-3 animate-fadeIn">
-                {[
-                  { href: "https://www.cs.purdue.edu/about/womens-history/girls-who-code.html", label: "Girls Who Code", color: "text-gwc_color" },
-                  { href: "https://rewritingthecode.org/", label: "Rewriting the Code", color: "text-rtc_color" },
-                  { href: "https://swe.org/", label: "Society of Women Engineers", color: "text-links_color" },
-                ].map(({ href, label, color }) => (
-                  <Link
-                    key={label}
-                    href={href}
-                    className={`px-3 py-1.5 rounded-full bg-gray-200/70 text-xs font-semibold ${color} transition hover:bg-gray-200`}
-                  >
-                    {label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </motion.div>
+        <AboutHero/>
 
         {/* ── Beyond Tech — 4-up cards linking to sections ── */}
         <FloatingHobbies setHikingActive={setHikingActive}></FloatingHobbies>
@@ -147,10 +82,10 @@ export default function AboutMe() {
           variants={fadeInVariants}
           className="mb-12 scroll-mt-10"
         >
-          <h2 className="text-2xl font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-3">
+          <h2 className="text-2xl font-extrabold text-heading hover:text-accent-soft transition-colors duration-300 mb-3">
             ♫ Music
           </h2>
-          <p className="text-gray-500 leading-8 text-lg mb-6">
+          <p className="text-muted leading-8 text-lg mb-6">
             I spend my free time songwriting, singing, and honing my guitar
             skills. I also upload covers and original songs on my{" "}
             <Link
@@ -167,7 +102,7 @@ export default function AboutMe() {
             {["nIxVo8t5Cj4", "rvKqtjU3Fuo"].map((id) => (
               <div
                 key={id}
-                className="relative w-full aspect-video rounded-xl overflow-hidden bg-indigo-50 shadow-sm"
+                className="relative w-full aspect-video rounded-xl overflow-hidden bg-surface-alt shadow-sm"
               >
                 <iframe
                   className="absolute inset-0 w-full h-full"
@@ -191,10 +126,10 @@ export default function AboutMe() {
           variants={fadeInVariants}
           className="mb-12 scroll-mt-10"
         >
-          <h2 className="text-2xl font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-3">
+          <h2 className="text-2xl font-extrabold text-heading hover:text-accent-soft transition-colors duration-300 mb-3">
             📷 Photography
           </h2>
-          <p className="text-gray-500 leading-8 text-lg mb-6">
+          <p className="text-muted leading-8 text-lg mb-6">
             I love taking interesting pictures of my travels and everyday life —
             documenting the way I see the world through my camera lens. Check
             out my{" "}
@@ -212,7 +147,7 @@ export default function AboutMe() {
             {Array.from({ length: 6 }, (_, i) => (
               <div
                 key={i}
-                className="group relative aspect-square rounded-lg overflow-hidden bg-indigo-50 shadow-sm"
+                className="group relative aspect-square rounded-lg overflow-hidden bg-surface-alt shadow-sm"
               >
                 <Image
                   src={`/images/photography/photo${i + 1}.png`}

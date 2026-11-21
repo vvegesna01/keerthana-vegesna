@@ -1,8 +1,8 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Section from "@/components/layout/Section";
 import Tag from "@/components/ui/Tag";
 import { PROJECTS } from "@/data/projects";
@@ -86,25 +86,7 @@ type Tab = "projects" | "writing";
 
 export default function ShowcaseBrief({ posts }: { posts: ShowcasePost[] }) {
   const [tab, setTab] = useState<Tab>("projects");
-  const [hoveredType, setHoveredType] = useState<"project" | "writing" | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
   const { lead, rest } = pickPosts(posts);
-
-  // Cursor position local to the interactive zone
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springConfig = { damping: 25, stiffness: 300, mass: 0.6 };
-  const cursorX = useSpring(mouseX, springConfig);
-  const cursorY = useSpring(mouseY, springConfig);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    mouseX.set(e.clientX - rect.left);
-    mouseY.set(e.clientY - rect.top);
-  };
 
   const gridVariants = {
     hidden: { opacity: 0 },
@@ -120,68 +102,43 @@ export default function ShowcaseBrief({ posts }: { posts: ShowcasePost[] }) {
   };
 
   return (
-    <Section className="pt-8 pb-4 md:pt-12 md:pb-6">
+    <Section className="pt-2 pb-6 md:pt-4 md:pb-10">
       {/* Tab header */}
-      <div className="mb-4 flex flex-row items-center justify-between gap-4">
+      <div className="mb-6 flex flex-row items-center justify-between gap-4">
         <div>
-          <h2 className="text-lg font-extrabold text-indigo-900">
-            {tab === "projects" ? "" : ""}
+          <h2 className="text-base sm:text-lg font-bold text-heading tracking-tight">
+            {tab === "projects" ? "Selected Projects" : "Field Notes"}
           </h2>
         </div>
 
-        <div className="inline-flex bg-indigo-50 rounded-full p-0.5 self-start sm:self-auto shadow-inner">
+        <div className="inline-flex bg-surface-alt rounded-full p-0.5 self-start sm:self-auto shadow-inner">
           {(["projects", "writing"] as Tab[]).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
-              className="relative px-4 py-1.5 text-xs font-semibold rounded-full focus:outline-none"
+              className="relative px-3.5 py-1.5 text-xs font-semibold rounded-full focus:outline-none transition-colors"
             >
               {tab === t && (
                 <motion.span
                   layoutId="showcase-tab-pill"
-                  className="absolute inset-0 bg-white rounded-full shadow-sm"
+                  className="absolute inset-0 bg-surface rounded-full shadow-sm"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
               <span
                 className={`relative z-10 transition-colors duration-200 ${
-                  tab === t ? "text-indigo-900 font-bold" : "text-indigo-400 hover:text-indigo-600"
+                  tab === t ? "text-heading font-bold" : "text-muted hover:text-heading"
                 }`}
               >
-                {t === "projects" ? "Projects" : "Field Notes"}
+                {t === "projects" ? "Projects" : "Writing"}
               </span>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Interactive zone */}
-      <div
-        ref={containerRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={() => setHoveredType(null)}
-        className="relative overflow-visible md:cursor-none"
-      >
-        {/* Floating cursor label */}
-        <AnimatePresence>
-          {hoveredType && (
-            <motion.div
-              style={{
-                left: cursorX,
-                top: cursorY,
-                translateX: "-50%",
-                translateY: "-50%",
-              }}
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0, opacity: 0 }}
-              className="absolute pointer-events-none z-40 hidden md:flex items-center justify-center font-mono font-bold text-[11px] uppercase tracking-wider text-white bg-indigo-950 px-4 py-2 rounded-full shadow-xl border border-indigo-800/30 backdrop-blur-sm"
-            >
-              {hoveredType === "project" ? "Explore Project →" : "Read Note ↗"}
-            </motion.div>
-          )}
-        </AnimatePresence>
-
+      {/* Main showcase zone */}
+      <div className="relative overflow-visible">
         <AnimatePresence mode="wait">
           {tab === "projects" ? (
             <motion.div
@@ -190,42 +147,67 @@ export default function ShowcaseBrief({ posts }: { posts: ShowcasePost[] }) {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, margin: "-100px" }}
-              className="grid grid-flow-col grid-rows-[repeat(2,20.5rem)] auto-cols-[72%] overflow-x-scroll snap-x snap-mandatory scroll-px-6 gap-3 -mx-6 px-6 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0 md:pb-0 md:overflow-visible md:grid-flow-row md:grid-rows-none md:grid-cols-3 md:auto-cols-auto md:auto-rows-[180px]"
+              className="grid grid-flow-col grid-rows-[repeat(2,20.5rem)] auto-cols-[72%] overflow-x-scroll snap-x snap-mandatory scroll-px-6 gap-3.5 -mx-6 px-6 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0 md:pb-0 md:overflow-visible md:grid-flow-row md:grid-rows-none md:grid-cols-3 md:auto-cols-auto md:auto-rows-[190px]"
             >
-              {PINNED.map((project, i) => (
-                // The Link is the grid child (it carries the span classes);
-                // the motion.div inside fills it. Link also avoids the full
-                // page reload the old <a> caused.
-                <Link
-                  key={project.title}
-                  href="/projects"
-                  className={`block snap-start ${projectSpan(i, PINNED.length)}`}
-                >
-                  <motion.div
-                    variants={itemVariants}
-                    whileHover={{ scale: 0.99, y: -2 }}
-                    onMouseEnter={() => setHoveredType("project")}
-                    className="group relative h-full rounded-2xl overflow-hidden bg-indigo-50 border border-indigo-100 shadow-sm transition-all duration-300"
+              {PINNED.map((project, i) => {
+                const primaryLink = project.links[0]?.href ?? "/projects";
+                const isExternal = primaryLink.startsWith("http");
+
+                return (
+                  <Link
+                    key={project.title}
+                    href={primaryLink}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noopener noreferrer" : undefined}
+                    className={`block snap-start group cursor-pointer ${projectSpan(i, PINNED.length)}`}
                   >
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-indigo-950/90 via-indigo-900/20 to-transparent opacity-70 group-hover:opacity-85 transition-opacity duration-300" />
-                    <div className="absolute inset-x-0 bottom-0 p-5 z-10">
-                      <p
-                        className={`text-white font-bold leading-tight ${
-                          i === 0 ? "text-xl md:text-2xl" : "text-sm"
-                        }`}
-                      >
-                        {project.title}
-                      </p>
-                    </div>
-                  </motion.div>
-                </Link>
-              ))}
+                    <motion.div
+                      variants={itemVariants}
+                      whileHover={{ scale: 0.995, y: -2 }}
+                      className="relative h-full rounded-2xl overflow-hidden bg-surface-alt border border-line shadow-sm hover:shadow-md transition-all duration-300"
+                    >
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-indigo-950/95 via-indigo-950/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+                      <div className="absolute inset-x-0 bottom-0 p-5 z-10">
+                        <div className="flex items-center justify-between gap-2">
+                          <p
+                            className={`text-white font-bold leading-tight ${
+                              i === 0 ? "text-xl md:text-2xl" : "text-base"
+                            }`}
+                          >
+                            {project.title}
+                          </p>
+                          <span className="text-white/70 group-hover:text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-sm font-semibold">
+                            ↗
+                          </span>
+                        </div>
+
+                        {i === 0 && (
+                          <p className="mt-1.5 text-xs text-indigo-100/80 line-clamp-2 max-w-md hidden sm:block">
+                            {project.summary}
+                          </p>
+                        )}
+
+                        <div className="flex flex-wrap gap-1 mt-2.5">
+                          {project.tags.slice(0, i === 0 ? 3 : 2).map((t) => (
+                            <span
+                              key={t}
+                              className="px-2 py-0.5 text-[10px] font-medium rounded-full bg-white/15 text-white/90 backdrop-blur-sm"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  </Link>
+                );
+              })}
             </motion.div>
           ) : (
             lead && (
@@ -242,8 +224,7 @@ export default function ShowcaseBrief({ posts }: { posts: ShowcasePost[] }) {
                   <motion.div
                     variants={itemVariants}
                     whileHover={{ scale: 0.99, y: -2 }}
-                    onMouseEnter={() => setHoveredType("writing")}
-                    className="group relative h-72 md:h-[376px] rounded-2xl overflow-hidden bg-indigo-100 cursor-pointer shadow-sm"
+                    className="group relative h-72 md:h-[376px] rounded-2xl overflow-hidden bg-surface-strong cursor-pointer shadow-sm hover:shadow-md transition-all duration-300"
                   >
                     <PostCover post={lead} />
                     <div className="absolute inset-0 bg-gradient-to-t from-indigo-950/90 via-indigo-900/20 to-transparent" />
@@ -256,7 +237,7 @@ export default function ShowcaseBrief({ posts }: { posts: ShowcasePost[] }) {
                       <p className="text-white font-extrabold text-lg md:text-xl leading-snug mb-1.5">
                         {lead.title}
                       </p>
-                      <p className="font-mono text-indigo-300 text-[11px] tracking-wide">
+                      <p className="font-mono text-accent-soft text-[11px] tracking-wide">
                         {formatDate(lead.date)}
                       </p>
                     </div>
@@ -269,22 +250,21 @@ export default function ShowcaseBrief({ posts }: { posts: ShowcasePost[] }) {
                     <Link key={post.slug} href={`/blog/${post.slug}`}>
                       <motion.div
                         variants={itemVariants}
-                        onMouseEnter={() => setHoveredType("writing")}
-                        className="group flex items-center gap-4 py-3 px-3 rounded-xl hover:bg-white hover:shadow-sm border border-transparent hover:border-slate-100 transition-all duration-200"
+                        className="group flex items-center gap-4 py-3 px-3 rounded-xl hover:bg-surface hover:shadow-sm border border-transparent hover:border-line transition-all duration-200 cursor-pointer"
                       >
-                        <div className="relative w-14 h-14 flex-shrink-0 rounded-xl overflow-hidden bg-indigo-100 border border-slate-100">
+                        <div className="relative w-14 h-14 flex-shrink-0 rounded-xl overflow-hidden bg-surface-strong border border-line">
                           <PostCover post={post} />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-bold text-indigo-950 leading-snug line-clamp-2 group-hover:text-indigo-600 transition-colors">
+                          <p className="text-sm font-bold text-heading leading-snug line-clamp-2 group-hover:text-accent transition-colors">
                             {post.title}
                           </p>
                           <div className="flex items-center gap-2.5 mt-1 flex-wrap">
-                            <span className="font-mono text-[10px] text-gray-400">{formatDate(post.date)}</span>
+                            <span className="font-mono text-[10px] text-subtle">{formatDate(post.date)}</span>
                             {post.tags[0] && <Tag label={post.tags[0]} />}
                           </div>
                         </div>
-                        <span className="text-indigo-400 bg-indigo-50 group-hover:bg-indigo-950 group-hover:text-white p-2 rounded-full text-xs transform transition-all duration-300 group-hover:translate-x-0.5">
+                        <span className="text-accent-soft bg-surface-alt group-hover:bg-brand group-hover:text-white p-2 rounded-full text-xs transform transition-all duration-300 group-hover:translate-x-0.5">
                           <svg
                             className="w-3.5 h-3.5"
                             fill="none"
@@ -310,13 +290,13 @@ export default function ShowcaseBrief({ posts }: { posts: ShowcasePost[] }) {
       </div>
 
       {tab === "projects" && (
-        <p className="md:hidden mt-2 text-[11px] font-mono text-gray-400">swipe →</p>
+        <p className="md:hidden mt-2 text-[11px] font-mono text-subtle">swipe →</p>
       )}
 
       <div className="mt-6 text-right">
         <Link
           href={tab === "projects" ? "/projects" : "/blog"}
-          className="text-xs text-indigo-500 hover:text-indigo-700 transition font-mono font-bold tracking-tight"
+          className="text-xs text-accent hover:text-accent transition font-mono font-bold tracking-tight"
         >
           {tab === "projects" ? "All Projects →" : "All Writing →"}
         </Link>

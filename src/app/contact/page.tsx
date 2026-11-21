@@ -79,14 +79,14 @@ function FaceBlobs() {
 function CardHeader({ className = "" }: { className?: string }) {
   return (
     <div className={`relative z-10 mt-1 text-center md:mt-0 md:text-left ${className}`}>
-      <h1 className="mb-3 text-3xl font-extrabold leading-10 tracking-tight text-indigo-950 transition-colors duration-300 hover:text-purple-600">
+      <h1 className="mb-3 text-3xl font-extrabold leading-10 tracking-tight text-heading transition-colors duration-300 hover:text-accent-soft">
         {PROFILE.name}
       </h1>
-      <p className="text-lg text-slate-700">
-        {PROFILE.role} <span className="px-1 font-normal text-slate-400">@</span> {PROFILE.company}
+      <p className="text-lg text-muted">
+        {PROFILE.role} <span className="px-1 font-normal text-subtle">@</span> {PROFILE.company}
       </p>
-      <p className="mt-2 flex items-center justify-center md:justify-start gap-1 text-[12px] font-semibold uppercase tracking-wider text-slate-500">
-        <FaMapMarkerAlt className="text-[10px] text-[#1C4E9C]" />
+      <p className="mt-2 flex items-center justify-center md:justify-start gap-1 text-[12px] font-semibold uppercase tracking-wider text-muted">
+        <FaMapMarkerAlt className="text-[10px] text-link" />
         {PROFILE.location}
       </p>
     </div>
@@ -156,7 +156,7 @@ function BusinessCard() {
   const site = origin || PROFILE.siteFallback;
 
   const iconLink =
-    "rounded-full border border-white/70 bg-white/60 p-3 text-[#1C4E9C] shadow-sm transition-all hover:border-[#1C4E9C] hover:bg-[#1C4E9C] hover:text-white";
+    "rounded-full border border-white/70 bg-surface/60 p-3 text-link shadow-sm transition-all hover:border-link hover:bg-link hover:text-white";
 
   return (
     <div className="flex animate-scaleUp flex-col items-center justify-center py-2">
@@ -171,7 +171,7 @@ function BusinessCard() {
             <div className="absolute right-0 top-1/3 h-40 w-40 rounded-full bg-amber-200/60 blur-3xl" />
 
             {/* Polaroid from the photography section */}
-            <div className="absolute -left-8 top-8 w-28 -rotate-[9deg] bg-white p-1.5 pb-6 shadow-lg">
+            <div className="absolute -left-8 top-8 w-28 -rotate-[9deg] bg-surface p-1.5 pb-6 shadow-lg">
               <div className="relative aspect-square w-full overflow-hidden">
                 <Image src={POLAROID_SRC} alt="" fill className="object-cover" unoptimized />
               </div>
@@ -268,11 +268,11 @@ function BusinessCard() {
                           downloadVCard(site);
                         }}
                         tabIndex={isFlipped ? -1 : 0}
-                        className="flex items-center gap-2 rounded-full border border-white/70 bg-white/60 px-4 py-2 text-xs font-semibold text-[#1C4E9C] shadow-sm transition-all hover:border-[#1C4E9C] hover:bg-[#1C4E9C] hover:text-white"
+                        className="flex items-center gap-2 rounded-full border border-white/70 bg-surface/60 px-4 py-2 text-xs font-semibold text-link shadow-sm transition-all hover:border-link hover:bg-link hover:text-white"
                       >
                         <FaAddressBook size={13} /> Save to contacts
                       </button>
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Tap to flip</p>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-subtle">Tap to flip</p>
                     </div>
                   </div>
 
@@ -293,7 +293,7 @@ function BusinessCard() {
 
                   <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-3 md:flex-row md:gap-12">
                     <div className="flex flex-col items-center gap-3">
-                      <div className="rounded-2xl border border-white/80 bg-white p-3 shadow-sm">
+                      <div className="rounded-2xl border border-white/80 bg-surface p-3 shadow-sm">
                         {origin ? (
                           <QRCodeSVG
                             value={`${origin}/contact`}
@@ -304,14 +304,14 @@ function BusinessCard() {
                             includeMargin={false}
                           />
                         ) : (
-                          <div className="h-[160px] w-[160px] animate-pulse rounded-xl bg-slate-100" />
+                          <div className="h-[160px] w-[160px] animate-pulse rounded-xl bg-sunken" />
                         )}
                       </div>
-                      <p className="text-[10px] font-bold uppercase tracking-widest text-[#1C4E9C]">Scan to connect</p>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-link">Scan to connect</p>
                     </div>
 
                     <div className="mt-1 text-center">
-                      <p className="mb-1.5 text-[9px] font-bold uppercase tracking-widest text-slate-400">On my shelf</p>
+                      <p className="mb-1.5 text-[9px] font-bold uppercase tracking-widest text-subtle">On my shelf</p>
                       <div className="flex justify-center gap-1.5">
                         {SHELF.map((b) => (
                           <div key={b.title} className="relative aspect-[2/3] w-10 overflow-hidden rounded-sm shadow-md md:w-14">
@@ -329,7 +329,7 @@ function BusinessCard() {
                       downloadVCard(site);
                     }}
                     tabIndex={isFlipped ? 0 : -1}
-                    className="relative z-20 mx-auto mt-3 flex items-center gap-2 rounded-full border border-white/70 bg-white/60 px-4 py-2 text-xs font-semibold text-[#1C4E9C] shadow-sm transition-all hover:border-[#1C4E9C] hover:bg-[#1C4E9C] hover:text-white"
+                    className="relative z-20 mx-auto mt-3 flex items-center gap-2 rounded-full border border-white/70 bg-surface/60 px-4 py-2 text-xs font-semibold text-link shadow-sm transition-all hover:border-link hover:bg-link hover:text-white"
                   >
                     <FaAddressBook size={13} /> Save to contacts
                   </button> */}
@@ -353,7 +353,7 @@ function BusinessCard() {
 export default function Contact() {
   return (
     <PageContainer
-      className="flex min-h-[80vh] flex-col justify-center text-slate-900 selection:bg-indigo-100 selection:text-indigo-900"
+      className="flex min-h-[80vh] flex-col justify-center text-heading selection:bg-surface-strong selection:text-heading"
       size="default"
     >
       <BusinessCard />

@@ -17,12 +17,12 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[whitesmoke]/80 backdrop-blur">
+    <header className="sticky top-0 z-50 w-full bg-bg/80 backdrop-blur">
       <div className="max-w-4xl mx-auto px-6 py-2.5 flex justify-between items-center">
         {/* Logo and Name */}
         <Link
           href="/"
-          className="flex items-center gap-2 text-base sm:text-lg font-semibold text-indigo-900 transition-colors duration-300 hover:text-purple-500"
+          className="flex items-center gap-2 text-base sm:text-lg font-semibold text-heading transition-colors duration-300 hover:text-accent-soft"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onFocus={() => setIsHovered(true)}
@@ -41,12 +41,12 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-5 text-sm text-gray-500">
+        <nav className="hidden md:flex gap-5 text-sm text-muted">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="hover:text-indigo-900 transition"
+              className="hover:text-heading transition"
             >
               {link.label}
             </Link>
@@ -56,7 +56,7 @@ export default function Navbar() {
         {/* Mobile Button */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden text-gray-600 hover:text-indigo-900 transition"
+          className="md:hidden text-muted hover:text-heading transition"
         >
           {open ? <X size={20} /> : <Menu size={20} />}
         </button>
@@ -65,13 +65,13 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {open && (
         <div className="md:hidden">
-          <nav className="flex flex-col px-6 py-3 gap-3 text-gray-600 text-sm">
+          <nav className="flex flex-col px-6 py-3 gap-3 text-muted text-sm">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="hover:text-indigo-900 transition"
+                className="hover:text-heading transition"
               >
                 {link.label}
               </Link>

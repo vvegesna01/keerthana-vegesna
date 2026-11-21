@@ -28,7 +28,7 @@ function MiniBookCover({ title, author, isbn }: MiniBook) {
 
   return (
     <div className="flex-shrink-0 w-24 group">
-      <div className="relative w-24 aspect-[2/3] bg-indigo-50 rounded overflow-hidden shadow-sm transition-transform duration-300 group-hover:scale-105 group-hover:shadow-md">
+      <div className="relative w-24 aspect-[2/3] bg-surface-alt rounded overflow-hidden shadow-sm transition-transform duration-300 group-hover:scale-105 group-hover:shadow-md">
         {!loaded && (
           <div className="absolute inset-0 bg-gradient-to-br from-indigo-100 to-indigo-50 animate-pulse" />
         )}
@@ -42,10 +42,10 @@ function MiniBookCover({ title, author, isbn }: MiniBook) {
           unoptimized
         />
       </div>
-      <p className="mt-1.5 text-[11px] text-indigo-900/70 font-medium leading-tight line-clamp-2 w-24">
+      <p className="mt-1.5 text-[11px] text-heading/70 font-medium leading-tight line-clamp-2 w-24">
         {title}
       </p>
-      <p className="text-[10px] text-gray-400 leading-tight line-clamp-1 w-24">
+      <p className="text-[10px] text-subtle leading-tight line-clamp-1 w-24">
         {author}
       </p>
     </div>
@@ -61,16 +61,16 @@ export default function MiniBookshelf() {
     <div className="mb-16">
       <div className="flex justify-between items-end mb-5">
         <div>
-          <h2 className="text-2xl font-extrabold text-indigo-900">
+          <h2 className="text-2xl font-extrabold text-heading">
             📚 Bookshelf
           </h2>
-        <p className="text-gray-500 leading-8 text-lg mb-6">
+        <p className="text-muted leading-8 text-lg mb-6">
             Recent favourites & recs
           </p>
         </div>
         <Link
           href="/bookshelf"
-          className="group flex items-center gap-1 text-sm font-bold text-indigo-600 hover:text-purple-600 transition-colors whitespace-nowrap"
+          className="group flex items-center gap-1 text-sm font-bold text-accent hover:text-accent-soft transition-colors whitespace-nowrap"
         >
           View Full Shelf
           <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />

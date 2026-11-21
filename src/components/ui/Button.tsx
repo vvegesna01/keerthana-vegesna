@@ -30,11 +30,11 @@ export default function Button({
 
   const variantClasses = {
     primary:
-      "bg-indigo-950 text-white border border-indigo-950 hover:bg-transparent hover:text-indigo-950",
+      "bg-brand text-on-brand border border-brand hover:bg-transparent hover:text-heading",
     secondary:
-      "border border-slate-200 bg-white text-indigo-950 hover:bg-indigo-50/50 gap-2",
+      "border border-line bg-surface text-heading hover:bg-surface-alt/50 gap-2",
     disabled:
-      "bg-black/5 text-slate-400 cursor-not-allowed shadow-none",
+      "bg-sunken text-subtle cursor-not-allowed shadow-none",
   };
 
   const sizeClasses = {

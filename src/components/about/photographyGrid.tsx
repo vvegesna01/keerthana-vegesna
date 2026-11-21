@@ -59,7 +59,7 @@ export default function PhotographyGrid() {
             onClick={() => open(i)}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.96 }}
-            className="group relative aspect-square rounded-lg overflow-hidden bg-indigo-50 shadow-sm cursor-pointer select-none"
+            className="group relative aspect-square rounded-lg overflow-hidden bg-surface-alt shadow-sm cursor-pointer select-none"
           >
             <Image
               src={photo.src}
@@ -76,7 +76,7 @@ export default function PhotographyGrid() {
             <AnimatePresence>
               {shutter === i && (
                 <motion.div
-                  className="absolute inset-0 bg-white z-10"
+                  className="absolute inset-0 bg-surface z-10"
                   initial={{ opacity: 0.8 }}
                   animate={{ opacity: 0 }}
                   exit={{ opacity: 0 }}
@@ -133,7 +133,7 @@ export default function PhotographyGrid() {
             {/* Close */}
             <button
               onClick={close}
-              className="absolute top-4 right-4 text-white/70 hover:text-white transition p-2 rounded-full hover:bg-white/10"
+              className="absolute top-4 right-4 text-white/70 hover:text-white transition p-2 rounded-full hover:bg-surface/10"
               aria-label="Close"
             >
               <X size={22} />
@@ -142,7 +142,7 @@ export default function PhotographyGrid() {
             {/* Prev */}
             <button
               onClick={(e) => { e.stopPropagation(); prev(); }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition p-2 rounded-full hover:bg-white/10"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition p-2 rounded-full hover:bg-surface/10"
               aria-label="Previous photo"
             >
               <ChevronLeft size={28} />
@@ -151,7 +151,7 @@ export default function PhotographyGrid() {
             {/* Next */}
             <button
               onClick={(e) => { e.stopPropagation(); next(); }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition p-2 rounded-full hover:bg-white/10"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition p-2 rounded-full hover:bg-surface/10"
               aria-label="Next photo"
             >
               <ChevronRight size={28} />
@@ -164,7 +164,7 @@ export default function PhotographyGrid() {
                   key={i}
                   onClick={(e) => { e.stopPropagation(); setSelected(i); }}
                   className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
-                    i === selected ? "bg-white scale-125" : "bg-white/40"
+                    i === selected ? "bg-surface scale-125" : "bg-surface/40"
                   }`}
                   aria-label={`Go to photo ${i + 1}`}
                 />

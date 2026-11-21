@@ -1,275 +1,244 @@
 "use client";
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { Github, Linkedin, Mail } from "lucide-react";
-import { gsap } from "gsap";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { Github, Linkedin, Mail, ArrowUpRight } from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
 
-// Injected at build time from next.config.js (last git commit date).
-// Fall back to the build date so the footer never renders "Invalid Date".
 const updated = new Date(
   process.env.NEXT_PUBLIC_LAST_UPDATED ?? new Date().toISOString()
 );
 
-// Pin to UTC so server and client always render the same string
 const updatedLabel = updated.toLocaleDateString("en-US", {
   month: "long",
   year: "numeric",
   timeZone: "UTC",
 });
 
-const LINKS = [
-  { href: "https://www.linkedin.com/in/keerthana-vegesna/", label: "LinkedIn", external: true, Icon: Linkedin },
-  { href: "mailto:kvegesna01@gmail.com", label: "Email", external: false, Icon: Mail },
-  { href: "https://github.com/vvegesna01", label: "GitHub", external: true, Icon: Github },
+const SOCIAL_LINKS = [
+  {
+    href: "https://www.linkedin.com/in/keerthana-vegesna/",
+    label: "LinkedIn",
+    external: true,
+    Icon: Linkedin,
+  },
+  {
+    href: "https://github.com/vvegesna01",
+    label: "GitHub",
+    external: true,
+    Icon: Github,
+  },
+  {
+    href: "mailto:kvegesna01@gmail.com",
+    label: "Email",
+    external: false,
+    Icon: Mail,
+  },
 ];
 
-// Photography shots used as stamps
-const PHOTOS = [1, 2, 3, 4, 5, 6].map((n) => `/images/photography/photo${n}.png`);
-// Tray previews stay plain so the photo is a surprise
-const PREVIEW = "#c7d2fe";
+const SITE_LINKS = [
+  { href: "/about", label: "About" },
+  { href: "/experience", label: "Work" },
+  { href: "/projects", label: "Play" },
+  { href: "/blog", label: "Field Notes" },
+];
 
-const W = 64;
-const H = 80;
+const PHOTO_COUNT = 13;
+const PHOTOS = Array.from(
+  { length: PHOTO_COUNT },
+  (_, i) => `/images/photography/photo${i + 1}.png`
+);
 
-// Rectangle with semicircle bites along every edge, like a perforated stamp
-function perforated(r: number, n: number) {
-  const bites = (len: number) => Array.from({ length: n }, (_, i) => ((i + 0.5) * len) / n);
-  let d = "M0 0";
-  for (const c of bites(W)) d += ` L${c - r} 0 A${r} ${r} 0 0 0 ${c + r} 0`;
-  d += ` L${W} 0`;
-  for (const c of bites(H)) d += ` L${W} ${c - r} A${r} ${r} 0 0 0 ${W} ${c + r}`;
-  d += ` L${W} ${H}`;
-  for (const c of bites(W).reverse()) d += ` L${c + r} ${H} A${r} ${r} 0 0 0 ${c - r} ${H}`;
-  d += ` L0 ${H}`;
-  for (const c of bites(H).reverse()) d += ` L0 ${c + r} A${r} ${r} 0 0 0 0 ${c - r}`;
-  return `path('${d} Z')`;
+// Fisher-Yates shuffle: every photo appears once before any photo repeats.
+function shuffledOrder(): number[] {
+  const order = PHOTOS.map((_, i) => i);
+  for (let i = order.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [order[i], order[j]] = [order[j], order[i]];
+  }
+  return order;
 }
 
-const SHAPES = [
-  { id: "postage", label: "Postage", clip: perforated(2.6, 7), radius: "0px" },
-  { id: "scallop", label: "Scallop", clip: perforated(4.2, 4), radius: "0px" },
-  { id: "rounded", label: "Rounded", clip: undefined, radius: "14px" },
-] as const;
+const wrap = (n: number) => (n + PHOTO_COUNT) % PHOTO_COUNT;
 
-type ShapeId = (typeof SHAPES)[number]["id"];
+const linkClass =
+  "group inline-flex items-center gap-1.5 text-sm font-semibold text-heading hover:text-accent transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
-interface Placed {
-  key: number;
-  photo: string;
-  shape: ShapeId;
-  x: number; // % of footer width
-  y: number; // % of footer height
-  tilt: number;
-}
-
-function Stamp({ photo, shape }: { photo?: string; shape: ShapeId }) {
-  const sh = SHAPES.find((s) => s.id === shape)!;
-  return (
-    <span className="block" style={{ filter: "drop-shadow(0 2px 3px rgba(30,27,75,0.25))" }}>
-      <span
-        className="relative block bg-white"
-        style={{ width: W, height: H, clipPath: sh.clip, borderRadius: sh.radius, padding: 6 }}
-      >
-        <span
-          className="relative block h-full w-full overflow-hidden"
-          style={{ background: PREVIEW, borderRadius: shape === "rounded" ? "9px" : "1px" }}
-        >
-          {photo && <Image src={photo} alt="" fill sizes="80px" draggable={false} className="object-cover" />}
-        </span>
-      </span>
-    </span>
-  );
-}
-
-// The favicon, traced as strokes so GSAP can draw it in
-function Mark() {
-  const ref = useRef<SVGSVGElement>(null);
-
-  useLayoutEffect(() => {
-    const svg = ref.current;
-    if (!svg) return;
-    const strokes = Array.from(svg.querySelectorAll<SVGGeometryElement>("[data-draw]"));
-    const fills = svg.querySelectorAll("[data-fill]");
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    strokes.forEach((el) => {
-      const len = el.getTotalLength();
-      gsap.set(el, { strokeDasharray: len, strokeDashoffset: len });
-    });
-    const hair = strokes[0];
-    gsap.set(hair, { fillOpacity: 0 });
-    gsap.set(fills, { opacity: 0 });
-
-    let tl: gsap.core.Timeline | undefined;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        io.disconnect();
-        tl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
-        tl.to(strokes, { strokeDashoffset: 0, duration: 1.1, stagger: 0.12 })
-          .to(hair, { fillOpacity: 1, duration: 0.5 }, "-=0.4")
-          .to(fills, { opacity: 1, duration: 0.5 }, "<");
-      },
-      { threshold: 0.4 }
-    );
-    io.observe(svg);
-
-    return () => {
-      io.disconnect();
-      tl?.kill();
-    };
-  }, []);
-
-  const ink = "#1e1b4b";
-  return (
-    <svg ref={ref} viewBox="0 0 285 285" className="h-10 w-10 shrink-0" fill="none" aria-hidden>
-      {/* hair */}
-      <path
-        data-draw
-        d="M142 6C60 6 30 90 24 160C20 220 10 260 12 285L268 285C262 240 258 200 262 150C266 80 230 6 142 6Z"
-        stroke={ink}
-        strokeWidth="8"
-        strokeLinejoin="round"
-        fill={ink}
-      />
-      {/* face and neck */}
-      <path
-        data-fill
-        d="M62 100C62 60 100 42 145 42C195 42 225 70 228 110C232 170 200 235 150 238C100 235 64 170 62 100Z"
-        fill="#fff"
-      />
-      <path data-fill d="M105 225L105 285L195 285L195 225Z" fill="#fff" />
-      {/* glasses */}
-      <rect data-draw x="72" y="100" width="63" height="48" rx="14" stroke={ink} strokeWidth="9" />
-      <rect data-draw x="150" y="100" width="63" height="48" rx="14" stroke={ink} strokeWidth="9" />
-      <path data-draw d="M135 118Q142 112 150 118" stroke={ink} strokeWidth="8" strokeLinecap="round" />
-      <path data-draw d="M72 115L58 110M213 115L227 110" stroke={ink} strokeWidth="8" strokeLinecap="round" />
-      {/* eyes and smile */}
-      <circle data-fill cx="108" cy="124" r="6" fill={ink} />
-      <circle data-fill cx="182" cy="124" r="6" fill={ink} />
-      <path data-draw d="M120 180Q142 197 166 180" stroke={ink} strokeWidth="8" strokeLinecap="round" />
-      <circle data-fill cx="56" cy="152" r="7" fill={ink} />
-      <circle data-fill cx="228" cy="152" r="7" fill={ink} />
-    </svg>
-  );
-}
+const arrowClass =
+  "text-body transition-all duration-200 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5";
 
 export default function Footer() {
-  const [shape, setShape] = useState<ShapeId>("postage");
-  const [placed, setPlaced] = useState<Placed[]>([]);
-  const next = useRef(0);
+  const reduceMotion = useReducedMotion();
 
-  // Every click on the footer cuts a stamp from the next photo, in the chosen shape
-  const place = (e: React.MouseEvent<HTMLElement>) => {
-    if ((e.target as HTMLElement).closest("a, button")) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const photo = PHOTOS[next.current++ % PHOTOS.length];
-    setPlaced((p) =>
-      [
-        ...p,
-        {
-          key: Date.now() + p.length,
-          photo,
-          shape,
-          x: ((e.clientX - rect.left) / rect.width) * 100,
-          y: ((e.clientY - rect.top) / rect.height) * 100,
-          tilt: Math.round(Math.random() * 24 - 12),
-        },
-      ].slice(-30)
-    );
+  // Start in a fixed order so server and client markup match, then shuffle on mount.
+  const [order, setOrder] = useState<number[]>(() => PHOTOS.map((_, i) => i));
+  const [pos, setPos] = useState(0);
+  const [lastShown, setLastShown] = useState<number | null>(null);
+
+  useEffect(() => {
+    setOrder(shuffledOrder());
+  }, []);
+
+  const current = order[pos];
+  const next = order[wrap(pos + 1)];
+
+  // Only the photo on screen, the one fading out and the one up next are mounted,
+  // so the footer never loads all 13 full-size images at once.
+  const mounted = Array.from(
+    new Set([current, next, ...(lastShown !== null ? [lastShown] : [])])
+  );
+
+  const goTo = (newPos: number) => {
+    setLastShown(current);
+    setPos(wrap(newPos));
+  };
+
+  const handleFooterClick = (e: React.MouseEvent<HTMLElement>) => {
+    if ((e.target as HTMLElement).closest("a, button, input")) return;
+    goTo(pos + 1);
   };
 
   return (
     <footer
-      onClick={place}
-      className="relative overflow-hidden border-t border-gray-200 bg-[whitesmoke] cursor-crosshair"
+      onClick={handleFooterClick}
+      className="relative w-full overflow-hidden bg-bg border-t border-line/60 cursor-pointer select-none"
     >
-      {/* Placed stickers sit behind the content so links stay clickable */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden>
-        <AnimatePresence>
-          {placed.map((s) => (
-            <motion.span
-              key={s.key}
-              initial={{ scale: 1.5, opacity: 0, rotate: s.tilt }}
-              animate={{ scale: 1, opacity: 1, rotate: s.tilt }}
-              transition={{ type: "spring", stiffness: 500, damping: 22 }}
-              className="absolute block -translate-x-1/2 -translate-y-1/2"
-              style={{ left: `${s.x}%`, top: `${s.y}%` }}
-            >
-              <Stamp photo={s.photo} shape={s.shape} />
-            </motion.span>
-          ))}
-        </AnimatePresence>
+      {/* Photography background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {mounted.map((idx) => (
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: idx === current ? 1 : 0 }}
+            transition={{ duration: reduceMotion ? 0 : 0.9, ease: "easeInOut" }}
+            className="absolute inset-0"
+            style={{ zIndex: idx === current ? 1 : 0 }}
+          >
+            <Image
+              src={PHOTOS[idx]}
+              alt={`Photograph by Keerthana, ${idx + 1} of ${PHOTO_COUNT}`}
+              fill
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+          </motion.div>
+        ))}
+
+        {/* Blend the page background down into the photo */}
+        <div className="absolute inset-x-0 top-0 h-40 sm:h-52 bg-gradient-to-b from-bg via-bg/80 to-transparent z-10" />
+        {/* Gentle darkening so the white name and the caption stay legible */}
+        <div className="absolute inset-0 bg-black/10 z-10" />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/45 to-transparent z-10" />
       </div>
 
-      <div className="relative max-w-4xl mx-auto px-6 pt-8 pb-5">
-        <div className="flex flex-col sm:flex-row sm:justify-between gap-6">
-          <div className="flex items-center gap-3">
-            <p className="font-extrabold text-indigo-900">Keerthana Vegesna</p>
-            {/* <p className="text-xs text-gray-500 mt-1 max-w-[16rem]">
-              Software engineer who loves books, music, and telling the story with data.
-            </p> */}
+      <div className="relative z-20 max-w-6xl mx-auto px-6 pt-14 md:pt-20">
+        {/* Info panel: frosted so text stays readable on any photo */}
+        <div
+          data-footer-panel
+          className="cursor-default rounded-2xl border border-line/50 bg-bg/10 backdrop-blur-md p-6 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.12)]"
+        >
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
+            <div className="max-w-md">
+              {/* <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-heading">
+                Keerthana Vegesna
+              </h3> */}
+              <p className="mt-2 text-sm text-body leading-relaxed">
+                Reach out if you want to collaborate, chat about tech, or just say hi!
+                and thank you for checking out my website!
+              </p>
+              <p className="mt-4 text-xs text-body/80">
+                © {updated.getUTCFullYear()} Keerthana Vegesna · Updated{" "}
+                {updatedLabel}
+              </p>
+            </div>
+
+            <nav
+              aria-label="Footer"
+              className="flex flex-wrap gap-x-12 gap-y-6 sm:gap-x-16"
+            >
+              {/* <div>
+                <p className="text-xs font-semibold text-body mb-3">Explore</p>
+                <ul className="flex flex-col gap-2.5">
+                  {SITE_LINKS.map(({ href, label }) => (
+                    <li key={href}>
+                      <Link href={href} className={linkClass}>
+                        <span>{label}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div> */}
+
+              <div>
+                <p className="text-xs font-semibold text-body mb-3">Find me</p>
+                <ul className="flex flex-col gap-2.5">
+                  {SOCIAL_LINKS.map(({ href, label, external, Icon }) => (
+                    <li key={label}>
+                      <a
+                        href={href}
+                        target={external ? "_blank" : undefined}
+                        rel={external ? "noopener noreferrer" : undefined}
+                        className={linkClass}
+                      >
+                        <Icon size={14} className="text-body group-hover:text-accent transition-colors" />
+                        <span>{label}</span>
+                        <ArrowUpRight size={11} className={arrowClass} />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </nav>
           </div>
-
-          <nav className="flex items-center gap-5 sm:justify-end">
-            {LINKS.map(({ href, label, external, Icon }) => (
-              <Link
-                key={label}
-                href={href}
-                target={external ? "_blank" : undefined}
-                rel={external ? "noopener noreferrer" : undefined}
-                aria-label={label}
-                title={label}
-                className="text-indigo-700 hover:text-purple-500 transition-colors"
-              >
-                <Icon className="h-5 w-5" strokeWidth={1.75} />
-              </Link>
-            ))}
-          </nav>
         </div>
 
-        {/* Stamp cutter */}
-        <div className="mt-6 flex flex-wrap items-center gap-2">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-gray-400">
-            Glad you stopped by! Click to place a stamp anywhere as a souvenir.
-          </span>
-          {SHAPES.map((sh) => (
-            <button
-              key={sh.id}
-              type="button"
-              aria-label={`${sh.label} stamp`}
-              aria-pressed={shape === sh.id}
-              onClick={() => setShape(sh.id)}
-              className={`rounded-lg border p-1 transition ${
-                shape === sh.id
-                  ? "bg-white border-indigo-300 shadow-sm -translate-y-0.5"
-                  : "border-transparent hover:bg-white/70"
-              }`}
-            >
-              <span className="block" style={{ width: W * 0.4, height: H * 0.4 }}>
-                <span className="block origin-top-left scale-[0.4]">
-                  <Stamp shape={sh.id} />
-                </span>
-              </span>
-            </button>
-          ))}
-          {placed.length > 0 && (
-            <button
-              type="button"
-              onClick={() => setPlaced([])}
-              className="ml-1 font-mono text-[10px] uppercase tracking-wider text-gray-400 hover:text-indigo-700 transition-colors"
-            >
-              Clear
-            </button>
-          )}
+        {/* Photo strip: all 13 shots, click any to jump to it */}
+        <div className="mt-5 flex flex-col sm:flex-row sm:items-center gap-3">
+          {/* <div
+            role="group"
+            aria-label="Choose a photograph"
+            className="flex gap-1.5 overflow-x-auto rounded-xl bg-black/35 backdrop-blur-md p-1.5 max-w-full"
+          >
+            {PHOTOS.map((src, i) => {
+              const active = i === current;
+              return (
+                <button
+                  key={src}
+                  type="button"
+                  onClick={() => goTo(order.indexOf(i))}
+                  aria-label={`Show photo ${i + 1} of ${PHOTO_COUNT}`}
+                  aria-current={active ? "true" : undefined}
+                  className={`relative h-10 w-10 sm:h-11 sm:w-11 shrink-0 overflow-hidden rounded-lg transition-all duration-200 focus-visible:outline-2 focus-visible:outline-white ${
+                    active
+                      ? "ring-2 ring-white opacity-100"
+                      : "opacity-55 hover:opacity-100"
+                  }`}
+                >
+                  <Image
+                    src={src}
+                    alt=""
+                    fill
+                    sizes="48px"
+                    className="object-cover"
+                  />
+                </button>
+              );
+            })}
+          </div> */}
+
+          {/* <p className="text-xs text-white/90 drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
+            Photography by Keerthana · tap anywhere for the next one
+          </p> */}
         </div>
 
-        <div className="mt-5 pt-4 border-t border-gray-200 text-xs text-gray-400">
-          <span>
-            © {updated.getUTCFullYear()} Keerthana Vegesna · Updated {updatedLabel}
-          </span>
+        {/* Oversized name, cut off at the bottom edge */}
+        <div
+          aria-hidden="true"
+          className="pt-8 sm:pt-14 md:pt-20 text-center overflow-hidden pointer-events-none select-none"
+        >
+          <h2 className="whitespace-nowrap text-[9.6vw] sm:text-[9.2vw] md:text-[8.8vw] font-black tracking-tighter leading-[0.8] translate-y-[24%] text-white/95 drop-shadow-[0_4px_16px_rgba(0,0,0,0.4)]">
+            Keerthana Vegesna
+          </h2>
         </div>
       </div>
     </footer>

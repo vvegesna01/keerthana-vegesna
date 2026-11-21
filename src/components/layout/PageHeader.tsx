@@ -18,11 +18,11 @@ export default function PageHeader({
 }: PageHeaderProps) {
   const content = (
     <div className={cn("mb-10", className)}>
-      <h1 className="text-4xl leading-10 font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-3 tracking-tight">
+      <h1 className="text-4xl leading-10 font-extrabold text-heading hover:text-accent-soft transition-colors duration-300 mb-3 tracking-tight">
         {title}
       </h1>
       {subtitle && (
-        <p className="text-gray-500 leading-8 text-lg max-w-2xl font-normal">
+        <p className="text-muted leading-8 text-lg max-w-2xl font-normal">
           {subtitle}
         </p>
       )}

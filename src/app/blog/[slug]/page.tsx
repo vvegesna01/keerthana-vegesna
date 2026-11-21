@@ -30,18 +30,18 @@ export default async function BlogPostPage({
       {/* Back */}
       <Link
         href="/blog"
-        className="text-sm text-indigo-600 hover:text-purple-500 transition mb-6 inline-block"
+        className="text-sm text-accent hover:text-accent-soft transition mb-6 inline-block"
       >
         ← Back to notes
       </Link>
 
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-3xl font-extrabold text-indigo-900 mb-2">
+        <h1 className="text-3xl font-extrabold text-heading mb-2">
           {post.title}
         </h1>
 
-        <div className="flex items-center gap-3 text-sm text-gray-400">
+        <div className="flex items-center gap-3 text-sm text-subtle">
           <span>
             {new Date(post.date).toLocaleDateString("en-GB", {
               day: "2-digit",
@@ -67,8 +67,8 @@ export default async function BlogPostPage({
 
       {/* Content */}
       <article
-        className="prose max-w-none text-gray-700
-                   prose-headings:text-indigo-900
+        className="prose max-w-none text-muted
+                   prose-headings:text-heading
                    prose-headings:font-extrabold
                    prose-h1:text-3xl
                    prose-h2:text-2xl
@@ -78,8 +78,8 @@ export default async function BlogPostPage({
                    prose-p:leading-7
                    prose-p:mb-4
                    prose-li:mb-1
-                   prose-a:text-indigo-600
-                   prose-strong:text-indigo-900"
+                   prose-a:text-accent
+                   prose-strong:text-heading"
         dangerouslySetInnerHTML={{ __html: contentHtml }}
       />
     </PageContainer>

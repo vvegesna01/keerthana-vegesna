@@ -2,24 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Design tokens. Values are space-separated RGB triplets so Tailwind can apply
+ * opacity (e.g. bg-surface/60). Components reference the semantic names
+ * (see tailwind.config.js).
+ */
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-  --page-yellow:239, 224, 164;
-}
+  color-scheme: light;
+  --page-yellow: 239, 224, 164;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --bg: 245 245 245;
+  --surface: 255 255 255;
+  --surface-alt: 238 242 255;
+  --surface-strong: 224 231 255;
+  --sunken: 241 245 249;
+
+  --line: 226 232 240;
+  --line-soft: 243 244 246;
+
+  --heading: 49 46 129;
+  --body: 55 65 81;
+  --muted: 107 114 128;
+  --subtle: 148 163 184;
+
+  --accent: 79 70 229;
+  --accent-strong: 67 56 202;
+  --accent-soft: 129 140 248;
+  --link: 28 78 156;
+
+  --brand: 30 27 75;
+  --on-brand: 255 255 255;
+  --foreground-rgb: 0, 0, 0;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: whitesmoke;
+  color: rgb(var(--body));
+  background: rgb(var(--bg));
 }
 
 /* Skills Carousel */
@@ -27,7 +45,7 @@ body {
 .skills-carousel {
   width: 100%;
   padding: 20px;
-  background-color: #f4f4f4;
+  background-color: rgb(var(--sunken));
   overflow: hidden;
 }
 
@@ -35,7 +53,7 @@ body {
   font-size: 2rem;
   margin-bottom: 10px;
   text-align: center;
-  color: #333;
+  color: rgb(var(--heading));
 }
 
 .skills-container {
@@ -54,14 +72,14 @@ body {
 }
 
 .skill-item {
-  background-color: #fff;
+  background-color: rgb(var(--surface));
   margin: 5px;
   padding: 10px 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   white-space: nowrap;
   font-size: 1.2rem;
-  color: #555;
+  color: rgb(var(--muted));
   flex: 0 0 auto;
   transition: transform 0.3s ease;
 }
@@ -83,7 +101,7 @@ body {
 
 .highlight-bg {
   position: relative;
-  color: #4f46e5; /* Initial text color */
+  color: rgb(var(--accent));
   font-weight: bold;
   cursor: pointer;
   padding: 0.2em 0;
@@ -97,7 +115,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #f3e8ff; /* Background highlight color */
+  background-color: rgb(var(--surface-alt)); /* Background highlight color */
   z-index: -1;
   transform: scaleX(0); /* Initially hidden */
   transform-origin: left; /* Animation starts from the left */
@@ -109,7 +127,7 @@ body {
 }
 
 .highlight-bg:hover {
-  color: #4f46e5; /* Text color stays the same or can change */
+  color: rgb(var(--accent));
 }
 
 

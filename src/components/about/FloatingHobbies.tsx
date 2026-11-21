@@ -83,7 +83,7 @@ const DOODLES = [
       </svg>
     ),
     className:
-      "hidden sm:block absolute -bottom-8 left-1/3 text-gray-300/70",
+      "hidden sm:block absolute -bottom-8 left-1/3 text-subtle/70",
     floatDelay: 1.2,
   },
 ];
@@ -104,7 +104,7 @@ export default function FloatingHobbies({
 }: FloatingHobbiesProps) {
   return (
     <div className="relative isolate mb-16 py-6 select-none">
-      <h2 className="text-2xl font-extrabold text-indigo-900 mb-10">
+      <h2 className="text-2xl font-extrabold text-heading mb-10">
         Beyond Tech
       </h2>
 
@@ -146,7 +146,7 @@ export default function FloatingHobbies({
                 />
               </div>
 
-              <span className="text-[11px] font-bold uppercase tracking-widest text-indigo-900/70 group-hover:text-indigo-900">
+              <span className="text-[11px] font-bold uppercase tracking-widest text-heading/70 group-hover:text-heading">
                 {label}
               </span>
             </>

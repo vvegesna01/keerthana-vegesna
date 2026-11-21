@@ -121,7 +121,7 @@ function BookCoverCard({
       variants={itemVariant}
       className="flex flex-col items-center group"
     >
-      <div className="relative w-full aspect-[2/3] bg-indigo-50 rounded overflow-hidden shadow-md transition-transform duration-300 group-hover:scale-105 group-hover:shadow-xl">
+      <div className="relative w-full aspect-[2/3] bg-surface-alt rounded overflow-hidden shadow-md transition-transform duration-300 group-hover:scale-105 group-hover:shadow-xl">
         {!loaded && (
           <div className="absolute inset-0 bg-gradient-to-br from-indigo-100 to-indigo-50 animate-pulse" />
         )}
@@ -138,11 +138,11 @@ function BookCoverCard({
             <p className="text-white text-xs font-semibold leading-tight">
               {title}
             </p>
-            <p className="text-indigo-300 text-xs mt-0.5">{author}</p>
+            <p className="text-accent-soft text-xs mt-0.5">{author}</p>
           </div>
         </div>
       </div>
-      <p className="mt-2 text-xs text-center text-indigo-900 font-medium leading-tight line-clamp-2 w-full px-0.5">
+      <p className="mt-2 text-xs text-center text-heading font-medium leading-tight line-clamp-2 w-full px-0.5">
         {title}
       </p>
     </motion.div>
@@ -154,8 +154,8 @@ function BookCoverCard({
 function RatingChart() {
   const max = Math.max(...RATING_DIST.map((r) => r.count));
   return (
-    <div className="bg-white border border-gray-100 rounded-lg p-5 shadow-sm">
-      <p className="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-4">
+    <div className="bg-surface border border-line rounded-lg p-5 shadow-sm">
+      <p className="text-xs font-semibold uppercase tracking-widest text-accent-soft mb-4">
         Rating distribution
       </p>
       <div className="flex flex-col gap-2">
@@ -165,14 +165,14 @@ function RatingChart() {
             className="grid items-center gap-2"
             style={{ gridTemplateColumns: "2.5rem 1fr 1.25rem" }}
           >
-            <span className="text-xs text-gray-400 text-right">{r.label}</span>
-            <div className="h-1.5 bg-indigo-50 rounded-full overflow-hidden">
+            <span className="text-xs text-subtle text-right">{r.label}</span>
+            <div className="h-1.5 bg-surface-alt rounded-full overflow-hidden">
               <div
                 className="h-full bg-indigo-900 rounded-full transition-all duration-700"
                 style={{ width: `${(r.count / max) * 100}%` }}
               />
             </div>
-            <span className="text-xs text-gray-400">{r.count}</span>
+            <span className="text-xs text-subtle">{r.count}</span>
           </div>
         ))}
       </div>
@@ -183,16 +183,16 @@ function RatingChart() {
 function YearlyChart() {
   const max = Math.max(...BOOKS_PER_YEAR.map((y) => y.count));
   return (
-    <div className="bg-white border border-gray-100 rounded-lg p-5 shadow-sm">
-      <p className="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-4">
+    <div className="bg-surface border border-line rounded-lg p-5 shadow-sm">
+      <p className="text-xs font-semibold uppercase tracking-widest text-accent-soft mb-4">
         Books per year
       </p>
       <div className="flex gap-3 items-end" style={{ height: "96px" }}>
         {BOOKS_PER_YEAR.map(({ year, count }) => (
           <div key={year} className="flex flex-col items-center gap-1 flex-1">
-            <span className="text-xs text-gray-400">{count}</span>
+            <span className="text-xs text-subtle">{count}</span>
             <div
-              className="w-full bg-indigo-50 rounded-sm relative"
+              className="w-full bg-surface-alt rounded-sm relative"
               style={{ height: "64px" }}
             >
               <div
@@ -200,13 +200,13 @@ function YearlyChart() {
                 style={{ height: `${(count / max) * 100}%` }}
               />
             </div>
-            <span className="text-xs text-gray-400 whitespace-nowrap">
+            <span className="text-xs text-subtle whitespace-nowrap">
               {year}
             </span>
           </div>
         ))}
       </div>
-      <p className="text-xs text-indigo-300 mt-2">* 2026 in progress</p>
+      <p className="text-xs text-accent-soft mt-2">* 2026 in progress</p>
     </div>
   );
 }
@@ -214,23 +214,23 @@ function YearlyChart() {
 function FormatChart() {
   const max = Math.max(...FORMATS.map((f) => f.count));
   return (
-    <div className="bg-white border border-gray-100 rounded-lg p-5 shadow-sm">
-      <p className="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-4">
+    <div className="bg-surface border border-line rounded-lg p-5 shadow-sm">
+      <p className="text-xs font-semibold uppercase tracking-widest text-accent-soft mb-4">
         Format
       </p>
       <div className="flex flex-col gap-3">
         {FORMATS.map((f) => (
           <div key={f.label} className="flex items-center gap-3">
-            <span className="text-xs text-gray-600 w-24 shrink-0">
+            <span className="text-xs text-muted w-24 shrink-0">
               {f.label}
             </span>
-            <div className="flex-1 h-1.5 bg-indigo-50 rounded-full overflow-hidden">
+            <div className="flex-1 h-1.5 bg-surface-alt rounded-full overflow-hidden">
               <div
                 className="h-full bg-indigo-700 rounded-full"
                 style={{ width: `${(f.count / max) * 100}%` }}
               />
             </div>
-            <span className="text-xs text-gray-400 w-5 text-right">
+            <span className="text-xs text-subtle w-5 text-right">
               {f.count}
             </span>
           </div>
@@ -243,8 +243,8 @@ function FormatChart() {
 function MoodCloud() {
   const max = Math.max(...TOP_MOODS.map((m) => m.count));
   return (
-    <div className="bg-white border border-gray-100 rounded-lg p-5 shadow-sm">
-      <p className="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-4">
+    <div className="bg-surface border border-line rounded-lg p-5 shadow-sm">
+      <p className="text-xs font-semibold uppercase tracking-widest text-accent-soft mb-4">
         Reading moods
       </p>
       <div className="flex flex-wrap gap-2 items-baseline">
@@ -253,7 +253,7 @@ function MoodCloud() {
           return (
             <span
               key={m.label}
-              className="italic text-indigo-900 opacity-70 hover:opacity-100 transition-opacity duration-200 cursor-default"
+              className="italic text-heading opacity-70 hover:opacity-100 transition-opacity duration-200 cursor-default"
               style={{ fontSize: `${scale}rem` }}
             >
               {m.label}
@@ -268,8 +268,8 @@ function MoodCloud() {
 function MonthlyChart() {
   const max = Math.max(...MONTHLY.map((m) => m.n));
   return (
-    <div className="bg-white border border-gray-100 rounded-lg p-5 shadow-sm">
-      <p className="text-xs font-semibold uppercase tracking-widest text-indigo-400 mb-4">
+    <div className="bg-surface border border-line rounded-lg p-5 shadow-sm">
+      <p className="text-xs font-semibold uppercase tracking-widest text-accent-soft mb-4">
         Monthly pace · 2025–2026
       </p>
       <div className="flex gap-1.5 items-end overflow-x-auto pb-1">
@@ -279,20 +279,20 @@ function MonthlyChart() {
             className="flex flex-col items-center gap-0.5 min-w-[26px]"
           >
             <span
-              className="text-xs text-gray-400"
+              className="text-xs text-subtle"
               style={{ minHeight: "16px" }}
             >
               {n || ""}
             </span>
             <div
-              className={`w-5 rounded-sm ${n > 0 ? "bg-indigo-900" : "bg-indigo-50"}`}
+              className={`w-5 rounded-sm ${n > 0 ? "bg-indigo-900" : "bg-surface-alt"}`}
               style={{
                 height: `${Math.max(n > 0 ? (n / max) * 64 : 2, n > 0 ? 4 : 2)}px`,
               }}
             />
-            <span className="text-xs text-gray-400">{m}</span>
+            <span className="text-xs text-subtle">{m}</span>
             {(i === 0 || i === 12) && (
-              <span className="text-xs text-indigo-300">&apos;{year}</span>
+              <span className="text-xs text-accent-soft">&apos;{year}</span>
             )}
           </div>
         ))}
@@ -341,7 +341,7 @@ export default function Bookshelf() {
           viewport={{ once: true, amount: 0.1 }}
           variants={fadeInVariants}
         >
-          <h2 className="text-2xl font-extrabold text-indigo-900 hover:text-purple-500 transition-colors duration-300 mb-1">
+          <h2 className="text-2xl font-extrabold text-heading hover:text-accent-soft transition-colors duration-300 mb-1">
             ★ Five-Star Reads
           </h2>
           <p className="text-localhost_text text-base leading-8 mb-6">

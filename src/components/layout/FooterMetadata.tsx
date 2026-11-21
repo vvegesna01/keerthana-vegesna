@@ -15,7 +15,7 @@ export default function FooterMetadata({
   return (
     <div
       className={cn(
-        "mt-12 pt-6 border-t border-gray-100 flex flex-wrap justify-between items-center gap-2 text-xs text-gray-400 font-mono",
+        "mt-12 pt-6 border-t border-line flex flex-wrap justify-between items-center gap-2 text-xs text-subtle font-mono",
         className
       )}
     >
