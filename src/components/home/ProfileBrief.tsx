@@ -1,25 +1,21 @@
 "use client";
 import React, { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { gsap } from "gsap";
 import ProfileImage from "@/components/ui/ProfileImage";
 
-// Inline sticker with a footnote number, Carolyn-Lee style. Pass `src` for an
-// image in /public/images/stickers, or `children` for an inline SVG.
 function Icon({
-  n,
   src,
   tilt,
   children,
 }: {
-  n: number;
   src?: string;
   tilt: number;
   children?: React.ReactNode;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
 
-  // A tiny wiggle on hover, settling back to the sticker's resting tilt
   const wiggle = () => {
     const el = ref.current;
     if (!el || gsap.isTweening(el)) return;
@@ -33,12 +29,12 @@ function Icon({
 
   return (
     <span
-      className="hero-icon mx-0.5 inline-flex items-start align-middle"
+      className="hero-icon mx-1 inline-flex items-center align-middle"
       onMouseEnter={wiggle}
     >
       <span
         ref={ref}
-        className="inline-block h-5 min-w-5 sm:h-7 sm:min-w-7"
+        className="inline-block h-5 min-w-5 sm:h-6 sm:min-w-6 md:h-7 md:min-w-7"
         style={{ transform: `rotate(${tilt}deg)` }}
         aria-hidden
       >
@@ -54,18 +50,89 @@ function Icon({
           children
         )}
       </span>
-      <sup className="ml-0.5 font-mono text-[9px] text-accent-soft" aria-hidden>
-        {n}
-      </sup>
     </span>
   );
 }
 
-const PILLS: { prefix: string; bold: string }[] = [
-  // { prefix: "Backend · Cloud · Data", bold: "" },
-  // { prefix: "Purdue CS Alum", bold: "" },
-  // { prefix: "Open to", bold: "full-time roles" },
+type Org = {
+  name: string;
+  href: string;
+  logo?: string;
+};
+
+const CURRENT_ORGS: Org[] = [
+  {
+    name: "ApexFlo.ai",
+    href: "/work",
+    logo: "/images/exp/apexflo-logo.png",
+  },
+  {
+    name: "Northeastern",
+    href: "https://vancouver.northeastern.edu/",
+    logo: "/images/exp/nu_seal.png",
+  },
+    {
+    name: "RTC",
+    href: "https://rewritingthecode.org/",
+    logo: "/images/exp/rtc_logo.png",
+  },
 ];
+
+const PAST_ORGS: Org[] = [
+  {
+    name: "Purdue CS",
+    href: "https://www.cs.purdue.edu/",
+    logo: "/images/exp/purdue_logo.png",
+  },
+  {
+    name: "Cummins",
+    href: "/work",
+    logo: "/images/exp/cummins-logo.png",
+  },
+
+];
+
+function InlineOrg({ org }: { org: Org }) {
+  const external = org.href.startsWith("http");
+  const className =
+    "group inline-flex items-center gap-1.5 align-baseline font-medium text-heading transition-colors hover:text-accent";
+
+  const content = (
+    <>
+      {org.logo && (
+        <span className="relative inline-flex h-4 w-4 shrink-0 translate-y-[2px] items-center justify-center overflow-hidden rounded-full border border-line/70 bg-white">
+          <Image
+            src={org.logo}
+            alt=""
+            width={32}
+            height={32}
+            className="h-full w-full object-contain p-0.5"
+          />
+        </span>
+      )}
+      <span className="underline-offset-4 group-hover:underline">{org.name}</span>
+    </>
+  );
+
+  if (external) {
+    return (
+      <a
+        href={org.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={className}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={org.href} className={className}>
+      {content}
+    </Link>
+  );
+}
 
 export default function ProfileBrief() {
   const heroRef = useRef<HTMLElement>(null);
@@ -101,8 +168,8 @@ export default function ProfileBrief() {
             "-=0.5"
           )
           .from(
-            ".hero-pill",
-            { y: 14, opacity: 0, duration: 0.45, stagger: 0.08 },
+            ".hero-meta",
+            { y: 12, opacity: 0, duration: 0.45 },
             "-=0.3"
           );
       });
@@ -116,49 +183,55 @@ export default function ProfileBrief() {
 
   return (
     <section ref={heroRef} className="relative">
-      <div className="mx-auto max-w-3xl px-6 pt-6 pb-8 sm:pb-12 md:pt-10 md:pb-14">
+      <div className="mx-auto max-w-4xl px-6 pt-4 pb-6 sm:pb-8 md:pt-6 md:pb-8">
         <h1 className="sr-only">Keerthana Vegesna</h1>
 
-        {/* Photo column is narrower than before (was up to 135px) */}
-        <div className="grid grid-cols-[4rem_1fr] items-center gap-4 sm:grid-cols-[5rem_1fr] sm:gap-6 md:grid-cols-[6rem_1fr] md:gap-8">
-          {/* Photo card: a fixed square box, so nothing gets cropped */}
+        {/* Single unified 2-column grid so everything aligns cleanly under the bio */}
+        <div className="grid grid-cols-[5rem_1fr] items-start gap-4 sm:grid-cols-[7rem_1fr] sm:gap-6 md:grid-cols-[9rem_1fr] md:gap-8">
           <div className="hero-image relative aspect-square w-full [&_.font-mono]:hidden sm:[&_.font-mono]:block">
-            {/* ProfileImage hard-codes h-80 / md:h-[420px], so both the base and
-                md: heights are overridden to keep the card square */}
             <ProfileImage
               src="/images/profiles/profile_headshot_square.jpg"
               alt="Keerthana profile"
               href="/about"
               priority
-              className="h-full md:h-full w-full"
+              className="h-full w-full md:h-full"
             />
           </div>
 
-          <div className="text-left">
-            <p className="text-xs font-medium leading-6 text-localhost_text sm:text-base sm:leading-8 md:text-lg">
+          <div className="min-w-0 text-left">
+            <p className="font-[family-name:var(--font-editorial)] text-base font-medium leading-snug text-localhost_text sm:text-xl md:text-2xl">
               <span className="hero-line inline">software engineer </span>
-              <Icon n={1} src="/images/stickers/keyboard-sticker.png" tilt={-6} />
+              <Icon src="/images/stickers/keyboard-sticker.png" tilt={-6} />
               <span className="hero-line inline"> bookworm </span>
-              <Icon n={2} src="/images/stickers/book.png" tilt={5} />
+              <Icon src="/images/stickers/book.png" tilt={5} />
               <span className="hero-line inline"> and musician </span>
-              <Icon n={3} src="/images/stickers/martin-guitar.png" tilt={-4} />
-            </p>
-            <p className="hero-line mt-2 text-xs leading-relaxed text-muted sm:mt-2.5 sm:text-sm sm:leading-normal md:text-base">
-              I build backend systems, data pipelines, and intelligent infrastructure that turn messy data into reliable workflows.
+              <Icon src="/images/stickers/martin-guitar.png" tilt={-4} />
             </p>
 
-            {PILLS.length > 0 && (
-              <div className="mt-2 flex flex-wrap gap-1 sm:mt-4 sm:gap-1.5">
-                {PILLS.map(({ prefix, bold }, idx) => (
-                  <span
-                    key={`${prefix}-${bold}-${idx}`}
-                    className="hero-pill rounded-full bg-sunken/70 px-1.5 py-0.5 text-[9px] text-muted sm:px-2.5 sm:py-1 sm:text-[11px]"
-                  >
-                    {prefix} <strong className="text-heading">{bold}</strong>
-                  </span>
+            <p className="hero-line mt-2 font-[family-name:var(--font-editorial)] text-sm leading-relaxed text-muted sm:text-base md:text-[17px]">
+              I work on building scalable, backend systems for AI/ML applications on bare-metal & cloud infrastructure.
+            </p>
+
+            {/* Clean, prose-style affiliation trail aligned with the bio */}
+            <div className="hero-meta mt-3.5 space-y-1 text-xs leading-relaxed text-subtle sm:mt-4 sm:text-sm">
+              <p className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+                <span>Currently MTS at</span>
+                <InlineOrg org={CURRENT_ORGS[0]} />
+                {/* <span>· Master's at</span>
+                <InlineOrg org={CURRENT_ORGS[1]} /> */}
+                <span>· Mentor at</span>
+                <InlineOrg org={CURRENT_ORGS[2]} />
+              </p>
+              <p className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+                <span>Previously</span>
+                {PAST_ORGS.map((org, idx) => (
+                  <React.Fragment key={org.name}>
+                    <InlineOrg org={org} />
+                    {idx < PAST_ORGS.length - 1 && <span>·</span>}
+                  </React.Fragment>
                 ))}
-              </div>
-            )}
+              </p>
+            </div>
           </div>
         </div>
       </div>

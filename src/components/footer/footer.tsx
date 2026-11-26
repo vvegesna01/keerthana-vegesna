@@ -36,13 +36,6 @@ const SOCIAL_LINKS = [
   },
 ];
 
-const SITE_LINKS = [
-  { href: "/about", label: "About" },
-  { href: "/experience", label: "Work" },
-  { href: "/projects", label: "Play" },
-  { href: "/blog", label: "Field Notes" },
-];
-
 const PHOTO_COUNT = 13;
 const PHOTOS = Array.from(
   { length: PHOTO_COUNT },
@@ -131,115 +124,53 @@ export default function Footer() {
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/45 to-transparent z-10" />
       </div>
 
-      <div className="relative z-20 max-w-6xl mx-auto px-6 pt-14 md:pt-20">
+      <div className="relative z-20 max-w-4xl mx-auto px-6 pt-12 md:pt-16">
         {/* Info panel: frosted so text stays readable on any photo */}
         <div
           data-footer-panel
-          className="cursor-default rounded-2xl border border-line/50 bg-bg/10 backdrop-blur-md p-6 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.12)]"
+          className="cursor-default rounded-2xl border border-line/50 bg-bg/10 backdrop-blur-md p-6 sm:p-7 shadow-[0_8px_32px_rgba(0,0,0,0.12)]"
         >
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
-            <div className="max-w-md">
-              {/* <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-heading">
-                Keerthana Vegesna
-              </h3> */}
-              <p className="mt-2 text-sm text-body leading-relaxed">
-                Reach out if you want to collaborate, chat about tech, or just say hi!
-                and thank you for checking out my website!
-              </p>
-              <p className="mt-4 text-xs text-body/80">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+            <div className="max-w-sm">
+              <p className="text-sm text-body leading-relaxed">
+                Reach out if you want to collaborate, chat about tech, or just say hi!</p>
+              <p className="mt-2 text-xs text-body/80">
                 © {updated.getUTCFullYear()} Keerthana Vegesna · Updated{" "}
                 {updatedLabel}
               </p>
             </div>
 
-            <nav
-              aria-label="Footer"
-              className="flex flex-wrap gap-x-12 gap-y-6 sm:gap-x-16"
-            >
-              {/* <div>
-                <p className="text-xs font-semibold text-body mb-3">Explore</p>
-                <ul className="flex flex-col gap-2.5">
-                  {SITE_LINKS.map(({ href, label }) => (
-                    <li key={href}>
-                      <Link href={href} className={linkClass}>
-                        <span>{label}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div> */}
-
-              <div>
-                <p className="text-xs font-semibold text-body mb-3">Find me</p>
-                <ul className="flex flex-col gap-2.5">
-                  {SOCIAL_LINKS.map(({ href, label, external, Icon }) => (
-                    <li key={label}>
-                      <a
-                        href={href}
-                        target={external ? "_blank" : undefined}
-                        rel={external ? "noopener noreferrer" : undefined}
-                        className={linkClass}
-                      >
-                        <Icon size={14} className="text-body group-hover:text-accent transition-colors" />
-                        <span>{label}</span>
-                        <ArrowUpRight size={11} className={arrowClass} />
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </nav>
+            <div>
+              <p className="text-xs font-semibold text-body mb-2 sm:text-right">Say Hello!</p>
+              <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 sm:justify-end">
+                {SOCIAL_LINKS.map(({ href, label, external, Icon }) => (
+                  <li key={label}>
+                    <a
+                      href={href}
+                      target={external ? "_blank" : undefined}
+                      rel={external ? "noopener noreferrer" : undefined}
+                      className={linkClass}
+                    >
+                      <Icon size={14} className="text-body group-hover:text-accent transition-colors" />
+                      <span>{label}</span>
+                      <ArrowUpRight size={11} className={arrowClass} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Photo strip: all 13 shots, click any to jump to it */}
-        <div className="mt-5 flex flex-col sm:flex-row sm:items-center gap-3">
-          {/* <div
-            role="group"
-            aria-label="Choose a photograph"
-            className="flex gap-1.5 overflow-x-auto rounded-xl bg-black/35 backdrop-blur-md p-1.5 max-w-full"
-          >
-            {PHOTOS.map((src, i) => {
-              const active = i === current;
-              return (
-                <button
-                  key={src}
-                  type="button"
-                  onClick={() => goTo(order.indexOf(i))}
-                  aria-label={`Show photo ${i + 1} of ${PHOTO_COUNT}`}
-                  aria-current={active ? "true" : undefined}
-                  className={`relative h-10 w-10 sm:h-11 sm:w-11 shrink-0 overflow-hidden rounded-lg transition-all duration-200 focus-visible:outline-2 focus-visible:outline-white ${
-                    active
-                      ? "ring-2 ring-white opacity-100"
-                      : "opacity-55 hover:opacity-100"
-                  }`}
-                >
-                  <Image
-                    src={src}
-                    alt=""
-                    fill
-                    sizes="48px"
-                    className="object-cover"
-                  />
-                </button>
-              );
-            })}
-          </div> */}
-
-          {/* <p className="text-xs text-white/90 drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
-            Photography by Keerthana · tap anywhere for the next one
-          </p> */}
-        </div>
-
-        {/* Oversized name, cut off at the bottom edge */}
-        <div
-          aria-hidden="true"
-          className="pt-8 sm:pt-14 md:pt-20 text-center overflow-hidden pointer-events-none select-none"
-        >
-          <h2 className="whitespace-nowrap text-[9.6vw] sm:text-[9.2vw] md:text-[8.8vw] font-black tracking-tighter leading-[0.8] translate-y-[24%] text-white/95 drop-shadow-[0_4px_16px_rgba(0,0,0,0.4)]">
-            Keerthana Vegesna
-          </h2>
-        </div>
+      {/* Oversized name, cut off at the bottom edge */}
+      <div
+        aria-hidden="true"
+        className="relative z-20 pt-8 sm:pt-14 md:pt-16 text-center overflow-hidden pointer-events-none select-none w-full"
+      >
+        <h2 className="whitespace-nowrap text-[9.6vw] sm:text-[9.2vw] md:text-[8.8vw] font-black tracking-tighter leading-[0.8] translate-y-[24%] text-white/95 drop-shadow-[0_4px_16px_rgba(0,0,0,0.4)]">
+          Keerthana Vegesna
+        </h2>
       </div>
     </footer>
   );

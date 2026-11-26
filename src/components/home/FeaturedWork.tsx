@@ -24,7 +24,7 @@ export const FEATURED_ITEMS: FeaturedItem[] = [
     summary:
       "Architected and deployed 3 edge-AI platforms spanning real-time computer vision pipelines, pgvector natural-language search, and K3s orchestration.",
     image: "/images/exp/apexflo_nvidia.png",
-    logo: "/images/exp/apexflo-logo.png",
+    logo: "/images/exp/apexflo_logo.jpeg",
     href: "https://apexflo.ai",
     external: true,
   },
@@ -76,17 +76,17 @@ export default function FeaturedWork() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex flex-col items-end gap-1.5 shrink-0 sm:flex-row sm:items-center sm:gap-3">
           <Link
             href="/projects"
-            className="text-xs font-semibold text-muted hover:text-heading transition-colors"
+            className="text-xs font-semibold text-links_color hover:text-accent transition-colors hover:underline"
           >
             All Projects →
           </Link>
-          <span className="text-subtle text-xs">·</span>
+          <span className="hidden sm:inline text-subtle text-xs">·</span>
           <Link
             href="/experience"
-            className="text-xs font-semibold text-muted hover:text-heading transition-colors"
+            className="text-xs font-semibold text-links_color hover:text-accent transition-colors hover:underline"
           >
             Experience →
           </Link>

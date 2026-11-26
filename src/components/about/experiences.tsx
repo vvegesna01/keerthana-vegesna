@@ -62,7 +62,7 @@ const EXPERIENCES: Experience[] = [
       { value: "11+", label: "CV Use Cases" },
     ],
     techTags: ["k3s", "Python", "Linux", "systemd", "OpenCV", "pgvector", "SigLIP2"],
-    image: "/images/exp/apexflo-logo.png",
+    image: "/images/exp/apexflo_logo.jpeg",
     media: "/images/exp/apexflo_nvidia.png",
   },
   // {
