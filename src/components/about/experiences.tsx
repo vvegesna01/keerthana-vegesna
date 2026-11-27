@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ChevronDown, X } from "lucide-react";
 import PageContainer from "@/components/layout/PageContainer";
@@ -65,44 +66,6 @@ const EXPERIENCES: Experience[] = [
     image: "/images/exp/apexflo_white_logo.png",
     media: "/images/exp/apexflo_nvidia.png",
   },
-  // {
-  //   duration: "2026",
-  //   company: "AfterWord",
-  //   url: "https://getafterword.vercel.app/",
-  //   role: "Founder & Solo Developer",
-  //   summary:
-  //     "Solo-built a knowledge ingestion and retrieval platform with async pipelines and semantic search over 10K+ embedded highlights.",
-  //   skills: ["Backend", "AI/Infra", "Frontend"],
-  //   description: [
-  //     "Built a knowledge ingestion and retrieval platform using FastAPI, PostgreSQL, PostGIS, pgvector, Redis, and Next.js.",
-  //     "Designed asynchronous ingestion pipelines to parse, normalize, embed, and index long-form reading data.",
-  //     "Implemented semantic retrieval across 10K+ embedded highlights using vector similarity search and Redis caching.",
-  //     "Architected the entire platform including backend infrastructure, AI pipelines, database design, and frontend.",
-  //   ],
-  //   stats: [
-  //     { value: "10K+", label: "Embeddings" },
-  //     { value: "100%", label: "Built Solo" },
-  //   ],
-  //   techTags: ["FastAPI", "PostgreSQL", "PostGIS", "pgvector", "Redis", "Next.js"],
-  //   image: "/images/exp/aw-logo.png",
-  // },
-  // {
-  //   duration: "JAN 2026",
-  //   company: "Maksika Group",
-  //   tag: "",
-  //   role: "Software Engineer",
-  //   summary:
-  //     "Build GIS and geospatial applications for mineral prospecting workflows, plus the company's customer-facing web platform.",
-  //   skills: ["Backend", "Cloud", "Frontend"],
-  //   description: [
-  //     "Develop and maintain GIS and geospatial applications supporting Earth Science Engineering and mineral prospecting workflows across international projects.",
-  //     "Build and maintain the official web platform and customer-facing digital applications for Maksika Group.",
-  //     "Contribute to spatial data workflows and geospatial analytics solutions using open-source GIS technologies and PostgreSQL/PostGIS databases.",
-  //   ],
-  //   stats: [],
-  //   techTags: ["PostGIS", "PostgreSQL", "GIS", "Python"],
-  //   image: "/images/exp/maksika.png",
-  // },
   {
     duration: "2025",
     company: "EMVO.ai",
@@ -191,6 +154,56 @@ const EXPERIENCES: Experience[] = [
   },
 ];
 
+// ── Education ───────────────────────────────────────────────────────
+// Kept separate from EXPERIENCES: a degree isn't a role, so it isn't
+// affected by the skill filters and has its own detail sections.
+// Every list is optional; a section only shows in the modal if it has entries.
+
+interface Education {
+  school: string;
+  degree: string;
+  duration: string;
+  status?: string; // shown as a small tag, e.g. "In progress"
+  url?: string;
+  image: string;
+  summary: string;
+  coursework?: string[];
+  certifications?: { name: string; issuer?: string; href?: string }[];
+  awards?: { name: string; detail?: string }[];
+  // Long-form story lives on the blog; the modal just links to it
+  blogHref?: string;
+  blogLabel?: string;
+}
+
+// const EDUCATION: Education[] = [
+//   {
+//     school: "Northeastern University",
+//     degree: "M.S. in Information Systems",
+//     duration: "2027 - Present", 
+//     status: "In Progress",
+//     url: "https://vancouver.northeastern.edu/",
+//     image: "/images/exp/nu_seal.png",
+//     summary: "",
+//     coursework: [],
+//     certifications: [
+//     ],
+//     awards: [
+//       { name: "International Impact Scholarship Award", detail: "" },
+//     ],
+//     blogHref: "/blog/northeastern",
+//     blogLabel: "Read about my master's so far",
+//   },
+//   {
+//     school: "Purdue University",
+//     degree: "B.S. in Computer Science",
+//     duration: "2025",
+//     url: "https://www.cs.purdue.edu",
+//     image: "/images/exp/purdue_logo.png",
+//     summary: "",
+//     certifications: [ { name: "Applications in Data Science" }, { name: "Entrepreneurship & Innovation" } ],
+//   },
+// ];
+
 // ── Variants ────────────────────────────────────────────────────────
 
 const gridVariants = {
@@ -206,6 +219,7 @@ const cellVariants = {
 // ── Logo ────────────────────────────────────────────────────────────
 // Renders transparent logos cleanly without an outer box or border ring.
 // If an image fails to load, falls back to a subtle monogram tile.
+// Takes anything with an image + name, so it works for roles and schools.
 
 type LogoSize = "xs" | "sm" | "md" | "lg" | "xl";
 
@@ -227,7 +241,7 @@ function Logo({
   size,
   dimmed = false,
 }: {
-  exp: Experience;
+  exp: { image: string; company: string; logoFit?: "contain" | "cover" };
   size: LogoSize;
   dimmed?: boolean;
 }) {
@@ -459,7 +473,37 @@ function EarlierRow({
   );
 }
 
-// ── Detail modal ────────────────────────────────────────────────────
+// ── Education row ───────────────────────────────────────────────────
+
+function EducationRow({ edu, onOpen }: { edu: Education; onOpen: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      aria-label={`${edu.school} — ${edu.degree}: details`}
+      className="group flex w-full items-center gap-4 rounded-xl border border-line bg-surface px-4 py-3.5 text-left transition-all hover:shadow-md"
+    >
+      <Logo exp={{ image: edu.image, company: edu.school }} size="md" />
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+          <p className="truncate text-base font-semibold tracking-tight text-heading">
+            {edu.school}
+          </p>
+          {edu.status && <Tag label={edu.status} variant="stat" />}
+        </div>
+        <p className="text-sm italic text-muted">{edu.degree}</p>
+        <p className="mt-1 line-clamp-2 text-sm text-subtle">{edu.summary}</p>
+      </div>
+      <p className="hidden shrink-0 text-xs tabular-nums text-subtle sm:block">{edu.duration}</p>
+      <ArrowUpRight
+        size={14}
+        className="shrink-0 text-subtle transition-colors group-hover:text-accent"
+      />
+    </button>
+  );
+}
+
+// ── Detail modal (roles) ────────────────────────────────────────────
 
 function ExperienceModal({ exp, onClose }: { exp: Experience; onClose: () => void }) {
   // Escape closes the modal — expected behaviour for any dialog
@@ -541,11 +585,130 @@ function ExperienceModal({ exp, onClose }: { exp: Experience; onClose: () => voi
   );
 }
 
+// ── Detail modal (education) ────────────────────────────────────────
+
+function ModalSection({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section className="mb-5">
+      <h4 className="mb-2 text-xs font-bold uppercase tracking-wider text-subtle">{title}</h4>
+      {children}
+    </section>
+  );
+}
+
+function EducationModal({ edu, onClose }: { edu: Education; onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return (
+    <motion.div
+      className="fixed inset-0 bg-indigo-900/60 z-50 flex items-center justify-center p-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <motion.div
+        role="dialog"
+        aria-modal="true"
+        aria-label={`${edu.school} — ${edu.degree}`}
+        className="bg-surface rounded-xl max-w-lg w-full p-6 relative max-h-[85vh] overflow-y-auto"
+        initial={{ opacity: 0, scale: 0.96, y: 10 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.96, y: 10 }}
+        transition={{ duration: 0.2 }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-subtle hover:text-heading transition-colors"
+          aria-label="Close"
+        >
+          <X size={20} />
+        </button>
+
+        <div className="mb-5 flex items-center gap-4 pr-8">
+          <Logo exp={{ image: edu.image, company: edu.school }} size="lg" />
+          <div className="min-w-0">
+            <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-accent-soft">
+              {edu.duration}
+            </p>
+            <h3 className="text-2xl font-extrabold leading-tight text-heading">{edu.school}</h3>
+            <p className="mt-0.5 text-sm italic text-muted">{edu.degree}</p>
+          </div>
+        </div>
+
+        {edu.coursework && edu.coursework.length > 0 && (
+          <ModalSection title="Coursework">
+            <div className="flex flex-wrap gap-1.5">
+              {edu.coursework.map((c) => (
+                <Tag key={c} label={c} variant="default" />
+              ))}
+            </div>
+          </ModalSection>
+        )}
+
+        {edu.certifications && edu.certifications.length > 0 && (
+          <ModalSection title="Certifications">
+            <ul className="space-y-1.5">
+              {edu.certifications.map((c) => (
+                <li key={c.name} className="text-sm leading-relaxed text-muted">
+                  {c.href ? (
+                    <a
+                      href={c.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-medium text-heading underline-offset-4 hover:text-accent hover:underline"
+                    >
+                      {c.name}
+                    </a>
+                  ) : (
+                    <span className="font-medium text-heading">{c.name}</span>
+                  )}
+                  {c.issuer && <span className="text-subtle"> · {c.issuer}</span>}
+                </li>
+              ))}
+            </ul>
+          </ModalSection>
+        )}
+
+        {edu.awards && edu.awards.length > 0 && (
+          <ModalSection title="Awards">
+            <ul className="space-y-1.5">
+              {edu.awards.map((a) => (
+                <li key={a.name} className="text-sm leading-relaxed text-muted">
+                  <span className="font-medium text-heading">{a.name}</span>
+                  {a.detail && <span className="text-subtle"> · {a.detail}</span>}
+                </li>
+              ))}
+            </ul>
+          </ModalSection>
+        )}
+
+        {edu.blogHref && (
+          <Link
+            href={edu.blogHref}
+            className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline"
+          >
+            {edu.blogLabel ?? "Read more on the blog"} <ArrowUpRight size={14} />
+          </Link>
+        )}
+      </motion.div>
+    </motion.div>
+  );
+}
+
 // ── Page ────────────────────────────────────────────────────────────
 
 export default function Experiences() {
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [selected, setSelected] = useState<Experience | null>(null);
+  const [selectedEdu, setSelectedEdu] = useState<Education | null>(null);
   const [earlierOpen, setEarlierOpen] = useState(false);
 
   // Derive filter chips from the data so they self-maintain. A chip is only
@@ -687,6 +850,16 @@ export default function Experiences() {
         ))}
       </motion.div>
 
+      {/* Education: always visible, not affected by the skill filters */}
+      {/* <section className="mb-10">
+        <p className="mb-4 text-xs font-bold uppercase tracking-wider text-subtle">Education</p>
+        <div className="space-y-2">
+          {EDUCATION.map((edu) => (
+            <EducationRow key={edu.school} edu={edu} onOpen={() => setSelectedEdu(edu)} />
+          ))}
+        </div>
+      </section> */}
+
       {/* Earlier roles — collapsed by default */}
       {earlier.length > 0 && (
         <div className="mb-10">
@@ -738,6 +911,10 @@ export default function Experiences() {
 
       <AnimatePresence>
         {selected && <ExperienceModal exp={selected} onClose={() => setSelected(null)} />}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {selectedEdu && <EducationModal edu={selectedEdu} onClose={() => setSelectedEdu(null)} />}
       </AnimatePresence>
     </PageContainer>
   );
