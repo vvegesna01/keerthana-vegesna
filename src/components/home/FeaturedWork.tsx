@@ -24,7 +24,7 @@ export const FEATURED_ITEMS: FeaturedItem[] = [
     summary:
       "Architected and deployed 3 edge-AI platforms spanning real-time computer vision pipelines, pgvector natural-language search, and K3s orchestration.",
     image: "/images/exp/apexflo_nvidia.png",
-    logo: "/images/exp/apexflo_logo.jpeg",
+    logo: "/images/exp/apexflo_white_logo.png",
     href: "https://apexflo.ai",
     external: true,
   },

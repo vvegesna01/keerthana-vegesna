@@ -28,15 +28,6 @@ export default function Navbar() {
           onFocus={() => setIsHovered(true)}
           onBlur={() => setIsHovered(false)}
         >
-          <div className="w-8 h-8 rounded-full overflow-hidden  shrink-0 relative">
-            <Image
-              src={isHovered ? "/images/logo/hover1.png" : "/images/logo/standard.png"}
-              alt="Keerthana Vegesna"
-              width={32}
-              height={32}
-              className="object-cover w-full h-full transition-opacity duration-300"
-            />
-          </div>
           Keerthana Vegesna
         </Link>
 

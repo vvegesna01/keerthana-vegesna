@@ -62,7 +62,7 @@ const EXPERIENCES: Experience[] = [
       { value: "11+", label: "CV Use Cases" },
     ],
     techTags: ["k3s", "Python", "Linux", "systemd", "OpenCV", "pgvector", "SigLIP2"],
-    image: "/images/exp/apexflo_logo.jpeg",
+    image: "/images/exp/apexflo_white_logo.png",
     media: "/images/exp/apexflo_nvidia.png",
   },
   // {
@@ -155,7 +155,7 @@ const EXPERIENCES: Experience[] = [
       "Performed root cause analysis for asynchronous cloud infrastructure failures.",
     ],
     techTags: ["AWS", "CloudWatch", "Lambda", "S3", "Python"],
-    image: "/images/exp/cummins-logo.png",
+    image: "/images/exp/cummins.png",
   },
   {
     duration: "2021 - 2022",
